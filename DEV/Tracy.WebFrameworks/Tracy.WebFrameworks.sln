@@ -5,6 +5,32 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Offline.Site", "Tracy.WebFrameworks.Offline.Site\Tracy.WebFrameworks.Offline.Site.csproj", "{0A66C8C4-17E7-4022-A056-97A969689A98}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Infrustructure", "01.Infrustructure", "{AF60B138-0F65-4281-B37D-F73311D5A45E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Data", "02.Data", "{585AE2EE-A164-486D-8E01-AB884E937419}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Services", "03.Services", "{779C0454-AB06-4A7B-929F-C0B13197A0B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Views", "04.Views", "{28A01FC6-9CB4-4069-A4A6-79E15414B510}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Tests", "05.Tests", "{C3C47448-C5B1-4F10-A9E9-709FF38C0C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Common", "Tracy.WebFrameworks.Common\Tracy.WebFrameworks.Common.csproj", "{72EC8C6D-1816-454A-95C8-60422282E99D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Data", "Tracy.WebFrameworks.Data\Tracy.WebFrameworks.Data.csproj", "{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Entity", "Tracy.WebFrameworks.Entity\Tracy.WebFrameworks.Entity.csproj", "{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.IService", "Tracy.WebFrameworks.IService\Tracy.WebFrameworks.IService.csproj", "{6B075629-D6F7-4618-BA2C-BF1EF8B53CD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Service", "Tracy.WebFrameworks.Service\Tracy.WebFrameworks.Service.csproj", "{4F77E333-C5BB-408B-B1BB-E2A396846DE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Service.Site", "Tracy.WebFrameworks.Service.Site\Tracy.WebFrameworks.Service.Site.csproj", "{DFE86A47-964C-4E05-9117-249A7034A825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Tools", "Tracy.WebFrameworks.Tools\Tracy.WebFrameworks.Tools.csproj", "{D64C3795-AF54-4E2B-A8CF-B433AAD39A61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.UnitTest", "Tracy.WebFrameworks.UnitTest\Tracy.WebFrameworks.UnitTest.csproj", "{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +41,51 @@ Global
 		{0A66C8C4-17E7-4022-A056-97A969689A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A66C8C4-17E7-4022-A056-97A969689A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A66C8C4-17E7-4022-A056-97A969689A98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72EC8C6D-1816-454A-95C8-60422282E99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72EC8C6D-1816-454A-95C8-60422282E99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72EC8C6D-1816-454A-95C8-60422282E99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72EC8C6D-1816-454A-95C8-60422282E99D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B075629-D6F7-4618-BA2C-BF1EF8B53CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B075629-D6F7-4618-BA2C-BF1EF8B53CD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B075629-D6F7-4618-BA2C-BF1EF8B53CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B075629-D6F7-4618-BA2C-BF1EF8B53CD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F77E333-C5BB-408B-B1BB-E2A396846DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F77E333-C5BB-408B-B1BB-E2A396846DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F77E333-C5BB-408B-B1BB-E2A396846DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F77E333-C5BB-408B-B1BB-E2A396846DE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFE86A47-964C-4E05-9117-249A7034A825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE86A47-964C-4E05-9117-249A7034A825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE86A47-964C-4E05-9117-249A7034A825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE86A47-964C-4E05-9117-249A7034A825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64C3795-AF54-4E2B-A8CF-B433AAD39A61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64C3795-AF54-4E2B-A8CF-B433AAD39A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64C3795-AF54-4E2B-A8CF-B433AAD39A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64C3795-AF54-4E2B-A8CF-B433AAD39A61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72EC8C6D-1816-454A-95C8-60422282E99D} = {AF60B138-0F65-4281-B37D-F73311D5A45E}
+		{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E} = {585AE2EE-A164-486D-8E01-AB884E937419}
+		{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6} = {585AE2EE-A164-486D-8E01-AB884E937419}
+		{6B075629-D6F7-4618-BA2C-BF1EF8B53CD2} = {779C0454-AB06-4A7B-929F-C0B13197A0B3}
+		{4F77E333-C5BB-408B-B1BB-E2A396846DE4} = {779C0454-AB06-4A7B-929F-C0B13197A0B3}
+		{DFE86A47-964C-4E05-9117-249A7034A825} = {779C0454-AB06-4A7B-929F-C0B13197A0B3}
+		{0A66C8C4-17E7-4022-A056-97A969689A98} = {28A01FC6-9CB4-4069-A4A6-79E15414B510}
+		{D64C3795-AF54-4E2B-A8CF-B433AAD39A61} = {C3C47448-C5B1-4F10-A9E9-709FF38C0C27}
+		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3} = {C3C47448-C5B1-4F10-A9E9-709FF38C0C27}
 	EndGlobalSection
 EndGlobal
