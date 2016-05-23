@@ -44,6 +44,20 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tracy.WebFrameworks.Common\Tracy.WebFrameworks.Common.csproj">
+      <Project>{72ec8c6d-1816-454a-95c8-60422282e99d}</Project>
+      <Name>Tracy.WebFrameworks.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracy.WebFrameworks.Entity\Tracy.WebFrameworks.Entity.csproj">
+      <Project>{caff06e2-1c6e-49c9-b06e-9ea4cac208c6}</Project>
+      <Name>Tracy.WebFrameworks.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracy.WebFrameworks.IService\Tracy.WebFrameworks.IService.csproj">
+      <Project>{6b075629-d6f7-4618-ba2c-bf1ef8b53cd2}</Project>
+      <Name>Tracy.WebFrameworks.IService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

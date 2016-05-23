@@ -70,6 +70,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tracy.WebFrameworks.Service\Tracy.WebFrameworks.Service.csproj">
+      <Project>{4f77e333-c5bb-408b-b1bb-e2a396846de4}</Project>
+      <Name>Tracy.WebFrameworks.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
