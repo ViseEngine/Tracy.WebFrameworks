@@ -18,8 +18,8 @@
           <EntitySet Name="Employee" EntityType="WebFrameworksDBModel.Employee" />
           <EntitySet Name="Role" EntityType="WebFrameworksDBModel.Role" />
           <EntitySet Name="Menu" EntityType="WebFrameworksDBModel.Menu" />
-          <EntitySet Name="Action" EntityType="WebFrameworksDBModel.Action" />
-          <EntitySet Name="RoleAction" EntityType="WebFrameworksDBModel.RoleAction" />
+          <EntitySet Name="Function" EntityType="WebFrameworksDBModel.Function" />
+          <EntitySet Name="RoleFunction" EntityType="WebFrameworksDBModel.RoleFunction" />
           <AssociationSet Name="DepartmentCorporation" Association="WebFrameworksDBModel.DepartmentCorporation">
             <End Role="Department" EntitySet="Department" />
             <End Role="Corporation" EntitySet="Corporation" />
@@ -32,17 +32,17 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Department" EntitySet="Department" />
           </AssociationSet>
-          <AssociationSet Name="RoleActionRole" Association="WebFrameworksDBModel.RoleActionRole">
-            <End Role="RoleAction" EntitySet="RoleAction" />
+          <AssociationSet Name="RoleFunctionRole" Association="WebFrameworksDBModel.RoleFunctionRole">
+            <End Role="RoleFunction" EntitySet="RoleFunction" />
             <End Role="Role" EntitySet="Role" />
           </AssociationSet>
-          <AssociationSet Name="RoleActionMenu" Association="WebFrameworksDBModel.RoleActionMenu">
-            <End Role="RoleAction" EntitySet="RoleAction" />
+          <AssociationSet Name="RoleFunctionMenu" Association="WebFrameworksDBModel.RoleFunctionMenu">
+            <End Role="RoleFunction" EntitySet="RoleFunction" />
             <End Role="Menu" EntitySet="Menu" />
           </AssociationSet>
-          <AssociationSet Name="RoleActionAction" Association="WebFrameworksDBModel.RoleActionAction">
-            <End Role="RoleAction" EntitySet="RoleAction" />
-            <End Role="Action" EntitySet="Action" />
+          <AssociationSet Name="RoleFunctionFunction" Association="WebFrameworksDBModel.RoleFunctionFunction">
+            <End Role="RoleFunction" EntitySet="RoleFunction" />
+            <End Role="Function" EntitySet="Function" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Corporation">
@@ -211,7 +211,7 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="LastUpdateBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="RoleAction" Relationship="WebFrameworksDBModel.RoleActionRole" FromRole="Role" ToRole="RoleAction" />
+          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionRole" FromRole="Role" ToRole="RoleFunction" />
         </EntityType>
         <EntityType Name="Menu">
           <Documentation>
@@ -233,7 +233,7 @@
           </Property>
           <Property Name="IsShortcut" Type="Boolean" Nullable="true" />
           <Property Name="IsShow" Type="Boolean" Nullable="true" />
-          <Property Name="ActionIDs" Type="String" Nullable="true" MaxLength="Max" >
+          <Property Name="FunctionIDs" Type="String" Nullable="true" MaxLength="Max" >
             <Documentation>
               <Summary>该菜单所包含的操作集合</Summary>
             </Documentation>
@@ -242,42 +242,42 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="LastUpdateBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="RoleAction" Relationship="WebFrameworksDBModel.RoleActionMenu" FromRole="Menu" ToRole="RoleAction" />
+          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionMenu" FromRole="Menu" ToRole="RoleFunction" />
         </EntityType>
-        <EntityType Name="Action">
+        <EntityType Name="Function">
           <Documentation>
             <Summary>操作(功能),一个菜单包含多个操作</Summary>
           </Documentation>
           <Key>
-            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="FunctionID" />
           </Key>
-          <Property Name="ActionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActionName" Type="String" Nullable="false" MaxLength="30" />
-          <Property Name="ActionRefName" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="FunctionRefName" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="LastUpdateBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="RoleAction" Relationship="WebFrameworksDBModel.RoleActionAction" FromRole="Action" ToRole="RoleAction" />
+          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionFunction" FromRole="Function" ToRole="RoleFunction" />
         </EntityType>
-        <EntityType Name="RoleAction">
+        <EntityType Name="RoleFunction">
           <Documentation>
             <Summary>角色所拥有权限</Summary>
           </Documentation>
           <Key>
-            <PropertyRef Name="RoleActionID" />
+            <PropertyRef Name="RoleFunctionID" />
           </Key>
-          <Property Name="RoleActionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="Int32" Nullable="true" />
-          <Property Name="MenuID" Type="Int32" Nullable="true" />
-          <Property Name="ActionID" Type="Int32" Nullable="true" />
+          <Property Name="RoleFunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="MenuID" Type="Int32" Nullable="false" />
+          <Property Name="FunctionID" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="LastUpdateBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdateTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="Role" Relationship="WebFrameworksDBModel.RoleActionRole" FromRole="RoleAction" ToRole="Role" />
-          <NavigationProperty Name="Menu" Relationship="WebFrameworksDBModel.RoleActionMenu" FromRole="RoleAction" ToRole="Menu" />
-          <NavigationProperty Name="Action" Relationship="WebFrameworksDBModel.RoleActionAction" FromRole="RoleAction" ToRole="Action" />
+          <NavigationProperty Name="Role" Relationship="WebFrameworksDBModel.RoleFunctionRole" FromRole="RoleFunction" ToRole="Role" />
+          <NavigationProperty Name="Menu" Relationship="WebFrameworksDBModel.RoleFunctionMenu" FromRole="RoleFunction" ToRole="Menu" />
+          <NavigationProperty Name="Function" Relationship="WebFrameworksDBModel.RoleFunctionFunction" FromRole="RoleFunction" ToRole="Function" />
         </EntityType>
         <Association Name="DepartmentCorporation">
           <End Type="WebFrameworksDBModel.Department" Role="Department" Multiplicity="*" />
@@ -315,39 +315,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RoleActionRole">
-          <End Type="WebFrameworksDBModel.RoleAction" Role="RoleAction" Multiplicity="*" />
+        <Association Name="RoleFunctionRole">
+          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
           <End Type="WebFrameworksDBModel.Role" Role="Role" Multiplicity="1" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="RoleID" />
             </Principal>
-            <Dependent Role="RoleAction">
+            <Dependent Role="RoleFunction">
               <PropertyRef Name="RoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RoleActionMenu">
-          <End Type="WebFrameworksDBModel.RoleAction" Role="RoleAction" Multiplicity="*" />
+        <Association Name="RoleFunctionMenu">
+          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
           <End Type="WebFrameworksDBModel.Menu" Role="Menu" Multiplicity="1" />
           <ReferentialConstraint>
             <Principal Role="Menu">
               <PropertyRef Name="MenuID" />
             </Principal>
-            <Dependent Role="RoleAction">
+            <Dependent Role="RoleFunction">
               <PropertyRef Name="MenuID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RoleActionAction">
-          <End Type="WebFrameworksDBModel.RoleAction" Role="RoleAction" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Action" Role="Action" Multiplicity="1" />
+        <Association Name="RoleFunctionFunction">
+          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
+          <End Type="WebFrameworksDBModel.Function" Role="Function" Multiplicity="1" />
           <ReferentialConstraint>
-            <Principal Role="Action">
-              <PropertyRef Name="ActionID" />
+            <Principal Role="Function">
+              <PropertyRef Name="FunctionID" />
             </Principal>
-            <Dependent Role="RoleAction">
-              <PropertyRef Name="ActionID" />
+            <Dependent Role="RoleFunction">
+              <PropertyRef Name="FunctionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

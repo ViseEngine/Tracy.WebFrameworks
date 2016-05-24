@@ -10,14 +10,14 @@
         <EntityTypeShape EntityType="WebFrameworksDBModel.Employee" Width="2" PointX="11" PointY="4.125" />
         <EntityTypeShape EntityType="WebFrameworksDBModel.Role" Width="1.875" PointX="11" PointY="9.75" />
         <EntityTypeShape EntityType="WebFrameworksDBModel.Menu" Width="2" PointX="5.5" PointY="9.75" />
-        <EntityTypeShape EntityType="WebFrameworksDBModel.Action" Width="1.875" PointX="5.5" PointY="14.125" />
-        <EntityTypeShape EntityType="WebFrameworksDBModel.RoleAction" Width="1.875" PointX="8.25" PointY="9.75" />
+        <EntityTypeShape EntityType="WebFrameworksDBModel.Function" Width="1.875" PointX="5.5" PointY="14.125" />
+        <EntityTypeShape EntityType="WebFrameworksDBModel.RoleFunction" Width="1.875" PointX="8.25" PointY="9.75" />
         <AssociationConnector Association="WebFrameworksDBModel.DepartmentCorporation" />
         <AssociationConnector Association="WebFrameworksDBModel.EmployeeCorporation" />
         <AssociationConnector Association="WebFrameworksDBModel.EmployeeDepartment" />
-        <AssociationConnector Association="WebFrameworksDBModel.RoleActionRole" />
-        <AssociationConnector Association="WebFrameworksDBModel.RoleActionMenu" />
-        <AssociationConnector Association="WebFrameworksDBModel.RoleActionAction" />
+        <AssociationConnector Association="WebFrameworksDBModel.RoleFunctionRole" />
+        <AssociationConnector Association="WebFrameworksDBModel.RoleFunctionMenu" />
+        <AssociationConnector Association="WebFrameworksDBModel.RoleFunctionFunction" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
