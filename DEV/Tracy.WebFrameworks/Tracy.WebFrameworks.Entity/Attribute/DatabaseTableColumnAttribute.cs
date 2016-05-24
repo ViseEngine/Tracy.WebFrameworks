@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Tracy.WebFrameworks.Entity
 {
-    public class Class1
+    public class DatabaseTableColumnAttribute: Attribute
     {
     }
 }
