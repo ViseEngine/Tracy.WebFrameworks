@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Test.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +92,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>24322</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost.dev.ssharing.com/WebFrameworksServiceSite</IISUrl>
+          <IISUrl>http://localhost.dev.ssharing.com:8080/WebFrameworksServiceSite</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
