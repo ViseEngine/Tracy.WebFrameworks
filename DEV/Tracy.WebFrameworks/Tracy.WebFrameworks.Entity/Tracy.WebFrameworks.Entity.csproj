@@ -40,7 +40,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Corporation.cs">
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Function.cs">
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoleFunction.cs">
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebFrameworks.Entity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebFrameworks.Entity.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WebFrameworks.Entity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WebFrameworks.Entity.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
