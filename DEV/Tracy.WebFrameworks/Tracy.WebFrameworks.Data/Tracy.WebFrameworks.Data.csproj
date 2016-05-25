@@ -50,6 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebFrameworksDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebFrameworksDB.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="WebFrameworksDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,6 +76,10 @@
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
+    <None Include="WebFrameworksDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WebFrameworksDB.Context.cs</LastGenOutput>
+    </None>
     <None Include="WebFrameworksDB.edmx.diagram">
       <DependentUpon>WebFrameworksDB.edmx</DependentUpon>
     </None>
