@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Tools",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.UnitTest", "Tracy.WebFrameworks.UnitTest\Tracy.WebFrameworks.UnitTest.csproj", "{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Offline.Site", "Tracy.WebFrameworks.Offline.Site\Tracy.WebFrameworks.Offline.Site.csproj", "{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,11 +69,16 @@ Global
 		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F} = {28A01FC6-9CB4-4069-A4A6-79E15414B510}
 		{72EC8C6D-1816-454A-95C8-60422282E99D} = {AF60B138-0F65-4281-B37D-F73311D5A45E}
 		{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E} = {585AE2EE-A164-486D-8E01-AB884E937419}
 		{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6} = {585AE2EE-A164-486D-8E01-AB884E937419}
