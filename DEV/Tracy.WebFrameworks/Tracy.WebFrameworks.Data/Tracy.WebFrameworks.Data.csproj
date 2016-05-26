@@ -58,11 +58,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WebFrameworksDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="WebFrameworksModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebFrameworksModel.Context.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tracy.WebFrameworks.Entity\Tracy.WebFrameworks.Entity.csproj">
@@ -79,10 +74,6 @@
     </EntityDeploy>
     <None Include="WebFrameworksDB.edmx.diagram">
       <DependentUpon>WebFrameworksDB.edmx</DependentUpon>
-    </None>
-    <None Include="WebFrameworksModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WebFrameworksModel.Context.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
