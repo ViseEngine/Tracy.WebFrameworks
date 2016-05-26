@@ -48,10 +48,52 @@
     <Compile Include="CommonBO\CommonsBO.cs" />
     <Compile Include="CommonBO\WebFrameworksResult.cs" />
     <Compile Include="CommonBO\PagingBase.cs" />
+    <Compile Include="Corporation.cs">
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Enum\Enums.cs" />
+    <Compile Include="Function.cs">
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\CorporationMetadataBase.cs">
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\DepartmentMetadataBase.cs">
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\EmployeeMetadataBase.cs">
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\FunctionMetadataBase.cs">
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\MenuMetadataBase.cs">
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Compile>
     <Compile Include="Metadata\Metadata.cs" />
+    <Compile Include="Metadata\RoleFunctionMetadataBase.cs">
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\RoleMetadataBase.cs">
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReturnCodeType.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoleFunction.cs">
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WebFrameworks.Entity.Partial.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +102,28 @@
   <ItemGroup>
     <Folder Include="BusinessBO\" />
     <Folder Include="ViewModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Metadata\WebFrameworks.Entity.Metadata.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WebFrameworks.Entity.Metadata.txt</LastGenOutput>
+    </None>
+    <None Include="WebFrameworksModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WebFrameworksModel.txt</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Metadata\WebFrameworks.Entity.Metadata.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebFrameworks.Entity.Metadata.tt</DependentUpon>
+    </Content>
+    <Content Include="WebFrameworksModel.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebFrameworksModel.tt</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
