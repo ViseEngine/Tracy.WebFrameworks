@@ -52,7 +52,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Corporation.cs">
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Function.cs">
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoleFunction.cs">
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebFrameworksDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebFrameworksDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebFrameworksDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebFrameworksDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="WebFrameworksDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -72,12 +103,25 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>WebFrameworksDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="WebFrameworksDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WebFrameworksDB.Context.cs</LastGenOutput>
+      <DependentUpon>WebFrameworksDB.edmx</DependentUpon>
+    </None>
     <None Include="WebFrameworksDB.edmx.diagram">
+      <DependentUpon>WebFrameworksDB.edmx</DependentUpon>
+    </None>
+    <None Include="WebFrameworksDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WebFrameworksDB.cs</LastGenOutput>
       <DependentUpon>WebFrameworksDB.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WebFrameworksDB.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

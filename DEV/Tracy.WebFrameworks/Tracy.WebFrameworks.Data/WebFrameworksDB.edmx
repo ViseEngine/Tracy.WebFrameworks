@@ -4,44 +4,238 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="WebFrameworksDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="WebFrameworksDBTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="WebFrameworksDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="WebFrameworksDBModelStoreContainer">
+    <EntitySet Name="Corporation" EntityType="WebFrameworksDBModel.Store.Corporation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Department" EntityType="WebFrameworksDBModel.Store.Department" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employee" EntityType="WebFrameworksDBModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Role" EntityType="WebFrameworksDBModel.Store.Role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Menu" EntityType="WebFrameworksDBModel.Store.Menu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Function" EntityType="WebFrameworksDBModel.Store.Function" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoleFunction" EntityType="WebFrameworksDBModel.Store.RoleFunction" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EmployeeCorporation" Association="WebFrameworksDBModel.Store.EmployeeCorporation">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Corporation" EntitySet="Corporation" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeDepartment" Association="WebFrameworksDBModel.Store.EmployeeDepartment">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="RoleFunctionRole" Association="WebFrameworksDBModel.Store.RoleFunctionRole">
+      <End Role="RoleFunction" EntitySet="RoleFunction" />
+      <End Role="Role" EntitySet="Role" />
+    </AssociationSet>
+    <AssociationSet Name="RoleFunctionMenu" Association="WebFrameworksDBModel.Store.RoleFunctionMenu">
+      <End Role="RoleFunction" EntitySet="RoleFunction" />
+      <End Role="Menu" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="RoleFunctionFunction" Association="WebFrameworksDBModel.Store.RoleFunctionFunction">
+      <End Role="RoleFunction" EntitySet="RoleFunction" />
+      <End Role="Function" EntitySet="Function" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Corporation">
+    <Key>
+      <PropertyRef Name="CorporationID" />
+    </Key>
+    <Property Name="CorporationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentCorpID" Type="int" Nullable="false" />
+    <Property Name="CorporationCode" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CorporationName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentDeptID" Type="int" Nullable="false" />
+    <Property Name="CorporationID" Type="int" Nullable="false" />
+    <Property Name="DepartmentCode" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="DepartmentName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CorporationID" Type="int" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" Nullable="false" />
+    <Property Name="RoleIDs" Type="nvarchar" Nullable="true" MaxLength="300" />
+    <Property Name="EmployeeName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="LoginName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="PwdExpiredTime" Type="datetime" Nullable="false" />
+    <Property Name="Sex" Type="tinyint" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+    <Property Name="LoginCount" Type="int" Nullable="false" />
+    <Property Name="LastLoginTime" Type="datetime" Nullable="true" />
+    <Property Name="LastLoginIP" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentMenuID" Type="int" Nullable="false" />
+    <Property Name="MenuName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="MenuUrl" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="MenuLavel" Type="int" Nullable="true" />
+    <Property Name="SortOrder" Type="int" Nullable="true" />
+    <Property Name="MenuIcon" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="IsShortCut" Type="bit" Nullable="true" />
+    <Property Name="IsShow" Type="bit" Nullable="true" />
+    <Property Name="FunctionIDs" Type="nvarchar" Nullable="true" MaxLength="300" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Function">
+    <Key>
+      <PropertyRef Name="FunctionID" />
+    </Key>
+    <Property Name="FunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FunctionName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="FunctionRefName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="RoleFunction">
+    <Key>
+      <PropertyRef Name="RoleFunctionID" />
+    </Key>
+    <Property Name="RoleFunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="FunctionID" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="EmployeeCorporation">
+    <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="*" />
+    <End Role="Corporation" Type="WebFrameworksDBModel.Store.Corporation" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Corporation">
+        <PropertyRef Name="CorporationID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="CorporationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeDepartment">
+    <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="*" />
+    <End Role="Department" Type="WebFrameworksDBModel.Store.Department" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleFunctionRole">
+    <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
+    <End Role="Role" Type="WebFrameworksDBModel.Store.Role" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="RoleFunction">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleFunctionMenu">
+    <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
+    <End Role="Menu" Type="WebFrameworksDBModel.Store.Menu" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="RoleFunction">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleFunctionFunction">
+    <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
+    <End Role="Function" Type="WebFrameworksDBModel.Store.Function" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Function">
+        <PropertyRef Name="FunctionID" />
+      </Principal>
+      <Dependent Role="RoleFunction">
+        <PropertyRef Name="FunctionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="WebFrameworksDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="WebFrameworksDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Corporation" EntityType="WebFrameworksDB.EFCorporation" />
-          <EntitySet Name="Department" EntityType="WebFrameworksDB.EFDepartment" />
-          <EntitySet Name="Employee" EntityType="WebFrameworksDB.EFEmployee" />
-          <EntitySet Name="Role" EntityType="WebFrameworksDB.EFRole" />
-          <EntitySet Name="Menu" EntityType="WebFrameworksDB.EFMenu" />
-          <EntitySet Name="Function" EntityType="WebFrameworksDB.EFFunction" />
-          <EntitySet Name="RoleFunction" EntityType="WebFrameworksDB.EFRoleFunction" />
-          <AssociationSet Name="EFEmployeeEFCorporation" Association="WebFrameworksDB.EFEmployeeEFCorporation">
-            <End Role="EFEmployee" EntitySet="Employee" />
-            <End Role="EFCorporation" EntitySet="Corporation" />
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="WebFrameworksDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="WebFrameworksDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Corporation" EntityType="WebFrameworksDBModel.Corporation" />
+          <EntitySet Name="Department" EntityType="WebFrameworksDBModel.Department" />
+          <EntitySet Name="Employee" EntityType="WebFrameworksDBModel.Employee" />
+          <EntitySet Name="Role" EntityType="WebFrameworksDBModel.Role" />
+          <EntitySet Name="Menu" EntityType="WebFrameworksDBModel.Menu" />
+          <EntitySet Name="Function" EntityType="WebFrameworksDBModel.Function" />
+          <EntitySet Name="RoleFunction" EntityType="WebFrameworksDBModel.RoleFunction" />
+          <AssociationSet Name="EmployeeCorporation" Association="WebFrameworksDBModel.EmployeeCorporation">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Corporation" EntitySet="Corporation" />
           </AssociationSet>
-          <AssociationSet Name="EFEmployeeEFDepartment" Association="WebFrameworksDB.EFEmployeeEFDepartment">
-            <End Role="EFEmployee" EntitySet="Employee" />
-            <End Role="EFDepartment" EntitySet="Department" />
+          <AssociationSet Name="EmployeeDepartment" Association="WebFrameworksDBModel.EmployeeDepartment">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Department" EntitySet="Department" />
           </AssociationSet>
-          <AssociationSet Name="EFRoleFunctionEFRole" Association="WebFrameworksDB.EFRoleFunctionEFRole">
-            <End Role="EFRoleFunction" EntitySet="RoleFunction" />
-            <End Role="EFRole" EntitySet="Role" />
+          <AssociationSet Name="RoleFunctionRole" Association="WebFrameworksDBModel.RoleFunctionRole">
+            <End Role="RoleFunction" EntitySet="RoleFunction" />
+            <End Role="Role" EntitySet="Role" />
           </AssociationSet>
-          <AssociationSet Name="EFRoleFunctionEFMenu" Association="WebFrameworksDB.EFRoleFunctionEFMenu">
-            <End Role="EFRoleFunction" EntitySet="RoleFunction" />
-            <End Role="EFMenu" EntitySet="Menu" />
+          <AssociationSet Name="RoleFunctionMenu" Association="WebFrameworksDBModel.RoleFunctionMenu">
+            <End Role="RoleFunction" EntitySet="RoleFunction" />
+            <End Role="Menu" EntitySet="Menu" />
           </AssociationSet>
-          <AssociationSet Name="EFRoleFunctionEFFunction" Association="WebFrameworksDB.EFRoleFunctionEFFunction">
-            <End Role="EFRoleFunction" EntitySet="RoleFunction" />
-            <End Role="EFFunction" EntitySet="Function" />
+          <AssociationSet Name="RoleFunctionFunction" Association="WebFrameworksDBModel.RoleFunctionFunction">
+            <End Role="RoleFunction" EntitySet="RoleFunction" />
+            <End Role="Function" EntitySet="Function" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="EFCorporation">
+        <EntityType Name="Corporation">
           <Key>
             <PropertyRef Name="CorporationID" />
           </Key>
@@ -54,9 +248,9 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="EFEmployee" Relationship="WebFrameworksDB.EFEmployeeEFCorporation" FromRole="EFCorporation" ToRole="EFEmployee" />
+          <NavigationProperty Name="Employee" Relationship="WebFrameworksDBModel.EmployeeCorporation" FromRole="Corporation" ToRole="Employee" />
         </EntityType>
-        <EntityType Name="EFDepartment">
+        <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentID" />
           </Key>
@@ -69,9 +263,9 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="EFEmployee" Relationship="WebFrameworksDB.EFEmployeeEFDepartment" FromRole="EFDepartment" ToRole="EFEmployee" />
+          <NavigationProperty Name="Employee" Relationship="WebFrameworksDBModel.EmployeeDepartment" FromRole="Department" ToRole="Employee" />
         </EntityType>
-        <EntityType Name="EFEmployee">
+        <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeID" />
           </Key>
@@ -94,10 +288,10 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="EFCorporation" Relationship="WebFrameworksDB.EFEmployeeEFCorporation" FromRole="EFEmployee" ToRole="EFCorporation" />
-          <NavigationProperty Name="EFDepartment" Relationship="WebFrameworksDB.EFEmployeeEFDepartment" FromRole="EFEmployee" ToRole="EFDepartment" />
+          <NavigationProperty Name="Corporation" Relationship="WebFrameworksDBModel.EmployeeCorporation" FromRole="Employee" ToRole="Corporation" />
+          <NavigationProperty Name="Department" Relationship="WebFrameworksDBModel.EmployeeDepartment" FromRole="Employee" ToRole="Department" />
         </EntityType>
-        <EntityType Name="EFRole">
+        <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleID" />
           </Key>
@@ -108,9 +302,9 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="EFRoleFunction" Relationship="WebFrameworksDB.EFRoleFunctionEFRole" FromRole="EFRole" ToRole="EFRoleFunction" />
+          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionRole" FromRole="Role" ToRole="RoleFunction" />
         </EntityType>
-        <EntityType Name="EFMenu">
+        <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="MenuID" />
           </Key>
@@ -128,9 +322,9 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="EFRoleFunction" Relationship="WebFrameworksDB.EFRoleFunctionEFMenu" FromRole="EFMenu" ToRole="EFRoleFunction" />
+          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionMenu" FromRole="Menu" ToRole="RoleFunction" />
         </EntityType>
-        <EntityType Name="EFFunction">
+        <EntityType Name="Function">
           <Key>
             <PropertyRef Name="FunctionID" />
           </Key>
@@ -141,9 +335,9 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="EFRoleFunction" Relationship="WebFrameworksDB.EFRoleFunctionEFFunction" FromRole="EFFunction" ToRole="EFRoleFunction" />
+          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionFunction" FromRole="Function" ToRole="RoleFunction" />
         </EntityType>
-        <EntityType Name="EFRoleFunction">
+        <EntityType Name="RoleFunction">
           <Key>
             <PropertyRef Name="RoleFunctionID" />
           </Key>
@@ -155,66 +349,66 @@
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="EFRole" Relationship="WebFrameworksDB.EFRoleFunctionEFRole" FromRole="EFRoleFunction" ToRole="EFRole" />
-          <NavigationProperty Name="EFMenu" Relationship="WebFrameworksDB.EFRoleFunctionEFMenu" FromRole="EFRoleFunction" ToRole="EFMenu" />
-          <NavigationProperty Name="EFFunction" Relationship="WebFrameworksDB.EFRoleFunctionEFFunction" FromRole="EFRoleFunction" ToRole="EFFunction" />
+          <NavigationProperty Name="Role" Relationship="WebFrameworksDBModel.RoleFunctionRole" FromRole="RoleFunction" ToRole="Role" />
+          <NavigationProperty Name="Menu" Relationship="WebFrameworksDBModel.RoleFunctionMenu" FromRole="RoleFunction" ToRole="Menu" />
+          <NavigationProperty Name="Function" Relationship="WebFrameworksDBModel.RoleFunctionFunction" FromRole="RoleFunction" ToRole="Function" />
         </EntityType>
-        <Association Name="EFEmployeeEFCorporation">
-          <End Type="WebFrameworksDB.EFEmployee" Role="EFEmployee" Multiplicity="*" />
-          <End Type="WebFrameworksDB.EFCorporation" Role="EFCorporation" Multiplicity="1" />
+        <Association Name="EmployeeCorporation">
+          <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <End Type="WebFrameworksDBModel.Corporation" Role="Corporation" Multiplicity="1" />
           <ReferentialConstraint>
-            <Principal Role="EFCorporation">
+            <Principal Role="Corporation">
               <PropertyRef Name="CorporationID" />
             </Principal>
-            <Dependent Role="EFEmployee">
+            <Dependent Role="Employee">
               <PropertyRef Name="CorporationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="EFEmployeeEFDepartment">
-          <End Type="WebFrameworksDB.EFEmployee" Role="EFEmployee" Multiplicity="*" />
-          <End Type="WebFrameworksDB.EFDepartment" Role="EFDepartment" Multiplicity="1" />
+        <Association Name="EmployeeDepartment">
+          <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <End Type="WebFrameworksDBModel.Department" Role="Department" Multiplicity="1" />
           <ReferentialConstraint>
-            <Principal Role="EFDepartment">
+            <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
             </Principal>
-            <Dependent Role="EFEmployee">
+            <Dependent Role="Employee">
               <PropertyRef Name="DepartmentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="EFRoleFunctionEFRole">
-          <End Type="WebFrameworksDB.EFRoleFunction" Role="EFRoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDB.EFRole" Role="EFRole" Multiplicity="1" />
+        <Association Name="RoleFunctionRole">
+          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
+          <End Type="WebFrameworksDBModel.Role" Role="Role" Multiplicity="1" />
           <ReferentialConstraint>
-            <Principal Role="EFRole">
+            <Principal Role="Role">
               <PropertyRef Name="RoleID" />
             </Principal>
-            <Dependent Role="EFRoleFunction">
+            <Dependent Role="RoleFunction">
               <PropertyRef Name="RoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="EFRoleFunctionEFMenu">
-          <End Type="WebFrameworksDB.EFRoleFunction" Role="EFRoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDB.EFMenu" Role="EFMenu" Multiplicity="1" />
+        <Association Name="RoleFunctionMenu">
+          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
+          <End Type="WebFrameworksDBModel.Menu" Role="Menu" Multiplicity="1" />
           <ReferentialConstraint>
-            <Principal Role="EFMenu">
+            <Principal Role="Menu">
               <PropertyRef Name="MenuID" />
             </Principal>
-            <Dependent Role="EFRoleFunction">
+            <Dependent Role="RoleFunction">
               <PropertyRef Name="MenuID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="EFRoleFunctionEFFunction">
-          <End Type="WebFrameworksDB.EFRoleFunction" Role="EFRoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDB.EFFunction" Role="EFFunction" Multiplicity="1" />
+        <Association Name="RoleFunctionFunction">
+          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
+          <End Type="WebFrameworksDBModel.Function" Role="Function" Multiplicity="1" />
           <ReferentialConstraint>
-            <Principal Role="EFFunction">
+            <Principal Role="Function">
               <PropertyRef Name="FunctionID" />
             </Principal>
-            <Dependent Role="EFRoleFunction">
+            <Dependent Role="RoleFunction">
               <PropertyRef Name="FunctionID" />
             </Dependent>
           </ReferentialConstraint>
@@ -223,13 +417,125 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="WebFrameworksDB" />
-        <Alias Key="Target" Value="WebFrameworksDB.Store" />
-        <EntityContainerMapping CdmEntityContainer="WebFrameworksDBEntities" StorageEntityContainer="WebFrameworksDBTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebFrameworksDBModelStoreContainer" CdmEntityContainer="WebFrameworksDB">
+    <EntitySetMapping Name="Corporation">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Corporation)">
+        <MappingFragment StoreEntitySet="Corporation">
+          <ScalarProperty Name="CorporationID" ColumnName="CorporationID" />
+          <ScalarProperty Name="ParentCorpID" ColumnName="ParentCorpID" />
+          <ScalarProperty Name="CorporationCode" ColumnName="CorporationCode" />
+          <ScalarProperty Name="CorporationName" ColumnName="CorporationName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Department)">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="ParentDeptID" ColumnName="ParentDeptID" />
+          <ScalarProperty Name="CorporationID" ColumnName="CorporationID" />
+          <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Employee)">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="CorporationID" ColumnName="CorporationID" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="RoleIDs" ColumnName="RoleIDs" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PwdExpiredTime" ColumnName="PwdExpiredTime" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LoginCount" ColumnName="LoginCount" />
+          <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+          <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Role)">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menu">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Menu)">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="ParentMenuID" ColumnName="ParentMenuID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+          <ScalarProperty Name="MenuLavel" ColumnName="MenuLavel" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+          <ScalarProperty Name="IsShortCut" ColumnName="IsShortCut" />
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="FunctionIDs" ColumnName="FunctionIDs" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Function">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Function)">
+        <MappingFragment StoreEntitySet="Function">
+          <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+          <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+          <ScalarProperty Name="FunctionRefName" ColumnName="FunctionRefName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleFunction">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.RoleFunction)">
+        <MappingFragment StoreEntitySet="RoleFunction">
+          <ScalarProperty Name="RoleFunctionID" ColumnName="RoleFunctionID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -243,6 +549,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
