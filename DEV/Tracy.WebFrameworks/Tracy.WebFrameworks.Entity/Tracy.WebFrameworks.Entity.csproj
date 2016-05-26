@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Attribute\DatabaseTableColumnAttribute.cs" />
     <Compile Include="CommonBO\CommonsBO.cs" />
-    <Compile Include="CommonBO\WebFrameworksResult.cs" />
+    <Compile Include="CommonBO\WebFxsResult.cs" />
     <Compile Include="CommonBO\PagingBase.cs" />
     <Compile Include="Corporation.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>

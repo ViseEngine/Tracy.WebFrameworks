@@ -15,19 +15,19 @@ using System.Text;
 namespace Tracy.WebFrameworks.Entity.CommonBO
 {
     [DataContract, Serializable]
-    public class DLogResult<DLogBO>
+    public class WebFxsResult<T>
     {
         /// <summary>
         /// 返回單個實體內容
         /// </summary>
         [DataMember]
-        public DLogBO Content { get; set; }
+        public T Content { get; set; }
 
         /// <summary>
         /// 返回集合內容
         /// </summary>
         [DataMember]
-        public List<DLogBO> Contents { get; set; }
+        public List<T> Contents { get; set; }
 
         /// <summary>
         /// 返回信息
