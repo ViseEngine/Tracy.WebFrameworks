@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2016 16:07:14
+-- Date Created: 05/26/2016 16:31:56
 -- Generated from EDMX file: D:\sources.github\Tracy.WebFrameworks\DEV\Tracy.WebFrameworks\Tracy.WebFrameworks.Data\WebFrameworksDB.edmx
 -- --------------------------------------------------
 
@@ -17,20 +17,20 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_EFEmployeeEFCorporation]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Employee] DROP CONSTRAINT [FK_EFEmployeeEFCorporation];
+IF OBJECT_ID(N'[dbo].[FK_EmployeeCorporation]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Employee] DROP CONSTRAINT [FK_EmployeeCorporation];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EFEmployeeEFDepartment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Employee] DROP CONSTRAINT [FK_EFEmployeeEFDepartment];
+IF OBJECT_ID(N'[dbo].[FK_EmployeeDepartment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Employee] DROP CONSTRAINT [FK_EmployeeDepartment];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EFRoleFunctionEFRole]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_EFRoleFunctionEFRole];
+IF OBJECT_ID(N'[dbo].[FK_RoleFunctionRole]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_RoleFunctionRole];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EFRoleFunctionEFMenu]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_EFRoleFunctionEFMenu];
+IF OBJECT_ID(N'[dbo].[FK_RoleFunctionMenu]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_RoleFunctionMenu];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EFRoleFunctionEFFunction]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_EFRoleFunctionEFFunction];
+IF OBJECT_ID(N'[dbo].[FK_RoleFunctionFunction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_RoleFunctionFunction];
 GO
 
 -- --------------------------------------------------
