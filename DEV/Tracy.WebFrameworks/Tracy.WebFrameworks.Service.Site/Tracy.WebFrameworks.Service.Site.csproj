@@ -60,6 +60,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Tracy.Frameworks.Service">
+      <HintPath>..\..\..\DLL\Tracy.Frameworks.Service.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test.html" />

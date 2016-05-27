@@ -7,6 +7,7 @@ using System.Text;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.CommonBO;
 using Tracy.WebFrameworks.IService;
+using Tracy.WebFrameworks.Data;
 
 namespace Tracy.WebFrameworks.Service
 {
@@ -22,7 +23,22 @@ namespace Tracy.WebFrameworks.Service
         /// <returns></returns>
         public WebFxsResult<bool> BatchInsert(List<Corporation> list)
         {
-            throw new NotImplementedException();
+            var result = new WebFxsResult<bool> 
+            {
+                ReturnCode= ReturnCodeType.Error
+            };
+
+            using (var db = new WebFrameworksDB())
+            {
+                db.Corporation.AddRange(list);
+                if (db.SaveChanges()>0)
+                {
+                    result.Content = true;
+                    result.ReturnCode = ReturnCodeType.Success;
+                }
+            }
+
+            return result;
         }
 
     }
