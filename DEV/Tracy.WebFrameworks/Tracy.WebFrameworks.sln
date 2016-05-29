@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Infrustructure", "01.Infrustructure", "{AF60B138-0F65-4281-B37D-F73311D5A45E}"
 EndProject
@@ -30,6 +30,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.UnitTest", "Tracy.WebFrameworks.UnitTest\Tracy.WebFrameworks.UnitTest.csproj", "{9A59077D-BED3-4C1D-9C72-6DC35361F8E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Offline.Site", "Tracy.WebFrameworks.Offline.Site\Tracy.WebFrameworks.Offline.Site.csproj", "{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.IRepository", "Tracy.WebFrameworks.IRepository\Tracy.WebFrameworks.IRepository.csproj", "{68A16027-E9ED-4D51-AE67-FC61AB24AABA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.WebFrameworks.Repository", "Tracy.WebFrameworks.Repository\Tracy.WebFrameworks.Repository.csproj", "{9E782BB7-982C-4EB6-8C53-B706017C8293}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,12 +77,19 @@ Global
 		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A16027-E9ED-4D51-AE67-FC61AB24AABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A16027-E9ED-4D51-AE67-FC61AB24AABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A16027-E9ED-4D51-AE67-FC61AB24AABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A16027-E9ED-4D51-AE67-FC61AB24AABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E782BB7-982C-4EB6-8C53-B706017C8293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E782BB7-982C-4EB6-8C53-B706017C8293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E782BB7-982C-4EB6-8C53-B706017C8293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E782BB7-982C-4EB6-8C53-B706017C8293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F} = {28A01FC6-9CB4-4069-A4A6-79E15414B510}
 		{72EC8C6D-1816-454A-95C8-60422282E99D} = {AF60B138-0F65-4281-B37D-F73311D5A45E}
 		{3B0218D3-7EE1-422F-9A23-E5D862EF1C8E} = {585AE2EE-A164-486D-8E01-AB884E937419}
 		{CAFF06E2-1C6E-49C9-B06E-9EA4CAC208C6} = {585AE2EE-A164-486D-8E01-AB884E937419}
@@ -87,5 +98,8 @@ Global
 		{DFE86A47-964C-4E05-9117-249A7034A825} = {779C0454-AB06-4A7B-929F-C0B13197A0B3}
 		{D64C3795-AF54-4E2B-A8CF-B433AAD39A61} = {C3C47448-C5B1-4F10-A9E9-709FF38C0C27}
 		{9A59077D-BED3-4C1D-9C72-6DC35361F8E3} = {C3C47448-C5B1-4F10-A9E9-709FF38C0C27}
+		{2F0EAC3A-D438-4DC1-A9AE-14DE020A817F} = {28A01FC6-9CB4-4069-A4A6-79E15414B510}
+		{68A16027-E9ED-4D51-AE67-FC61AB24AABA} = {585AE2EE-A164-486D-8E01-AB884E937419}
+		{9E782BB7-982C-4EB6-8C53-B706017C8293} = {585AE2EE-A164-486D-8E01-AB884E937419}
 	EndGlobalSection
 EndGlobal
