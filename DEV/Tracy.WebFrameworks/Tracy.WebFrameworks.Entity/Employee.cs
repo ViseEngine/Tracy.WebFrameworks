@@ -43,7 +43,7 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int CorporationID { get; set; }
+    public Nullable<int> CorporationID { get; set; }
 
 
 	/// <summary>
@@ -51,7 +51,7 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int DepartmentID { get; set; }
+    public Nullable<int> DepartmentID { get; set; }
 
 
 	/// <summary>

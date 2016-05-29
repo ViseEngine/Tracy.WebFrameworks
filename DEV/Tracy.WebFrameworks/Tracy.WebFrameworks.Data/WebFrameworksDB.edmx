@@ -67,8 +67,8 @@
       <PropertyRef Name="EmployeeID" />
     </Key>
     <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CorporationID" Type="int" Nullable="false" />
-    <Property Name="DepartmentID" Type="int" Nullable="false" />
+    <Property Name="CorporationID" Type="int" Nullable="true" />
+    <Property Name="DepartmentID" Type="int" Nullable="true" />
     <Property Name="RoleIDs" Type="nvarchar" Nullable="true" MaxLength="300" />
     <Property Name="EmployeeName" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="LoginName" Type="nvarchar" Nullable="false" MaxLength="30" />
@@ -134,9 +134,9 @@
       <PropertyRef Name="RoleFunctionID" />
     </Key>
     <Property Name="RoleFunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleID" Type="int" Nullable="false" />
-    <Property Name="MenuID" Type="int" Nullable="false" />
-    <Property Name="FunctionID" Type="int" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="true" />
+    <Property Name="MenuID" Type="int" Nullable="true" />
+    <Property Name="FunctionID" Type="int" Nullable="true" />
     <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CreatedTime" Type="datetime" Nullable="true" />
     <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
@@ -144,7 +144,7 @@
   </EntityType>
   <Association Name="EmployeeCorporation">
     <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="*" />
-    <End Role="Corporation" Type="WebFrameworksDBModel.Store.Corporation" Multiplicity="1" />
+    <End Role="Corporation" Type="WebFrameworksDBModel.Store.Corporation" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Corporation">
         <PropertyRef Name="CorporationID" />
@@ -156,7 +156,7 @@
   </Association>
   <Association Name="EmployeeDepartment">
     <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="*" />
-    <End Role="Department" Type="WebFrameworksDBModel.Store.Department" Multiplicity="1" />
+    <End Role="Department" Type="WebFrameworksDBModel.Store.Department" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Department">
         <PropertyRef Name="DepartmentID" />
@@ -168,7 +168,7 @@
   </Association>
   <Association Name="RoleFunctionRole">
     <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
-    <End Role="Role" Type="WebFrameworksDBModel.Store.Role" Multiplicity="1" />
+    <End Role="Role" Type="WebFrameworksDBModel.Store.Role" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Role">
         <PropertyRef Name="RoleID" />
@@ -180,7 +180,7 @@
   </Association>
   <Association Name="RoleFunctionMenu">
     <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
-    <End Role="Menu" Type="WebFrameworksDBModel.Store.Menu" Multiplicity="1" />
+    <End Role="Menu" Type="WebFrameworksDBModel.Store.Menu" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Menu">
         <PropertyRef Name="MenuID" />
@@ -192,7 +192,7 @@
   </Association>
   <Association Name="RoleFunctionFunction">
     <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
-    <End Role="Function" Type="WebFrameworksDBModel.Store.Function" Multiplicity="1" />
+    <End Role="Function" Type="WebFrameworksDBModel.Store.Function" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Function">
         <PropertyRef Name="FunctionID" />
@@ -270,8 +270,8 @@
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CorporationID" Type="Int32" Nullable="false" />
-          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="CorporationID" Type="Int32" Nullable="true" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="true" />
           <Property Name="RoleIDs" Type="String" Nullable="true" MaxLength="300" />
           <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="LoginName" Type="String" Nullable="false" MaxLength="30" />
@@ -342,9 +342,9 @@
             <PropertyRef Name="RoleFunctionID" />
           </Key>
           <Property Name="RoleFunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="MenuID" Type="Int32" Nullable="false" />
-          <Property Name="FunctionID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="true" />
+          <Property Name="MenuID" Type="Int32" Nullable="true" />
+          <Property Name="FunctionID" Type="Int32" Nullable="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
@@ -355,7 +355,7 @@
         </EntityType>
         <Association Name="EmployeeCorporation">
           <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Corporation" Role="Corporation" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.Corporation" Role="Corporation" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Corporation">
               <PropertyRef Name="CorporationID" />
@@ -367,7 +367,7 @@
         </Association>
         <Association Name="EmployeeDepartment">
           <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.Department" Role="Department" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
@@ -379,7 +379,7 @@
         </Association>
         <Association Name="RoleFunctionRole">
           <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.Role" Role="Role" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="RoleID" />
@@ -391,7 +391,7 @@
         </Association>
         <Association Name="RoleFunctionMenu">
           <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.Menu" Role="Menu" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Menu">
               <PropertyRef Name="MenuID" />
@@ -403,7 +403,7 @@
         </Association>
         <Association Name="RoleFunctionFunction">
           <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Function" Role="Function" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.Function" Role="Function" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Function">
               <PropertyRef Name="FunctionID" />

@@ -40,7 +40,6 @@ public class EmployeeMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
@@ -50,7 +49,6 @@ public class EmployeeMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]

@@ -40,7 +40,6 @@ public class RoleFunctionMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
@@ -50,7 +49,6 @@ public class RoleFunctionMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
@@ -60,7 +58,6 @@ public class RoleFunctionMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]

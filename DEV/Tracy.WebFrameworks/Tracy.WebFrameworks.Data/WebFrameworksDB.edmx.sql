@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2016 16:31:56
+-- Date Created: 05/29/2016 16:16:15
 -- Generated from EDMX file: D:\sources.github\Tracy.WebFrameworks\DEV\Tracy.WebFrameworks\Tracy.WebFrameworks.Data\WebFrameworksDB.edmx
 -- --------------------------------------------------
 
@@ -94,8 +94,8 @@ GO
 -- Creating table 'Employee'
 CREATE TABLE [dbo].[Employee] (
     [EmployeeID] int IDENTITY(1,1) NOT NULL,
-    [CorporationID] int  NOT NULL,
-    [DepartmentID] int  NOT NULL,
+    [CorporationID] int  NULL,
+    [DepartmentID] int  NULL,
     [RoleIDs] nvarchar(300)  NULL,
     [EmployeeName] nvarchar(30)  NOT NULL,
     [LoginName] nvarchar(30)  NOT NULL,
@@ -161,9 +161,9 @@ GO
 -- Creating table 'RoleFunction'
 CREATE TABLE [dbo].[RoleFunction] (
     [RoleFunctionID] int IDENTITY(1,1) NOT NULL,
-    [RoleID] int  NOT NULL,
-    [MenuID] int  NOT NULL,
-    [FunctionID] int  NOT NULL,
+    [RoleID] int  NULL,
+    [MenuID] int  NULL,
+    [FunctionID] int  NULL,
     [CreatedBy] nvarchar(max)  NOT NULL,
     [CreatedTime] datetime  NULL,
     [LastUpdatedBy] nvarchar(30)  NULL,
@@ -228,6 +228,7 @@ ADD CONSTRAINT [FK_EmployeeCorporation]
     REFERENCES [dbo].[Corporation]
         ([CorporationID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_EmployeeCorporation'
 CREATE INDEX [IX_FK_EmployeeCorporation]
@@ -242,6 +243,7 @@ ADD CONSTRAINT [FK_EmployeeDepartment]
     REFERENCES [dbo].[Department]
         ([DepartmentID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_EmployeeDepartment'
 CREATE INDEX [IX_FK_EmployeeDepartment]
@@ -256,6 +258,7 @@ ADD CONSTRAINT [FK_RoleFunctionRole]
     REFERENCES [dbo].[Role]
         ([RoleID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RoleFunctionRole'
 CREATE INDEX [IX_FK_RoleFunctionRole]
@@ -270,6 +273,7 @@ ADD CONSTRAINT [FK_RoleFunctionMenu]
     REFERENCES [dbo].[Menu]
         ([MenuID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RoleFunctionMenu'
 CREATE INDEX [IX_FK_RoleFunctionMenu]
@@ -284,6 +288,7 @@ ADD CONSTRAINT [FK_RoleFunctionFunction]
     REFERENCES [dbo].[Function]
         ([FunctionID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RoleFunctionFunction'
 CREATE INDEX [IX_FK_RoleFunctionFunction]

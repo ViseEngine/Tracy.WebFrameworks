@@ -43,7 +43,7 @@ public partial class RoleFunction
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int RoleID { get; set; }
+    public Nullable<int> RoleID { get; set; }
 
 
 	/// <summary>
@@ -51,7 +51,7 @@ public partial class RoleFunction
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int MenuID { get; set; }
+    public Nullable<int> MenuID { get; set; }
 
 
 	/// <summary>
@@ -59,7 +59,7 @@ public partial class RoleFunction
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int FunctionID { get; set; }
+    public Nullable<int> FunctionID { get; set; }
 
 
 	/// <summary>
