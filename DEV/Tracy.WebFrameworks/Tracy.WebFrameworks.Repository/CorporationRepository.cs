@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tracy.WebFrameworks.IRepository;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Data;
+using Tracy.WebFrameworks.Common.Helper;
 
 namespace Tracy.WebFrameworks.Repository
 {
@@ -20,10 +21,15 @@ namespace Tracy.WebFrameworks.Repository
         /// <returns></returns>
         public IEnumerable<Corporation> GetAll()
         {
-            using (var db = new WebFrameworksDB())
+            IEnumerable<Corporation> result = null;
+            DBHelper.NoLockInvokeDB(() =>
             {
-                return db.Corporation;
-            }
+                using (var db = new WebFrameworksDB())
+                {
+                    result = db.Corporation;
+                }
+            });
+            return result;
         }
 
         /// <summary>
@@ -33,10 +39,15 @@ namespace Tracy.WebFrameworks.Repository
         /// <returns></returns>
         public Corporation GetById(int id)
         {
-            using (var db = new WebFrameworksDB())
+            Corporation result = null;
+            DBHelper.NoLockInvokeDB(() =>
             {
-                return db.Corporation.FirstOrDefault(p => p.CorporationID == id);
-            }
+                using (var db = new WebFrameworksDB())
+                {
+                    result = db.Corporation.FirstOrDefault(p => p.CorporationID == id);
+                }
+            });
+            return result;
         }
 
         /// <summary>
@@ -46,6 +57,7 @@ namespace Tracy.WebFrameworks.Repository
         /// <returns></returns>
         public Corporation Insert(Corporation item)
         {
+            //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
                 var result = db.Corporation.Add(item);
@@ -64,6 +76,7 @@ namespace Tracy.WebFrameworks.Repository
         /// <returns></returns>
         public bool Update(Corporation item)
         {
+            //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
                 var corporation = db.Corporation.FirstOrDefault(p => p.CorporationID == item.CorporationID);
@@ -93,9 +106,9 @@ namespace Tracy.WebFrameworks.Repository
         /// <returns></returns>
         public bool Delete(int id)
         {
+            //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                //var flag= db.Configuration.AutoDetectChangesEnabled;
                 var corporation = db.Corporation.FirstOrDefault(p => p.CorporationID == id);
                 if (corporation != null)
                 {
