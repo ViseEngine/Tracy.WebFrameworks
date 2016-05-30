@@ -27,8 +27,8 @@ namespace Tracy.WebFrameworks.IService
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        //[OperationContract]
-        //WebFxsResult<IEnumerable<Corporation>> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null);
+        [OperationContract]
+        WebFxsResult<IEnumerable<Corporation>> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null);
 
         /// <summary>
         /// 插入

@@ -50,6 +50,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tracy.Frameworks.Common">
+      <HintPath>..\..\..\DLL\Tracy.Frameworks.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WebFxsCorporationService.svc.cs" />
@@ -71,6 +74,10 @@
     <ProjectReference Include="..\Tracy.WebFrameworks.IService\Tracy.WebFrameworks.IService.csproj">
       <Project>{6b075629-d6f7-4618-ba2c-bf1ef8b53cd2}</Project>
       <Name>Tracy.WebFrameworks.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracy.WebFrameworks.Repository\Tracy.WebFrameworks.Repository.csproj">
+      <Project>{9e782bb7-982c-4eb6-8c53-b706017c8293}</Project>
+      <Name>Tracy.WebFrameworks.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
