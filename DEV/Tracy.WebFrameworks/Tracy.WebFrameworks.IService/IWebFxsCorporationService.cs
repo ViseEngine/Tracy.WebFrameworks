@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.ServiceModel;
 using System.Text;
 using Tracy.WebFrameworks.Entity;
@@ -13,19 +14,21 @@ namespace Tracy.WebFrameworks.IService
     {
         #region IRepository
         /// <summary>
-        /// 查询所有
-        /// </summary>
-        /// <returns></returns>
-        [OperationContract]
-        WebFxsResult<IEnumerable<Corporation>> GetAll();
-
-        /// <summary>
         /// 依据id查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [OperationContract]
         WebFxsResult<Corporation> GetById(int id);
+
+        /// <summary>
+        /// 依据条件查询
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderby"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<IEnumerable<Corporation>> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null);
 
         /// <summary>
         /// 插入

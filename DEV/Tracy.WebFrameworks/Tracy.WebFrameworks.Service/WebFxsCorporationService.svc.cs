@@ -9,6 +9,7 @@ using Tracy.WebFrameworks.Entity.CommonBO;
 using Tracy.WebFrameworks.IService;
 using Tracy.WebFrameworks.Data;
 using Tracy.WebFrameworks.Common.Helper;
+using System.Linq.Expressions;
 
 namespace Tracy.WebFrameworks.Service
 {
@@ -18,27 +19,6 @@ namespace Tracy.WebFrameworks.Service
     public class WebFxsCorporationService : IWebFxsCorporationService
     {
         #region IRepository
-        /// <summary>
-        /// 查询所有
-        /// </summary>
-        /// <returns></returns>
-        public WebFxsResult<IEnumerable<Corporation>> GetAll()
-        {
-            var result = new WebFxsResult<IEnumerable<Corporation>>()
-            {
-                ReturnCode = ReturnCodeType.Error,
-                Content = new List<Corporation>()
-            };
-            DBHelper.NoLockInvokeDB(() =>
-            {
-                using (var db = new WebFrameworksDB())
-                {
-                    result.ReturnCode = ReturnCodeType.Success;
-                    result.Content = db.Corporation;
-                }
-            });
-            return result;
-        }
 
         /// <summary>
         /// 依据id查询
@@ -52,15 +32,26 @@ namespace Tracy.WebFrameworks.Service
                 ReturnCode = ReturnCodeType.Error,
                 Content = new Corporation()
             };
-            DBHelper.NoLockInvokeDB(() =>
-            {
-                using (var db = new WebFrameworksDB())
-                {
-                    result.ReturnCode = ReturnCodeType.Success;
-                    result.Content = db.Corporation.FirstOrDefault(p => p.CorporationID == id);
-                }
-            });
+            //DBHelper.NoLockInvokeDB(() =>
+            //{
+            //    using (var db = new WebFrameworksDB())
+            //    {
+            //        result.ReturnCode = ReturnCodeType.Success;
+            //        result.Content = db.Corporation.FirstOrDefault(p => p.CorporationID == id);
+            //    }
+            //});
             return result;
+        }
+
+        /// <summary>
+        /// 依据条件查询
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderby"></param>
+        /// <returns></returns>
+        public WebFxsResult<IEnumerable<Corporation>> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

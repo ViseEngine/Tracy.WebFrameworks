@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tracy.WebFrameworks.IRepository;
@@ -13,25 +14,8 @@ namespace Tracy.WebFrameworks.Repository
     /// <summary>
     /// 公司仓储实现
     /// </summary>
-    public class CorporationRepository
+    public class CorporationRepository : ICorporationRepository
     {
-        /// <summary>
-        /// 查询所有
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Corporation> GetAll()
-        {
-            IEnumerable<Corporation> result = null;
-            DBHelper.NoLockInvokeDB(() =>
-            {
-                using (var db = new WebFrameworksDB())
-                {
-                    result = db.Corporation;
-                }
-            });
-            return result;
-        }
-
         /// <summary>
         /// 依据id查询
         /// </summary>
@@ -47,6 +31,38 @@ namespace Tracy.WebFrameworks.Repository
                     result = db.Corporation.FirstOrDefault(p => p.CorporationID == id);
                 }
             });
+            return result;
+        }
+
+        /// <summary>
+        /// 依条件表达式查询
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderby"></param>
+        /// <returns></returns>
+        public IEnumerable<Corporation> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null)
+        {
+            IEnumerable<Corporation> result = null;
+            DBHelper.NoLockInvokeDB(() =>
+            {
+                using (var db = new WebFrameworksDB())
+                {
+                    var query = db.Corporation.AsQueryable();
+                    if (filter != null)
+                    {
+                        query = query.Where(filter);
+                    }
+                    if (orderby != null)
+                    {
+                        result = orderby(query).ToList();
+                    }
+                    else
+                    {
+                        result = query.ToList();
+                    }
+                }
+            });
+
             return result;
         }
 
