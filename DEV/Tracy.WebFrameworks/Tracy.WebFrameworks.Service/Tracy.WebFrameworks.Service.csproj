@@ -60,13 +60,13 @@
       <Project>{72ec8c6d-1816-454a-95c8-60422282e99d}</Project>
       <Name>Tracy.WebFrameworks.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tracy.WebFrameworks.Data\Tracy.WebFrameworks.Data.csproj">
-      <Project>{3b0218d3-7ee1-422f-9a23-e5d862ef1c8e}</Project>
-      <Name>Tracy.WebFrameworks.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tracy.WebFrameworks.Entity\Tracy.WebFrameworks.Entity.csproj">
       <Project>{caff06e2-1c6e-49c9-b06e-9ea4cac208c6}</Project>
       <Name>Tracy.WebFrameworks.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracy.WebFrameworks.IRepository\Tracy.WebFrameworks.IRepository.csproj">
+      <Project>{68a16027-e9ed-4d51-ae67-fc61ab24aaba}</Project>
+      <Name>Tracy.WebFrameworks.IRepository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tracy.WebFrameworks.IService\Tracy.WebFrameworks.IService.csproj">
       <Project>{6b075629-d6f7-4618-ba2c-bf1ef8b53cd2}</Project>
