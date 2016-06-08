@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<link rel="stylesheet" type="text/css" href="../../Content/easyui/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Content/easyui/icon.css" />
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/easyui/jquery.easyui.min"></script>*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jeasyui")
+
+    <title>首页</title>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',title:'North Title',split:true" style="height:100px;"></div>
+    <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>
+    <div data-options="region:'east',title:'East',split:true" style="width:100px;"></div>
+    <div data-options="region:'west',title:'West',split:true" style="width:100px;"></div>
+    <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;"></div>
+</body>
+</html>
