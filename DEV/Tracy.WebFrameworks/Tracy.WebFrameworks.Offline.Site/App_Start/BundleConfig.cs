@@ -16,9 +16,22 @@ namespace Tracy.WebFrameworks.Offline.Site
                         "~/Scripts/easyui/jquery.easyui.min.js"));
 
             //css
-            bundles.Add(new StyleBundle("~/Content/easyui").Include(
+            bundles.Add(new StyleBundle("~/Content/easyui/default").Include(
                       "~/Content/easyui/default/easyui.css",
                       "~/Content/easyui/icon.css"));
+            //css.gray
+            bundles.Add(new StyleBundle("~/Content/easyui/gray").Include(
+                      "~/Content/easyui/gray/easyui.css",
+                      "~/Content/easyui/icon.css"));
+            //css.bootstrap
+            bundles.Add(new StyleBundle("~/Content/easyui/bootstrap").Include(
+                      "~/Content/easyui/bootstrap/easyui.css",
+                      "~/Content/easyui/icon.css"));
+            //css.metro
+            bundles.Add(new StyleBundle("~/Content/easyui/metro").Include(
+                      "~/Content/easyui/metro/easyui.css",
+                      "~/Content/easyui/icon.css"));
+
             bundles.Add(new StyleBundle("~/Content/site").Include(
                         "~/Content/Site.css"));
         }

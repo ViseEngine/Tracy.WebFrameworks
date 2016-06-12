@@ -18,6 +18,7 @@ namespace Tracy.WebFrameworks.Offline.Site
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             //注册静态资源(js&css)
+            //BundleTable.EnableOptimizations = true;
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //其它注册...
