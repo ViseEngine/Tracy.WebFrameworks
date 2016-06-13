@@ -1,42 +1,46 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    font-size: 12px;
+    font-family: Verdana,宋体,Tahoma;
+    padding: 0px;
+    margin: 0px;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+ul {
+    margin: 0px;
+    padding: 0px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+li {
+    list-style-type: none;
+}
+table {
+    border-collapse:collapse;
+    border:none;
 }
 
-/* styles for validation helpers */
-.field-validation-error {
-    color: #b94a48;
+a {
+    color: Black;
+    text-decoration: none;
 }
 
-.field-validation-valid {
-    display: none;
+a:hover {
+        color: Red;
+        text-decoration: underline;
+    }
+
+img {
+    border: 0px;
 }
 
-input.input-validation-error {
-    border: 1px solid #b94a48;
+
+/*登录页*/
+#win {
+    width:300px;
+    height:180px;
+    text-align:center;
 }
 
-input[type="checkbox"].input-validation-error {
-    border: 0 none;
-}
-
-.validation-summary-errors {
-    color: #b94a48;
-}
-
-.validation-summary-valid {
-    display: none;
+#LoginTable {
+    margin:15px;
+    line-height:250%;
 }

@@ -15,6 +15,9 @@ namespace Tracy.WebFrameworks.Offline.Site
             bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
                         "~/Scripts/easyui/jquery.easyui.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryform").Include(
+                        "~/Scripts/jquery.form.js"));
+
             //css
             bundles.Add(new StyleBundle("~/Content/easyui/default").Include(
                       "~/Content/easyui/default/easyui.css",

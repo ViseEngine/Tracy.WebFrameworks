@@ -94,6 +94,7 @@
     <Compile Include="RoleFunction.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CheckLoginRQ.cs" />
     <Compile Include="WebFrameworks.Entity.Partial.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessBO\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Metadata\WebFrameworksDB.Entity.Metadata.tt">
