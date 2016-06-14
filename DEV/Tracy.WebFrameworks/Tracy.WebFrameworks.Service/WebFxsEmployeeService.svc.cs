@@ -4,78 +4,76 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using System.Text;
+using System.Threading.Tasks;
+using Tracy.WebFrameworks.Common.Helper;
+using Tracy.WebFrameworks.Data;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.CommonBO;
 using Tracy.WebFrameworks.IService;
-using Tracy.WebFrameworks.Common.Helper;
-using System.Linq.Expressions;
-using Tracy.Frameworks.Common.Extends;
-using Tracy.WebFrameworks.Data;
 
 namespace Tracy.WebFrameworks.Service
 {
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     //[WcfServiceCounter(SystemCode = "WebFrameworks", Source = "Offline.Service")]
-    public class WebFxsCorporationService : IWebFxsCorporationService
+    public class WebFxsEmployeeService: IWebFxsEmployeeService
     {
         #region IRepository
-
         /// <summary>
         /// 依据id查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public WebFxsResult<Corporation> GetById(int id)
+        public WebFxsResult<Employee> GetById(int id)
         {
-            var result = new WebFxsResult<Corporation>()
+            var result = new WebFxsResult<Employee>()
             {
                 ReturnCode = ReturnCodeType.Error,
-                Content = new Corporation()
+                Content = new Employee()
             };
-            Corporation corporation = null;
+            Employee employee = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    corporation = db.Corporation.FirstOrDefault(p => p.CorporationID == id);
-                    //corporation = db.Corporation.Find(id);//或者
+                    employee = db.Employee.FirstOrDefault(p => p.EmployeeID == id);
+                    //Employee = db.Employee.Find(id);//或者
 
-                    if (corporation != null)
+                    if (employee != null)
                     {
                         result.ReturnCode = ReturnCodeType.Success;
-                        result.Content = corporation;
+                        result.Content = employee;
                     }
                 }
             });
-            
+
             return result;
         }
-        
+
         /// <summary>
         /// 插入
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public WebFxsResult<Corporation> Insert(Corporation item)
+        public WebFxsResult<Employee> Insert(Employee item)
         {
-            var result = new WebFxsResult<Corporation>()
+            var result = new WebFxsResult<Employee>()
             {
                 ReturnCode = ReturnCodeType.Error,
-                Content = new Corporation()
+                Content = new Employee()
             };
 
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var corporation = db.Corporation.Add(item);
+                var employee = db.Employee.Add(item);
                 if (db.SaveChanges() > 0)
                 {
                     result.ReturnCode = ReturnCodeType.Success;
-                    result.Content = corporation;
+                    result.Content = employee;
                 }
             }
-            
+
             return result;
         }
 
@@ -84,7 +82,7 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public WebFxsResult<bool> Update(Corporation item)
+        public WebFxsResult<bool> Update(Employee item)
         {
             var result = new WebFxsResult<bool>()
             {
@@ -95,18 +93,28 @@ namespace Tracy.WebFrameworks.Service
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var corporation = db.Corporation.FirstOrDefault(p => p.CorporationID == item.CorporationID);
-                if (corporation != null)
+                var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == item.EmployeeID);
+                if (employee != null)
                 {
-                    corporation.ParentCorpID = item.ParentCorpID;
-                    corporation.CorporationCode = item.CorporationCode;
-                    corporation.CorporationName = item.CorporationName;
-                    corporation.Address = item.Address;
-                    corporation.Enabled = item.Enabled;
-                    corporation.CreatedBy = item.CreatedBy;
-                    corporation.CreatedTime = item.CreatedTime;
-                    corporation.LastUpdatedBy = item.LastUpdatedBy;
-                    corporation.LastUpdatedTime = item.LastUpdatedTime;
+                    employee.CorporationID = item.CorporationID;
+                    employee.DepartmentID = item.DepartmentID;
+                    employee.RoleIDs = item.RoleIDs;
+                    employee.EmployeeName = item.EmployeeName;
+                    employee.LoginName = item.LoginName;
+                    employee.Password = item.Password;
+                    employee.PwdExpiredTime = item.PwdExpiredTime;
+                    employee.Sex = item.Sex;
+                    employee.Phone = item.Phone;
+                    employee.Email = item.Email;
+                    employee.Status = item.Status;
+                    employee.LoginCount = item.LoginCount;
+                    employee.LastLoginTime = item.LastLoginTime;
+                    employee.LastLoginIP = item.LastLoginIP;
+                    employee.Enabled = item.Enabled;
+                    employee.CreatedBy = item.CreatedBy;
+                    employee.CreatedTime = item.CreatedTime;
+                    employee.LastUpdatedBy = item.LastUpdatedBy;
+                    employee.LastUpdatedTime = item.LastUpdatedTime;
                 }
                 if (db.SaveChanges() > 0)
                 {
@@ -134,13 +142,12 @@ namespace Tracy.WebFrameworks.Service
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var corporation = db.Corporation.FirstOrDefault(p => p.CorporationID == id);
-                if (corporation != null)
+                var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == id);
+                if (employee!= null)
                 {
-                    db.Corporation.Remove(corporation);
+                    db.Employee.Remove(employee);
                 }
-
-                if (db.SaveChanges() > 0)
+                if (db.SaveChanges()> 0)
                 {
                     result.ReturnCode = ReturnCodeType.Success;
                     result.Content = true;
@@ -150,6 +157,5 @@ namespace Tracy.WebFrameworks.Service
             return result;
         }
         #endregion
-
     }
 }

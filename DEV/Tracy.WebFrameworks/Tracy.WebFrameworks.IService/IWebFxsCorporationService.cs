@@ -27,8 +27,9 @@ namespace Tracy.WebFrameworks.IService
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        [OperationContract]
-        WebFxsResult<IEnumerable<Corporation>> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null);
+        /// 无法序列化类型“System.Linq.Expressions.Expression？http://www.cnblogs.com/guomingfeng/category/370682.html
+        //[OperationContract]
+        //WebFxsResult<IEnumerable<Corporation>> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null);
 
         /// <summary>
         /// 插入

@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="CorporationRepository.cs" />
     <Compile Include="Factory\CorporationRepositoryFactory.cs" />
+    <Compile Include="Factory\GenericRepositoryFactory.cs" />
+    <Compile Include="GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

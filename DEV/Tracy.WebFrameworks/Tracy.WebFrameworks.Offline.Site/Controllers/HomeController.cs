@@ -38,9 +38,11 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             var flag = false;
             var msg = string.Empty;
 
-            using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
-            { 
+            using (var factory = new ChannelFactory<IWebFxsEmployeeService>("*"))
+            {
+                var client = factory.CreateChannel();
                 
+
             }
 
 

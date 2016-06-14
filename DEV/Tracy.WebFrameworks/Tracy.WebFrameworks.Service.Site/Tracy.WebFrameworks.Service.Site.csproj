@@ -71,6 +71,7 @@
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="WebFxsCorporationService.svc" />
+    <Content Include="WebFxsEmployeeService.svc" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
