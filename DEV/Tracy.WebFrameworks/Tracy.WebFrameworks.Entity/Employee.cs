@@ -155,6 +155,14 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
+    public Nullable<bool> Enabled { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
     public string CreatedBy { get; set; }
 
 

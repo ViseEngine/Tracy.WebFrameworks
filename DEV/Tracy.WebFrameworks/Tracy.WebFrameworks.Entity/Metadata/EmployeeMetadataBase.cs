@@ -168,6 +168,13 @@ public class EmployeeMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
+    [DataMember]
+    public object Enabled { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
     [StringLength(30)]
     [DataMember]
     public object CreatedBy { get; set; }

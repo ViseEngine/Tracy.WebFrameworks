@@ -50,7 +50,6 @@ public class DepartmentMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
@@ -72,6 +71,13 @@ public class DepartmentMetadataBase
     [StringLength(100)]
     [DataMember]
     public object DepartmentName { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [DataMember]
+    public object Enabled { get; set; }
 
 
 	/// <summary>

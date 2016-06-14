@@ -20,17 +20,17 @@ using Tracy.WebFrameworks.Entity.Metadata;
 
 
 
-[DebuggerDisplay("Corporation:CorporationID={CorporationID},ParentCorpID={ParentCorpID},CorporationCode={CorporationCode},CorporationName={CorporationName},Address={Address},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("Corporation:CorporationID={CorporationID},ParentCorpID={ParentCorpID},CorporationCode={CorporationCode},CorporationName={CorporationName},Address={Address},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Corporation 
 {
 }
 
-[DebuggerDisplay("Department:DepartmentID={DepartmentID},ParentDeptID={ParentDeptID},CorporationID={CorporationID},DepartmentCode={DepartmentCode},DepartmentName={DepartmentName},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("Department:DepartmentID={DepartmentID},ParentDeptID={ParentDeptID},CorporationID={CorporationID},DepartmentCode={DepartmentCode},DepartmentName={DepartmentName},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Department 
 {
 }
 
-[DebuggerDisplay("Employee:EmployeeID={EmployeeID},CorporationID={CorporationID},DepartmentID={DepartmentID},RoleIDs={RoleIDs},EmployeeName={EmployeeName},LoginName={LoginName},Password={Password},PwdExpiredTime={PwdExpiredTime},Sex={Sex},Phone={Phone},Email={Email},Status={Status},LoginCount={LoginCount},LastLoginTime={LastLoginTime},LastLoginIP={LastLoginIP},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("Employee:EmployeeID={EmployeeID},CorporationID={CorporationID},DepartmentID={DepartmentID},RoleIDs={RoleIDs},EmployeeName={EmployeeName},LoginName={LoginName},Password={Password},PwdExpiredTime={PwdExpiredTime},Sex={Sex},Phone={Phone},Email={Email},Status={Status},LoginCount={LoginCount},LastLoginTime={LastLoginTime},LastLoginIP={LastLoginIP},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Employee 
 {
 }

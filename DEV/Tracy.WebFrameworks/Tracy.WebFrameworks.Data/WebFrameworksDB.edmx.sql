@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/29/2016 16:16:15
+-- Date Created: 06/14/2016 16:02:26
 -- Generated from EDMX file: D:\sources.github\Tracy.WebFrameworks\DEV\Tracy.WebFrameworks\Tracy.WebFrameworks.Data\WebFrameworksDB.edmx
 -- --------------------------------------------------
 
@@ -31,6 +31,9 @@ IF OBJECT_ID(N'[dbo].[FK_RoleFunctionMenu]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_RoleFunctionFunction]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_RoleFunctionFunction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CorporationDepartment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Department] DROP CONSTRAINT [FK_CorporationDepartment];
 GO
 
 -- --------------------------------------------------
@@ -70,6 +73,7 @@ CREATE TABLE [dbo].[Corporation] (
     [CorporationCode] nvarchar(30)  NULL,
     [CorporationName] nvarchar(50)  NOT NULL,
     [Address] nvarchar(100)  NOT NULL,
+    [Enabled] bit  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NULL,
     [LastUpdatedBy] nvarchar(30)  NULL,
@@ -81,9 +85,10 @@ GO
 CREATE TABLE [dbo].[Department] (
     [DepartmentID] int IDENTITY(1,1) NOT NULL,
     [ParentDeptID] int  NOT NULL,
-    [CorporationID] int  NOT NULL,
+    [CorporationID] int  NULL,
     [DepartmentCode] nvarchar(30)  NULL,
     [DepartmentName] nvarchar(100)  NOT NULL,
+    [Enabled] bit  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NULL,
     [LastUpdatedBy] nvarchar(30)  NULL,
@@ -108,6 +113,7 @@ CREATE TABLE [dbo].[Employee] (
     [LoginCount] int  NOT NULL,
     [LastLoginTime] datetime  NULL,
     [LastLoginIP] nvarchar(30)  NULL,
+    [Enabled] bit  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NOT NULL,
     [LastUpdatedBy] nvarchar(30)  NULL,
@@ -215,85 +221,6 @@ GO
 ALTER TABLE [dbo].[RoleFunction]
 ADD CONSTRAINT [PK_RoleFunction]
     PRIMARY KEY CLUSTERED ([RoleFunctionID] ASC);
-GO
-
--- --------------------------------------------------
--- Creating all FOREIGN KEY constraints
--- --------------------------------------------------
-
--- Creating foreign key on [CorporationID] in table 'Employee'
-ALTER TABLE [dbo].[Employee]
-ADD CONSTRAINT [FK_EmployeeCorporation]
-    FOREIGN KEY ([CorporationID])
-    REFERENCES [dbo].[Corporation]
-        ([CorporationID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_EmployeeCorporation'
-CREATE INDEX [IX_FK_EmployeeCorporation]
-ON [dbo].[Employee]
-    ([CorporationID]);
-GO
-
--- Creating foreign key on [DepartmentID] in table 'Employee'
-ALTER TABLE [dbo].[Employee]
-ADD CONSTRAINT [FK_EmployeeDepartment]
-    FOREIGN KEY ([DepartmentID])
-    REFERENCES [dbo].[Department]
-        ([DepartmentID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_EmployeeDepartment'
-CREATE INDEX [IX_FK_EmployeeDepartment]
-ON [dbo].[Employee]
-    ([DepartmentID]);
-GO
-
--- Creating foreign key on [RoleID] in table 'RoleFunction'
-ALTER TABLE [dbo].[RoleFunction]
-ADD CONSTRAINT [FK_RoleFunctionRole]
-    FOREIGN KEY ([RoleID])
-    REFERENCES [dbo].[Role]
-        ([RoleID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RoleFunctionRole'
-CREATE INDEX [IX_FK_RoleFunctionRole]
-ON [dbo].[RoleFunction]
-    ([RoleID]);
-GO
-
--- Creating foreign key on [MenuID] in table 'RoleFunction'
-ALTER TABLE [dbo].[RoleFunction]
-ADD CONSTRAINT [FK_RoleFunctionMenu]
-    FOREIGN KEY ([MenuID])
-    REFERENCES [dbo].[Menu]
-        ([MenuID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RoleFunctionMenu'
-CREATE INDEX [IX_FK_RoleFunctionMenu]
-ON [dbo].[RoleFunction]
-    ([MenuID]);
-GO
-
--- Creating foreign key on [FunctionID] in table 'RoleFunction'
-ALTER TABLE [dbo].[RoleFunction]
-ADD CONSTRAINT [FK_RoleFunctionFunction]
-    FOREIGN KEY ([FunctionID])
-    REFERENCES [dbo].[Function]
-        ([FunctionID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RoleFunctionFunction'
-CREATE INDEX [IX_FK_RoleFunctionFunction]
-ON [dbo].[RoleFunction]
-    ([FunctionID]);
 GO
 
 -- --------------------------------------------------

@@ -62,7 +62,7 @@ public partial class Department
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int CorporationID { get; set; }
+    public Nullable<int> CorporationID { get; set; }
 
 
 	/// <summary>
@@ -79,6 +79,14 @@ public partial class Department
     [DatabaseTableColumn]
     [DataMember]
     public string DepartmentName { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public Nullable<bool> Enabled { get; set; }
 
 
 	/// <summary>
@@ -120,6 +128,13 @@ public partial class Department
 	/// </summary>
     [DataMember]
     public virtual ICollection<Employee> Employee { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置(導航屬性)
+	/// </summary>
+    [DataMember]
+    public virtual Corporation Corporation { get; set; }
 
 }
 

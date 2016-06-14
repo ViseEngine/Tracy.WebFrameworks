@@ -37,6 +37,8 @@ public partial class Corporation
 
         this.Employee = new HashSet<Employee>();
 
+        this.Department = new HashSet<Department>();
+
     }
 
 
@@ -86,6 +88,14 @@ public partial class Corporation
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
+    public Nullable<bool> Enabled { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
     public string CreatedBy { get; set; }
 
 
@@ -120,6 +130,13 @@ public partial class Corporation
 	/// </summary>
     [DataMember]
     public virtual ICollection<Employee> Employee { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置(導航屬性)
+	/// </summary>
+    [DataMember]
+    public virtual ICollection<Department> Department { get; set; }
 
 }
 
