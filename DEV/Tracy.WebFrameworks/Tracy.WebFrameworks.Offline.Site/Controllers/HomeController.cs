@@ -41,12 +41,22 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             using (var factory = new ChannelFactory<IWebFxsEmployeeService>("*"))
             {
                 var client = factory.CreateChannel();
-                
+                var result = client.CheckLogin(rq);
+                if (result.Content == true)
+                {
+                    flag = true;
 
+                    //将登录信息保存到cookie
+                    Response.Cookies["LoginName"].Value = rq.LoginName;
+                    Response.Cookies["LoginName"].Expires = DateTime.Now.AddDays(7);
+                }
+                else
+                {
+                    msg = result.Message;
+                }
             }
 
-
-            return Json(new { Success= flag, Message= msg});
+            return Json(new { Success = flag, Message = msg });
         }
-	}
+    }
 }

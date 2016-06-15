@@ -9,6 +9,7 @@ using Tracy.WebFrameworks.Common.Helper;
 using Tracy.WebFrameworks.Data;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.CommonBO;
+using Tracy.WebFrameworks.Entity.ViewModel;
 using Tracy.WebFrameworks.IService;
 
 namespace Tracy.WebFrameworks.Service
@@ -16,7 +17,7 @@ namespace Tracy.WebFrameworks.Service
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     //[WcfServiceCounter(SystemCode = "WebFrameworks", Source = "Offline.Service")]
-    public class WebFxsEmployeeService: IWebFxsEmployeeService
+    public class WebFxsEmployeeService : IWebFxsEmployeeService
     {
         #region IRepository
         /// <summary>
@@ -143,11 +144,11 @@ namespace Tracy.WebFrameworks.Service
             using (var db = new WebFrameworksDB())
             {
                 var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == id);
-                if (employee!= null)
+                if (employee != null)
                 {
                     db.Employee.Remove(employee);
                 }
-                if (db.SaveChanges()> 0)
+                if (db.SaveChanges() > 0)
                 {
                     result.ReturnCode = ReturnCodeType.Success;
                     result.Content = true;
@@ -157,5 +158,40 @@ namespace Tracy.WebFrameworks.Service
             return result;
         }
         #endregion
+
+        /// <summary>
+        /// 检查登录
+        /// </summary>
+        /// <param name="rq"></param>
+        /// <returns></returns>
+        public WebFxsResult<bool> CheckLogin(CheckLoginRQ rq)
+        {
+            var result = new WebFxsResult<bool>()
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = false,
+                Message = string.Empty
+            };
+
+            DBHelper.NoLockInvokeDB(() =>
+            {
+                //CRUD Operation in Connected mode
+                using (var db = new WebFrameworksDB())
+                {
+                    var flag = db.Employee.Any(p => p.Enabled.Value && p.LoginName.Equals(rq.LoginName) && p.Password.Equals(rq.Password));
+                    if (flag)
+                    {
+                        result.ReturnCode = ReturnCodeType.Success;
+                        result.Content = true;
+                    }
+                    else
+                    {
+                        result.Message = "登录失败,请检查用户名和密码!";
+                    }
+                }
+            });
+
+            return result;
+        }
     }
 }

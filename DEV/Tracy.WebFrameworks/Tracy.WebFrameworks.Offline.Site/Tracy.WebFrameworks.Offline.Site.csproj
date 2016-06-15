@@ -341,6 +341,7 @@
     <Content Include="Content\easyui\metro\tree.css" />
     <Content Include="Content\easyui\metro\validatebox.css" />
     <Content Include="Content\easyui\metro\window.css" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\easyui\black\images\Thumbs.db" />
