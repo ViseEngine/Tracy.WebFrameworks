@@ -45,73 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\DatabaseTableColumnAttribute.cs" />
-    <Compile Include="Button.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
     <Compile Include="CommonBO\CommonsBO.cs" />
     <Compile Include="CommonBO\WebFxsResult.cs" />
     <Compile Include="CommonBO\PagingBase.cs" />
-    <Compile Include="Corporation.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Department.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EmployeeDepartment.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EmployeeRole.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Enum\Enums.cs" />
-    <Compile Include="Menu.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MenuButton.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\ButtonMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\CorporationMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\DepartmentMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\EmployeeDepartmentMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\EmployeeMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\EmployeeRoleMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\MenuButtonMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\MenuMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
     <Compile Include="Metadata\Metadata.cs" />
-    <Compile Include="Metadata\RoleMenuButtonMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Metadata\RoleMetadataBase.cs">
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReturnCodeType.cs" />
-    <Compile Include="Role.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RoleMenuButton.cs">
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\CheckLoginRQ.cs" />
     <Compile Include="WebFrameworks.Entity.Partial.cs" />
   </ItemGroup>
@@ -130,18 +70,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WebFrameworksDB.Entity.txt</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Metadata\WebFrameworksDB.Entity.Metadata.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
-    </Content>
-    <Content Include="WebFrameworksDB.Entity.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
