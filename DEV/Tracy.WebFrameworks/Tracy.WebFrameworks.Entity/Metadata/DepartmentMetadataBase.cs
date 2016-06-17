@@ -40,25 +40,6 @@ public class DepartmentMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
-    [Digits]
-    [Max(int.MaxValue)]
-    [DataMember]
-    public object ParentDeptID { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Digits]
-    [Max(int.MaxValue)]
-    [DataMember]
-    public object CorporationID { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
     [StringLength(30)]
     [DataMember]
     public object DepartmentCode { get; set; }
@@ -71,6 +52,35 @@ public class DepartmentMetadataBase
     [StringLength(100)]
     [DataMember]
     public object DepartmentName { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [Required]
+    [Digits]
+    [Max(int.MaxValue)]
+    [DataMember]
+    public object ParentDeptID { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [Required]
+    [Digits]
+    [Max(int.MaxValue)]
+    [DataMember]
+    public object CorporationID { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [Digits]
+    [Max(int.MaxValue)]
+    [DataMember]
+    public object Sort { get; set; }
 
 
 	/// <summary>

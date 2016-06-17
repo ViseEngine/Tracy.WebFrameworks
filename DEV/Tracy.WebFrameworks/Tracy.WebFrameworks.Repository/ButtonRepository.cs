@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Tracy.WebFrameworks.IRepository;
+using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Common.Helper;
 using Tracy.WebFrameworks.Data;
-using Tracy.WebFrameworks.Entity;
-using Tracy.WebFrameworks.IRepository;
+using System.Linq.Expressions;
 
 namespace Tracy.WebFrameworks.Repository
 {
     /// <summary>
-    /// 泛型仓储接口实现
+    /// 按钮仓储接口实现
     /// </summary>
-    public class GenericRepository<T>: IGenericRepository<T> where T: class
+    public class ButtonRepository: IButtonRepository
     {
         /// <summary>
         /// 依据id查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public T GetById(int id)
+        public Button GetById(int id)
         {
-            T result = null;
+            Button result = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    result = db.Set<T>().Find(id);
+                    result = db.Button.FirstOrDefault(p => p.ButtonID == id);
                 }
             });
             return result;
@@ -40,14 +40,14 @@ namespace Tracy.WebFrameworks.Repository
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetByCondition(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null)
+        public IEnumerable<Button> GetByCondition(Expression<Func<Button, bool>> filter = null, Func<IQueryable<Button>, IOrderedQueryable<Button>> orderby = null)
         {
-            IEnumerable<T> result = null;
+            IEnumerable<Button> result = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    var query = db.Set<T>().AsQueryable();
+                    var query = db.Button.AsQueryable();
                     if (filter != null)
                     {
                         query = query.Where(filter);
@@ -71,12 +71,12 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public T Insert(T item)
+        public Button Insert(Button item)
         {
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var result = db.Set<T>().Add(item);
+                var result = db.Button.Add(item);
                 if (db.SaveChanges() > 0)
                 {
                     return result;
@@ -90,13 +90,21 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Update(T item)
+        public bool Update(Button item)
         {
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                db.Set<T>().Attach(item);
-                db.Entry<T>(item).State = System.Data.Entity.EntityState.Modified;
+                var button = db.Button.FirstOrDefault(p => p.ButtonID == item.ButtonID);
+                if (button != null)
+                {
+                    button.ButtonName = item.ButtonName;
+                    button.ButtonCode = item.ButtonCode;
+                    button.Icon = item.Icon;
+                    button.Sort = item.Sort;
+                    button.LastUpdatedBy = item.LastUpdatedBy;
+                    button.LastUpdatedTime = item.LastUpdatedTime;
+                }
                 if (db.SaveChanges() > 0)
                 {
                     return true;
@@ -115,11 +123,12 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var model = db.Set<T>().Find(id);
-                if (model!= null)
+                var button = db.Button.FirstOrDefault(p => p.ButtonID == id);
+                if (button != null)
                 {
-                    db.Set<T>().Remove(model);
+                    db.Button.Remove(button);
                 }
+
                 if (db.SaveChanges() > 0)
                 {
                     return true;

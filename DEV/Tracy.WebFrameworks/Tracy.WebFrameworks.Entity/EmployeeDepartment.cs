@@ -25,22 +25,17 @@ namespace Tracy.WebFrameworks.Entity
 /// </summary>
 [Serializable]
 [DataContract(IsReference = true)]
-[MetadataType(typeof(RoleMetadata))]
-public partial class Role
+[MetadataType(typeof(EmployeeDepartmentMetadata))]
+public partial class EmployeeDepartment
 {
 
+
 	/// <summary>
-	/// 创建新实例
+    /// 獲取或設置
 	/// </summary>
-    public Role()
-    {
-
-        this.RoleMenuButton = new HashSet<RoleMenuButton>();
-
-        this.EmployeeRole = new HashSet<EmployeeRole>();
-
-    }
-
+    [DatabaseTableColumn]
+    [DataMember]
+    public int ID { get; set; }
 
 
 	/// <summary>
@@ -48,7 +43,7 @@ public partial class Role
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int RoleID { get; set; }
+    public int EmployeeID { get; set; }
 
 
 	/// <summary>
@@ -56,47 +51,7 @@ public partial class Role
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string RoleName { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string Description { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string CreatedBy { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<System.DateTime> CreatedTime { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string LastUpdatedBy { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<System.DateTime> LastUpdatedTime { get; set; }
+    public int DepartmentID { get; set; }
 
 
 
@@ -105,14 +60,14 @@ public partial class Role
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<RoleMenuButton> RoleMenuButton { get; set; }
+    public virtual Employee Employee { get; set; }
 
 
 	/// <summary>
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<EmployeeRole> EmployeeRole { get; set; }
+    public virtual Department Department { get; set; }
 
 }
 

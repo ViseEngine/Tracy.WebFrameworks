@@ -25,19 +25,19 @@ namespace Tracy.WebFrameworks.Entity
 /// </summary>
 [Serializable]
 [DataContract(IsReference = true)]
-[MetadataType(typeof(RoleMetadata))]
-public partial class Role
+[MetadataType(typeof(ButtonMetadata))]
+public partial class Button
 {
 
 	/// <summary>
 	/// 创建新实例
 	/// </summary>
-    public Role()
+    public Button()
     {
 
-        this.RoleMenuButton = new HashSet<RoleMenuButton>();
+        this.MenuButton = new HashSet<MenuButton>();
 
-        this.EmployeeRole = new HashSet<EmployeeRole>();
+        this.RoleMenuButton = new HashSet<RoleMenuButton>();
 
     }
 
@@ -48,7 +48,7 @@ public partial class Role
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int RoleID { get; set; }
+    public int ButtonID { get; set; }
 
 
 	/// <summary>
@@ -56,7 +56,7 @@ public partial class Role
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string RoleName { get; set; }
+    public string ButtonName { get; set; }
 
 
 	/// <summary>
@@ -64,7 +64,23 @@ public partial class Role
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string Description { get; set; }
+    public string ButtonCode { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public string Icon { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public Nullable<int> Sort { get; set; }
 
 
 	/// <summary>
@@ -105,14 +121,14 @@ public partial class Role
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<RoleMenuButton> RoleMenuButton { get; set; }
+    public virtual ICollection<MenuButton> MenuButton { get; set; }
 
 
 	/// <summary>
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<EmployeeRole> EmployeeRole { get; set; }
+    public virtual ICollection<RoleMenuButton> RoleMenuButton { get; set; }
 
 }
 

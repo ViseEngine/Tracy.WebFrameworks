@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\DatabaseTableColumnAttribute.cs" />
+    <Compile Include="Button.cs">
+      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
+    </Compile>
     <Compile Include="CommonBO\CommonsBO.cs" />
     <Compile Include="CommonBO\WebFxsResult.cs" />
     <Compile Include="CommonBO\PagingBase.cs" />
@@ -57,12 +60,21 @@
     <Compile Include="Employee.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Enum\Enums.cs" />
-    <Compile Include="Function.cs">
+    <Compile Include="EmployeeDepartment.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeRole.cs">
+      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enum\Enums.cs" />
     <Compile Include="Menu.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MenuButton.cs">
+      <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\ButtonMetadataBase.cs">
+      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
     </Compile>
     <Compile Include="Metadata\CorporationMetadataBase.cs">
       <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
@@ -70,17 +82,23 @@
     <Compile Include="Metadata\DepartmentMetadataBase.cs">
       <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\EmployeeDepartmentMetadataBase.cs">
+      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
+    </Compile>
     <Compile Include="Metadata\EmployeeMetadataBase.cs">
       <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
     </Compile>
-    <Compile Include="Metadata\FunctionMetadataBase.cs">
+    <Compile Include="Metadata\EmployeeRoleMetadataBase.cs">
+      <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\MenuButtonMetadataBase.cs">
       <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
     </Compile>
     <Compile Include="Metadata\MenuMetadataBase.cs">
       <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
     </Compile>
     <Compile Include="Metadata\Metadata.cs" />
-    <Compile Include="Metadata\RoleFunctionMetadataBase.cs">
+    <Compile Include="Metadata\RoleMenuButtonMetadataBase.cs">
       <DependentUpon>WebFrameworksDB.Entity.Metadata.tt</DependentUpon>
     </Compile>
     <Compile Include="Metadata\RoleMetadataBase.cs">
@@ -91,7 +109,7 @@
     <Compile Include="Role.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
-    <Compile Include="RoleFunction.cs">
+    <Compile Include="RoleMenuButton.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CheckLoginRQ.cs" />

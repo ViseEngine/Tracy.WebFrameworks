@@ -33,6 +33,16 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 
     }
 
+    
+    /// <summary>
+    /// EmployeeDepartment
+    /// </summary>
+    [DataContract]
+    public class EmployeeDepartmentMetadata : EmployeeDepartmentMetadataBase
+    {
+
+    }
+
     /// <summary>
     /// Role
     /// </summary>
@@ -40,6 +50,15 @@ namespace Tracy.WebFrameworks.Entity.Metadata
     public class RoleMetadata : RoleMetadataBase
     {
 
+    }
+
+    /// <summary>
+    /// EmployeeRole
+    /// </summary>
+    [DataContract]
+    public class EmployeeRoleMetadata : EmployeeRoleMetadataBase
+    { 
+        
     }
 
     /// <summary>
@@ -52,19 +71,28 @@ namespace Tracy.WebFrameworks.Entity.Metadata
     }
 
     /// <summary>
-    /// Function
+    /// Button
     /// </summary>
     [DataContract]
-    public class FunctionMetadata : FunctionMetadataBase
+    public class ButtonMetadata : ButtonMetadataBase
     {
 
     }
 
     /// <summary>
-    /// RoleFunction
+    /// MenuButton
     /// </summary>
     [DataContract]
-    public class RoleFunctionMetadata : RoleFunctionMetadataBase
+    public class MenuButtonMetadata : MenuButtonMetadataBase
+    { 
+        
+    }
+
+    /// <summary>
+    /// RoleMenuButton
+    /// </summary>
+    [DataContract]
+    public class RoleMenuButtonMetadata : RoleMenuButtonMetadataBase
     {
 
     }

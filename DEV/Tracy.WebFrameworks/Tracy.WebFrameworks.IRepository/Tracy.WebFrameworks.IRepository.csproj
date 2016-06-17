@@ -40,8 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IButtonRepository.cs" />
     <Compile Include="ICorporationRepository.cs" />
-    <Compile Include="IGenericRepository.cs" />
+    <Compile Include="IDepartmentRepository.cs" />
+    <Compile Include="IEmployeeDepartmentRepository.cs" />
+    <Compile Include="IEmployeeRepository.cs" />
+    <Compile Include="IEmployeeRoleRepository.cs" />
+    <Compile Include="IMenuButtonRepository.cs" />
+    <Compile Include="IMenuRepository.cs" />
+    <Compile Include="IRoleMenuButtonRepository.cs" />
+    <Compile Include="IRoleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

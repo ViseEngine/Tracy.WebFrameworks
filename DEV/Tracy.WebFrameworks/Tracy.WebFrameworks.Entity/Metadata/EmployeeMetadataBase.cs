@@ -40,27 +40,19 @@ public class EmployeeMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Digits]
-    [Max(int.MaxValue)]
+    [Required]
+    [StringLength(30)]
     [DataMember]
-    public object CorporationID { get; set; }
+    public object UserId { get; set; }
 
 
 	/// <summary>
     /// 
 	/// </summary>
-    [Digits]
-    [Max(int.MaxValue)]
+    [Required]
+    [StringLength(30)]
     [DataMember]
-    public object DepartmentID { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(300)]
-    [DataMember]
-    public object RoleIDs { get; set; }
+    public object UserPwd { get; set; }
 
 
 	/// <summary>
@@ -75,101 +67,24 @@ public class EmployeeMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
-    [StringLength(30)]
-    [DataMember]
-    public object LoginName { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Required]
-    [StringLength(30)]
-    [DataMember]
-    public object Password { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Required]
-    [DataType(DataType.Date)]
-    [UIHint("DatePicker")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-    [DataMember]
-    public object PwdExpiredTime { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Required]
-    [Digits]
-    [Max(byte.MaxValue)]
-    [DataMember]
-    public object Sex { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(30)]
-    [DataMember]
-    public object Phone { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(30)]
-    [DataMember]
-    public object Email { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Required]
-    [Digits]
-    [Max(byte.MaxValue)]
-    [DataMember]
-    public object Status { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Required]
-    [Digits]
-    [Max(int.MaxValue)]
-    [DataMember]
-    public object LoginCount { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [DataType(DataType.Date)]
-    [UIHint("DatePicker")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-    [DataMember]
-    public object LastLoginTime { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(30)]
-    [DataMember]
-    public object LastLoginIP { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
     [DataMember]
     public object Enabled { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [Required]
+    [DataMember]
+    public object IsChangePwd { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [StringLength(200)]
+    [DataMember]
+    public object Description { get; set; }
 
 
 	/// <summary>

@@ -35,8 +35,6 @@ public partial class Corporation
     public Corporation()
     {
 
-        this.Employee = new HashSet<Employee>();
-
         this.Department = new HashSet<Department>();
 
     }
@@ -49,14 +47,6 @@ public partial class Corporation
     [DatabaseTableColumn]
     [DataMember]
     public int CorporationID { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public int ParentCorpID { get; set; }
 
 
 	/// <summary>
@@ -80,7 +70,15 @@ public partial class Corporation
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string Address { get; set; }
+    public int ParentCorpID { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public Nullable<int> Sort { get; set; }
 
 
 	/// <summary>
@@ -123,13 +121,6 @@ public partial class Corporation
     public Nullable<System.DateTime> LastUpdatedTime { get; set; }
 
 
-
-
-	/// <summary>
-    /// 獲取或設置(導航屬性)
-	/// </summary>
-    [DataMember]
-    public virtual ICollection<Employee> Employee { get; set; }
 
 
 	/// <summary>

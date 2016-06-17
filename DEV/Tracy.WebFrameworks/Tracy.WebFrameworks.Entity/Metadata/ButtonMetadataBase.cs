@@ -22,7 +22,7 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 ///  CustomMetadata基類
 /// </summary>
 [DataContract]
-public class RoleFunctionMetadataBase
+public class ButtonMetadataBase
 {
 
 
@@ -34,7 +34,31 @@ public class RoleFunctionMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object RoleFunctionID { get; set; }
+    public object ButtonID { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [StringLength(50)]
+    [DataMember]
+    public object ButtonName { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [StringLength(50)]
+    [DataMember]
+    public object ButtonCode { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [StringLength(50)]
+    [DataMember]
+    public object Icon { get; set; }
 
 
 	/// <summary>
@@ -43,31 +67,13 @@ public class RoleFunctionMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object RoleID { get; set; }
+    public object Sort { get; set; }
 
 
 	/// <summary>
     /// 
 	/// </summary>
-    [Digits]
-    [Max(int.MaxValue)]
-    [DataMember]
-    public object MenuID { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Digits]
-    [Max(int.MaxValue)]
-    [DataMember]
-    public object FunctionID { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [Required]
+    [StringLength(50)]
     [DataMember]
     public object CreatedBy { get; set; }
 
@@ -85,7 +91,7 @@ public class RoleFunctionMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [StringLength(30)]
+    [StringLength(50)]
     [DataMember]
     public object LastUpdatedBy { get; set; }
 
@@ -93,7 +99,6 @@ public class RoleFunctionMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [DataType(DataType.Date)]
     [UIHint("DatePicker")]
     [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]

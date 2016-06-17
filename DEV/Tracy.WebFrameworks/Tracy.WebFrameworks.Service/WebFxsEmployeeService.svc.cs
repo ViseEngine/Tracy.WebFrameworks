@@ -11,6 +11,10 @@ using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.CommonBO;
 using Tracy.WebFrameworks.Entity.ViewModel;
 using Tracy.WebFrameworks.IService;
+using Tracy.WebFrameworks.IRepository;
+using Tracy.WebFrameworks.RepositoryFactory;
+using System.Linq.Expressions;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.WebFrameworks.Service
 {
@@ -19,36 +23,28 @@ namespace Tracy.WebFrameworks.Service
     //[WcfServiceCounter(SystemCode = "WebFrameworks", Source = "Offline.Service")]
     public class WebFxsEmployeeService : IWebFxsEmployeeService
     {
+        private static readonly IEmployeeRepository repository = Factory.GetEmployeeRepository();
+
         #region IRepository
         /// <summary>
         /// 依据id查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public WebFxsResult<Employee> GetById(int id)
+        public Employee GetById(int id)
         {
-            var result = new WebFxsResult<Employee>()
-            {
-                ReturnCode = ReturnCodeType.Error,
-                Content = new Employee()
-            };
-            Employee employee = null;
-            DBHelper.NoLockInvokeDB(() =>
-            {
-                using (var db = new WebFrameworksDB())
-                {
-                    employee = db.Employee.FirstOrDefault(p => p.EmployeeID == id);
-                    //Employee = db.Employee.Find(id);//或者
+            return repository.GetById(id);
+        }
 
-                    if (employee != null)
-                    {
-                        result.ReturnCode = ReturnCodeType.Success;
-                        result.Content = employee;
-                    }
-                }
-            });
-
-            return result;
+        /// <summary>
+        /// 依条件表达式查询
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderby"></param>
+        /// <returns></returns>
+        public IEnumerable<Employee> GetByCondition(Expression<Func<Employee, bool>> filter = null, Func<IQueryable<Employee>, IOrderedQueryable<Employee>> orderby = null)
+        {
+            return repository.GetByCondition(filter: filter, orderby: orderby);
         }
 
         /// <summary>
@@ -56,26 +52,9 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public WebFxsResult<Employee> Insert(Employee item)
+        public Employee Insert(Employee item)
         {
-            var result = new WebFxsResult<Employee>()
-            {
-                ReturnCode = ReturnCodeType.Error,
-                Content = new Employee()
-            };
-
-            //CRUD Operation in Connected mode
-            using (var db = new WebFrameworksDB())
-            {
-                var employee = db.Employee.Add(item);
-                if (db.SaveChanges() > 0)
-                {
-                    result.ReturnCode = ReturnCodeType.Success;
-                    result.Content = employee;
-                }
-            }
-
-            return result;
+            return repository.Insert(item);
         }
 
         /// <summary>
@@ -83,48 +62,9 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public WebFxsResult<bool> Update(Employee item)
+        public bool Update(Employee item)
         {
-            var result = new WebFxsResult<bool>()
-            {
-                ReturnCode = ReturnCodeType.Error,
-                Content = false
-            };
-
-            //CRUD Operation in Connected mode
-            using (var db = new WebFrameworksDB())
-            {
-                var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == item.EmployeeID);
-                if (employee != null)
-                {
-                    employee.CorporationID = item.CorporationID;
-                    employee.DepartmentID = item.DepartmentID;
-                    employee.RoleIDs = item.RoleIDs;
-                    employee.EmployeeName = item.EmployeeName;
-                    employee.LoginName = item.LoginName;
-                    employee.Password = item.Password;
-                    employee.PwdExpiredTime = item.PwdExpiredTime;
-                    employee.Sex = item.Sex;
-                    employee.Phone = item.Phone;
-                    employee.Email = item.Email;
-                    employee.Status = item.Status;
-                    employee.LoginCount = item.LoginCount;
-                    employee.LastLoginTime = item.LastLoginTime;
-                    employee.LastLoginIP = item.LastLoginIP;
-                    employee.Enabled = item.Enabled;
-                    employee.CreatedBy = item.CreatedBy;
-                    employee.CreatedTime = item.CreatedTime;
-                    employee.LastUpdatedBy = item.LastUpdatedBy;
-                    employee.LastUpdatedTime = item.LastUpdatedTime;
-                }
-                if (db.SaveChanges() > 0)
-                {
-                    result.ReturnCode = ReturnCodeType.Success;
-                    result.Content = true;
-                }
-            }
-
-            return result;
+            return repository.Update(item);
         }
 
         /// <summary>
@@ -132,31 +72,11 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public WebFxsResult<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            var result = new WebFxsResult<bool>()
-            {
-                ReturnCode = ReturnCodeType.Error,
-                Content = false
-            };
-
-            //CRUD Operation in Connected mode
-            using (var db = new WebFrameworksDB())
-            {
-                var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == id);
-                if (employee != null)
-                {
-                    db.Employee.Remove(employee);
-                }
-                if (db.SaveChanges() > 0)
-                {
-                    result.ReturnCode = ReturnCodeType.Success;
-                    result.Content = true;
-                }
-            }
-
-            return result;
+            return repository.Delete(id);
         }
+
         #endregion
 
         /// <summary>
@@ -173,23 +93,20 @@ namespace Tracy.WebFrameworks.Service
                 Message = string.Empty
             };
 
-            DBHelper.NoLockInvokeDB(() =>
+            var employees = this.GetByCondition(p => p.Enabled.Value == true && p.UserId.Equals(rq.LoginName) && p.UserPwd.Equals(rq.Password));
+            if (employees != null && employees.Count() > 1)
             {
-                //CRUD Operation in Connected mode
-                using (var db = new WebFrameworksDB())
-                {
-                    var flag = db.Employee.Any(p => p.Enabled.Value && p.LoginName.Equals(rq.LoginName) && p.Password.Equals(rq.Password));
-                    if (flag)
-                    {
-                        result.ReturnCode = ReturnCodeType.Success;
-                        result.Content = true;
-                    }
-                    else
-                    {
-                        result.Message = "登录失败,请检查用户名和密码!";
-                    }
-                }
-            });
+                result.Message = "存在重复的用户名和密码,请联系系统管理员!";
+            }
+            else if (employees != null && employees.Count() == 1)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = true;
+            }
+            else
+            {
+                result.Message = "不存在该用户名和密码,请联系系统管理员!";
+            }
 
             return result;
         }

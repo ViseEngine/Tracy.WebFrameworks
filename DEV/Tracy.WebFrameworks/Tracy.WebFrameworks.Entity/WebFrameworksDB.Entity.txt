@@ -20,37 +20,52 @@ using Tracy.WebFrameworks.Entity.Metadata;
 
 
 
-[DebuggerDisplay("Corporation:CorporationID={CorporationID},ParentCorpID={ParentCorpID},CorporationCode={CorporationCode},CorporationName={CorporationName},Address={Address},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("Button:ButtonID={ButtonID},ButtonName={ButtonName},ButtonCode={ButtonCode},Icon={Icon},Sort={Sort},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+public partial class Button 
+{
+}
+
+[DebuggerDisplay("Corporation:CorporationID={CorporationID},CorporationCode={CorporationCode},CorporationName={CorporationName},ParentCorpID={ParentCorpID},Sort={Sort},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Corporation 
 {
 }
 
-[DebuggerDisplay("Department:DepartmentID={DepartmentID},ParentDeptID={ParentDeptID},CorporationID={CorporationID},DepartmentCode={DepartmentCode},DepartmentName={DepartmentName},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("Department:DepartmentID={DepartmentID},DepartmentCode={DepartmentCode},DepartmentName={DepartmentName},ParentDeptID={ParentDeptID},CorporationID={CorporationID},Sort={Sort},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Department 
 {
 }
 
-[DebuggerDisplay("Employee:EmployeeID={EmployeeID},CorporationID={CorporationID},DepartmentID={DepartmentID},RoleIDs={RoleIDs},EmployeeName={EmployeeName},LoginName={LoginName},Password={Password},PwdExpiredTime={PwdExpiredTime},Sex={Sex},Phone={Phone},Email={Email},Status={Status},LoginCount={LoginCount},LastLoginTime={LastLoginTime},LastLoginIP={LastLoginIP},Enabled={Enabled},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("Employee:EmployeeID={EmployeeID},UserId={UserId},UserPwd={UserPwd},EmployeeName={EmployeeName},Enabled={Enabled},IsChangePwd={IsChangePwd},Description={Description},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Employee 
 {
 }
 
-[DebuggerDisplay("Function:FunctionID={FunctionID},FunctionName={FunctionName},FunctionRefName={FunctionRefName},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
-public partial class Function 
+[DebuggerDisplay("EmployeeDepartment:ID={ID},EmployeeID={EmployeeID},DepartmentID={DepartmentID},")]
+public partial class EmployeeDepartment 
 {
 }
 
-[DebuggerDisplay("Menu:MenuID={MenuID},ParentMenuID={ParentMenuID},MenuName={MenuName},MenuUrl={MenuUrl},MenuLavel={MenuLavel},SortOrder={SortOrder},MenuIcon={MenuIcon},IsShortCut={IsShortCut},IsShow={IsShow},FunctionIDs={FunctionIDs},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("EmployeeRole:ID={ID},EmployeeID={EmployeeID},RoleID={RoleID},")]
+public partial class EmployeeRole 
+{
+}
+
+[DebuggerDisplay("Menu:MenuID={MenuID},ParentMenuID={ParentMenuID},MenuName={MenuName},MenuCode={MenuCode},MenuUrl={MenuUrl},Icon={Icon},Sort={Sort},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Menu 
 {
 }
 
-[DebuggerDisplay("Role:RoleID={RoleID},RoleName={RoleName},Remark={Remark},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
+[DebuggerDisplay("MenuButton:ID={ID},MenuID={MenuID},ButtonID={ButtonID},")]
+public partial class MenuButton 
+{
+}
+
+[DebuggerDisplay("Role:RoleID={RoleID},RoleName={RoleName},Description={Description},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
 public partial class Role 
 {
 }
 
-[DebuggerDisplay("RoleFunction:RoleFunctionID={RoleFunctionID},RoleID={RoleID},MenuID={MenuID},FunctionID={FunctionID},CreatedBy={CreatedBy},CreatedTime={CreatedTime},LastUpdatedBy={LastUpdatedBy},LastUpdatedTime={LastUpdatedTime},")]
-public partial class RoleFunction 
+[DebuggerDisplay("RoleMenuButton:ID={ID},RoleID={RoleID},MenuID={MenuID},ButtonID={ButtonID},")]
+public partial class RoleMenuButton 
 {
 }

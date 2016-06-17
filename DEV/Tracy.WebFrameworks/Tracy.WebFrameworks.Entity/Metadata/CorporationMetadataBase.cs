@@ -40,16 +40,6 @@ public class CorporationMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
-    [Digits]
-    [Max(int.MaxValue)]
-    [DataMember]
-    public object ParentCorpID { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
     [StringLength(30)]
     [DataMember]
     public object CorporationCode { get; set; }
@@ -68,9 +58,19 @@ public class CorporationMetadataBase
     /// 
 	/// </summary>
     [Required]
-    [StringLength(100)]
+    [Digits]
+    [Max(int.MaxValue)]
     [DataMember]
-    public object Address { get; set; }
+    public object ParentCorpID { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [Digits]
+    [Max(int.MaxValue)]
+    [DataMember]
+    public object Sort { get; set; }
 
 
 	/// <summary>

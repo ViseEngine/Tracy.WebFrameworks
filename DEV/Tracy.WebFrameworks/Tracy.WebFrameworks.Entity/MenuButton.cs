@@ -25,20 +25,17 @@ namespace Tracy.WebFrameworks.Entity
 /// </summary>
 [Serializable]
 [DataContract(IsReference = true)]
-[MetadataType(typeof(FunctionMetadata))]
-public partial class Function
+[MetadataType(typeof(MenuButtonMetadata))]
+public partial class MenuButton
 {
 
+
 	/// <summary>
-	/// 创建新实例
+    /// 獲取或設置
 	/// </summary>
-    public Function()
-    {
-
-        this.RoleFunction = new HashSet<RoleFunction>();
-
-    }
-
+    [DatabaseTableColumn]
+    [DataMember]
+    public int ID { get; set; }
 
 
 	/// <summary>
@@ -46,7 +43,7 @@ public partial class Function
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int FunctionID { get; set; }
+    public int MenuID { get; set; }
 
 
 	/// <summary>
@@ -54,47 +51,7 @@ public partial class Function
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string FunctionName { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string FunctionRefName { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string CreatedBy { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<System.DateTime> CreatedTime { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string LastUpdatedBy { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<System.DateTime> LastUpdatedTime { get; set; }
+    public int ButtonID { get; set; }
 
 
 
@@ -103,7 +60,14 @@ public partial class Function
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<RoleFunction> RoleFunction { get; set; }
+    public virtual Menu Menu { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置(導航屬性)
+	/// </summary>
+    [DataMember]
+    public virtual Button Button { get; set; }
 
 }
 

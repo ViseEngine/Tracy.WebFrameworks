@@ -11,31 +11,50 @@
     <EntitySet Name="Employee" EntityType="WebFrameworksDBModel.Store.Employee" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Role" EntityType="WebFrameworksDBModel.Store.Role" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Menu" EntityType="WebFrameworksDBModel.Store.Menu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Function" EntityType="WebFrameworksDBModel.Store.Function" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RoleFunction" EntityType="WebFrameworksDBModel.Store.RoleFunction" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="EmployeeCorporation" Association="WebFrameworksDBModel.Store.EmployeeCorporation">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="Corporation" EntitySet="Corporation" />
-    </AssociationSet>
-    <AssociationSet Name="EmployeeDepartment" Association="WebFrameworksDBModel.Store.EmployeeDepartment">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="Department" EntitySet="Department" />
-    </AssociationSet>
-    <AssociationSet Name="RoleFunctionRole" Association="WebFrameworksDBModel.Store.RoleFunctionRole">
-      <End Role="RoleFunction" EntitySet="RoleFunction" />
-      <End Role="Role" EntitySet="Role" />
-    </AssociationSet>
-    <AssociationSet Name="RoleFunctionMenu" Association="WebFrameworksDBModel.Store.RoleFunctionMenu">
-      <End Role="RoleFunction" EntitySet="RoleFunction" />
-      <End Role="Menu" EntitySet="Menu" />
-    </AssociationSet>
-    <AssociationSet Name="RoleFunctionFunction" Association="WebFrameworksDBModel.Store.RoleFunctionFunction">
-      <End Role="RoleFunction" EntitySet="RoleFunction" />
-      <End Role="Function" EntitySet="Function" />
-    </AssociationSet>
+    <EntitySet Name="EmployeeDepartment" EntityType="WebFrameworksDBModel.Store.EmployeeDepartment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmployeeRole" EntityType="WebFrameworksDBModel.Store.EmployeeRole" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Button" EntityType="WebFrameworksDBModel.Store.Button" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenuButton" EntityType="WebFrameworksDBModel.Store.MenuButton" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoleMenuButton" EntityType="WebFrameworksDBModel.Store.RoleMenuButton" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CorporationDepartment" Association="WebFrameworksDBModel.Store.CorporationDepartment">
       <End Role="Corporation" EntitySet="Corporation" />
       <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeEmployeeDepartment" Association="WebFrameworksDBModel.Store.EmployeeEmployeeDepartment">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
+    </AssociationSet>
+    <AssociationSet Name="DepartmentEmployeeDepartment" Association="WebFrameworksDBModel.Store.DepartmentEmployeeDepartment">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
+    </AssociationSet>
+    <AssociationSet Name="MenuMenuButton" Association="WebFrameworksDBModel.Store.MenuMenuButton">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="MenuButton" EntitySet="MenuButton" />
+    </AssociationSet>
+    <AssociationSet Name="ButtonMenuButton" Association="WebFrameworksDBModel.Store.ButtonMenuButton">
+      <End Role="Button" EntitySet="Button" />
+      <End Role="MenuButton" EntitySet="MenuButton" />
+    </AssociationSet>
+    <AssociationSet Name="RoleRoleMenuButton" Association="WebFrameworksDBModel.Store.RoleRoleMenuButton">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="RoleMenuButton" EntitySet="RoleMenuButton" />
+    </AssociationSet>
+    <AssociationSet Name="MenuRoleMenuButton" Association="WebFrameworksDBModel.Store.MenuRoleMenuButton">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="RoleMenuButton" EntitySet="RoleMenuButton" />
+    </AssociationSet>
+    <AssociationSet Name="ButtonRoleMenuButton" Association="WebFrameworksDBModel.Store.ButtonRoleMenuButton">
+      <End Role="Button" EntitySet="Button" />
+      <End Role="RoleMenuButton" EntitySet="RoleMenuButton" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeEmployeeRole" Association="WebFrameworksDBModel.Store.EmployeeEmployeeRole">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeRole" EntitySet="EmployeeRole" />
+    </AssociationSet>
+    <AssociationSet Name="RoleEmployeeRole" Association="WebFrameworksDBModel.Store.RoleEmployeeRole">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="EmployeeRole" EntitySet="EmployeeRole" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Corporation">
@@ -43,10 +62,10 @@
       <PropertyRef Name="CorporationID" />
     </Key>
     <Property Name="CorporationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ParentCorpID" Type="int" Nullable="false" />
     <Property Name="CorporationCode" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="CorporationName" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ParentCorpID" Type="int" Nullable="false" />
+    <Property Name="Sort" Type="int" Nullable="true" />
     <Property Name="Enabled" Type="bit" Nullable="true" />
     <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="CreatedTime" Type="datetime" Nullable="true" />
@@ -58,10 +77,11 @@
       <PropertyRef Name="DepartmentID" />
     </Key>
     <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ParentDeptID" Type="int" Nullable="false" />
-    <Property Name="CorporationID" Type="int" Nullable="true" />
     <Property Name="DepartmentCode" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="DepartmentName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ParentDeptID" Type="int" Nullable="false" />
+    <Property Name="CorporationID" Type="int" Nullable="false" />
+    <Property Name="Sort" Type="int" Nullable="true" />
     <Property Name="Enabled" Type="bit" Nullable="true" />
     <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="CreatedTime" Type="datetime" Nullable="true" />
@@ -73,21 +93,12 @@
       <PropertyRef Name="EmployeeID" />
     </Key>
     <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CorporationID" Type="int" Nullable="true" />
-    <Property Name="DepartmentID" Type="int" Nullable="true" />
-    <Property Name="RoleIDs" Type="nvarchar" Nullable="true" MaxLength="300" />
+    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="UserPwd" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="EmployeeName" Type="nvarchar" Nullable="false" MaxLength="30" />
-    <Property Name="LoginName" Type="nvarchar" Nullable="false" MaxLength="30" />
-    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="30" />
-    <Property Name="PwdExpiredTime" Type="datetime" Nullable="false" />
-    <Property Name="Sex" Type="tinyint" Nullable="false" />
-    <Property Name="Phone" Type="nvarchar" Nullable="true" MaxLength="30" />
-    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="30" />
-    <Property Name="Status" Type="tinyint" Nullable="false" />
-    <Property Name="LoginCount" Type="int" Nullable="false" />
-    <Property Name="LastLoginTime" Type="datetime" Nullable="true" />
-    <Property Name="LastLoginIP" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="Enabled" Type="bit" Nullable="true" />
+    <Property Name="IsChangePwd" Type="bit" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="200" />
     <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="CreatedTime" Type="datetime" Nullable="false" />
     <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
@@ -98,8 +109,8 @@
       <PropertyRef Name="RoleID" />
     </Key>
     <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="500" />
+    <Property Name="RoleName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="200" />
     <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="CreatedTime" Type="datetime" Nullable="true" />
     <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
@@ -112,105 +123,64 @@
     <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ParentMenuID" Type="int" Nullable="false" />
     <Property Name="MenuName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="MenuCode" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="MenuUrl" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="MenuLavel" Type="int" Nullable="true" />
-    <Property Name="SortOrder" Type="int" Nullable="true" />
-    <Property Name="MenuIcon" Type="nvarchar" Nullable="true" MaxLength="100" />
-    <Property Name="IsShortCut" Type="bit" Nullable="true" />
-    <Property Name="IsShow" Type="bit" Nullable="true" />
-    <Property Name="FunctionIDs" Type="nvarchar" Nullable="true" MaxLength="300" />
+    <Property Name="Icon" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Sort" Type="int" Nullable="true" />
     <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="CreatedTime" Type="datetime" Nullable="true" />
     <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
     <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
   </EntityType>
-  <EntityType Name="Function">
+  <EntityType Name="EmployeeDepartment">
     <Key>
-      <PropertyRef Name="FunctionID" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="FunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FunctionName" Type="nvarchar" Nullable="false" MaxLength="30" />
-    <Property Name="FunctionRefName" Type="nvarchar" Nullable="false" MaxLength="30" />
-    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Button">
+    <Key>
+      <PropertyRef Name="ButtonID" />
+    </Key>
+    <Property Name="ButtonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ButtonName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="ButtonCode" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Icon" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Sort" Type="int" Nullable="true" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="50" />
     <Property Name="CreatedTime" Type="datetime" Nullable="true" />
-    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="50" />
     <Property Name="LastUpdatedTime" Type="datetime" Nullable="true" />
   </EntityType>
-  <EntityType Name="RoleFunction">
+  <EntityType Name="MenuButton">
     <Key>
-      <PropertyRef Name="RoleFunctionID" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="RoleFunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleID" Type="int" Nullable="true" />
-    <Property Name="MenuID" Type="int" Nullable="true" />
-    <Property Name="FunctionID" Type="int" Nullable="true" />
-    <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CreatedTime" Type="datetime" Nullable="true" />
-    <Property Name="LastUpdatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
-    <Property Name="LastUpdatedTime" Type="datetime" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="ButtonID" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="EmployeeCorporation">
-    <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="*" />
-    <End Role="Corporation" Type="WebFrameworksDBModel.Store.Corporation" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Corporation">
-        <PropertyRef Name="CorporationID" />
-      </Principal>
-      <Dependent Role="Employee">
-        <PropertyRef Name="CorporationID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EmployeeDepartment">
-    <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="*" />
-    <End Role="Department" Type="WebFrameworksDBModel.Store.Department" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Department">
-        <PropertyRef Name="DepartmentID" />
-      </Principal>
-      <Dependent Role="Employee">
-        <PropertyRef Name="DepartmentID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="RoleFunctionRole">
-    <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
-    <End Role="Role" Type="WebFrameworksDBModel.Store.Role" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Role">
-        <PropertyRef Name="RoleID" />
-      </Principal>
-      <Dependent Role="RoleFunction">
-        <PropertyRef Name="RoleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="RoleFunctionMenu">
-    <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
-    <End Role="Menu" Type="WebFrameworksDBModel.Store.Menu" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Menu">
-        <PropertyRef Name="MenuID" />
-      </Principal>
-      <Dependent Role="RoleFunction">
-        <PropertyRef Name="MenuID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="RoleFunctionFunction">
-    <End Role="RoleFunction" Type="WebFrameworksDBModel.Store.RoleFunction" Multiplicity="*" />
-    <End Role="Function" Type="WebFrameworksDBModel.Store.Function" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Function">
-        <PropertyRef Name="FunctionID" />
-      </Principal>
-      <Dependent Role="RoleFunction">
-        <PropertyRef Name="FunctionID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="RoleMenuButton">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="ButtonID" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="CorporationDepartment">
-    <End Role="Corporation" Type="WebFrameworksDBModel.Store.Corporation" Multiplicity="0..1" />
+    <End Role="Corporation" Type="WebFrameworksDBModel.Store.Corporation" Multiplicity="1" />
     <End Role="Department" Type="WebFrameworksDBModel.Store.Department" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Corporation">
@@ -218,6 +188,114 @@
       </Principal>
       <Dependent Role="Department">
         <PropertyRef Name="CorporationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeEmployeeDepartment">
+    <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="1" />
+    <End Role="EmployeeDepartment" Type="WebFrameworksDBModel.Store.EmployeeDepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="EmployeeDepartment">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DepartmentEmployeeDepartment">
+    <End Role="Department" Type="WebFrameworksDBModel.Store.Department" Multiplicity="1" />
+    <End Role="EmployeeDepartment" Type="WebFrameworksDBModel.Store.EmployeeDepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="EmployeeDepartment">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MenuMenuButton">
+    <End Role="Menu" Type="WebFrameworksDBModel.Store.Menu" Multiplicity="1" />
+    <End Role="MenuButton" Type="WebFrameworksDBModel.Store.MenuButton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="MenuButton">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ButtonMenuButton">
+    <End Role="Button" Type="WebFrameworksDBModel.Store.Button" Multiplicity="1" />
+    <End Role="MenuButton" Type="WebFrameworksDBModel.Store.MenuButton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Button">
+        <PropertyRef Name="ButtonID" />
+      </Principal>
+      <Dependent Role="MenuButton">
+        <PropertyRef Name="ButtonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleRoleMenuButton">
+    <End Role="Role" Type="WebFrameworksDBModel.Store.Role" Multiplicity="1" />
+    <End Role="RoleMenuButton" Type="WebFrameworksDBModel.Store.RoleMenuButton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="RoleMenuButton">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MenuRoleMenuButton">
+    <End Role="Menu" Type="WebFrameworksDBModel.Store.Menu" Multiplicity="1" />
+    <End Role="RoleMenuButton" Type="WebFrameworksDBModel.Store.RoleMenuButton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="RoleMenuButton">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ButtonRoleMenuButton">
+    <End Role="Button" Type="WebFrameworksDBModel.Store.Button" Multiplicity="1" />
+    <End Role="RoleMenuButton" Type="WebFrameworksDBModel.Store.RoleMenuButton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Button">
+        <PropertyRef Name="ButtonID" />
+      </Principal>
+      <Dependent Role="RoleMenuButton">
+        <PropertyRef Name="ButtonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeEmployeeRole">
+    <End Role="Employee" Type="WebFrameworksDBModel.Store.Employee" Multiplicity="1" />
+    <End Role="EmployeeRole" Type="WebFrameworksDBModel.Store.EmployeeRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="EmployeeRole">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleEmployeeRole">
+    <End Role="Role" Type="WebFrameworksDBModel.Store.Role" Multiplicity="1" />
+    <End Role="EmployeeRole" Type="WebFrameworksDBModel.Store.EmployeeRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="EmployeeRole">
+        <PropertyRef Name="RoleID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -231,31 +309,50 @@
           <EntitySet Name="Employee" EntityType="WebFrameworksDBModel.Employee" />
           <EntitySet Name="Role" EntityType="WebFrameworksDBModel.Role" />
           <EntitySet Name="Menu" EntityType="WebFrameworksDBModel.Menu" />
-          <EntitySet Name="Function" EntityType="WebFrameworksDBModel.Function" />
-          <EntitySet Name="RoleFunction" EntityType="WebFrameworksDBModel.RoleFunction" />
-          <AssociationSet Name="EmployeeCorporation" Association="WebFrameworksDBModel.EmployeeCorporation">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Corporation" EntitySet="Corporation" />
-          </AssociationSet>
-          <AssociationSet Name="EmployeeDepartment" Association="WebFrameworksDBModel.EmployeeDepartment">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Department" EntitySet="Department" />
-          </AssociationSet>
-          <AssociationSet Name="RoleFunctionRole" Association="WebFrameworksDBModel.RoleFunctionRole">
-            <End Role="RoleFunction" EntitySet="RoleFunction" />
-            <End Role="Role" EntitySet="Role" />
-          </AssociationSet>
-          <AssociationSet Name="RoleFunctionMenu" Association="WebFrameworksDBModel.RoleFunctionMenu">
-            <End Role="RoleFunction" EntitySet="RoleFunction" />
-            <End Role="Menu" EntitySet="Menu" />
-          </AssociationSet>
-          <AssociationSet Name="RoleFunctionFunction" Association="WebFrameworksDBModel.RoleFunctionFunction">
-            <End Role="RoleFunction" EntitySet="RoleFunction" />
-            <End Role="Function" EntitySet="Function" />
-          </AssociationSet>
+          <EntitySet Name="EmployeeDepartment" EntityType="WebFrameworksDBModel.EmployeeDepartment" />
           <AssociationSet Name="CorporationDepartment" Association="WebFrameworksDBModel.CorporationDepartment">
             <End Role="Corporation" EntitySet="Corporation" />
             <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeEmployeeDepartment" Association="WebFrameworksDBModel.EmployeeEmployeeDepartment">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="DepartmentEmployeeDepartment" Association="WebFrameworksDBModel.DepartmentEmployeeDepartment">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="EmployeeDepartment" EntitySet="EmployeeDepartment" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeRole" EntityType="WebFrameworksDBModel.EmployeeRole" />
+          <EntitySet Name="Button" EntityType="WebFrameworksDBModel.Button" />
+          <EntitySet Name="MenuButton" EntityType="WebFrameworksDBModel.MenuButton" />
+          <AssociationSet Name="MenuMenuButton" Association="WebFrameworksDBModel.MenuMenuButton">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="MenuButton" EntitySet="MenuButton" />
+          </AssociationSet>
+          <AssociationSet Name="ButtonMenuButton" Association="WebFrameworksDBModel.ButtonMenuButton">
+            <End Role="Button" EntitySet="Button" />
+            <End Role="MenuButton" EntitySet="MenuButton" />
+          </AssociationSet>
+          <EntitySet Name="RoleMenuButton" EntityType="WebFrameworksDBModel.RoleMenuButton" />
+          <AssociationSet Name="RoleRoleMenuButton" Association="WebFrameworksDBModel.RoleRoleMenuButton">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RoleMenuButton" EntitySet="RoleMenuButton" />
+          </AssociationSet>
+          <AssociationSet Name="MenuRoleMenuButton" Association="WebFrameworksDBModel.MenuRoleMenuButton">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="RoleMenuButton" EntitySet="RoleMenuButton" />
+          </AssociationSet>
+          <AssociationSet Name="ButtonRoleMenuButton" Association="WebFrameworksDBModel.ButtonRoleMenuButton">
+            <End Role="Button" EntitySet="Button" />
+            <End Role="RoleMenuButton" EntitySet="RoleMenuButton" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeEmployeeRole" Association="WebFrameworksDBModel.EmployeeEmployeeRole">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
+          </AssociationSet>
+          <AssociationSet Name="RoleEmployeeRole" Association="WebFrameworksDBModel.RoleEmployeeRole">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Corporation">
@@ -263,16 +360,15 @@
             <PropertyRef Name="CorporationID" />
           </Key>
           <Property Name="CorporationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParentCorpID" Type="Int32" Nullable="false" />
           <Property Name="CorporationCode" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="CorporationName" Type="String" Nullable="false" MaxLength="50" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="ParentCorpID" Type="Int32" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="true" />
           <Property Name="Enabled" Type="Boolean" Nullable="true" />
           <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="Employee" Relationship="WebFrameworksDBModel.EmployeeCorporation" FromRole="Corporation" ToRole="Employee" />
           <NavigationProperty Name="Department" Relationship="WebFrameworksDBModel.CorporationDepartment" FromRole="Corporation" ToRole="Department" />
         </EntityType>
         <EntityType Name="Department">
@@ -280,57 +376,50 @@
             <PropertyRef Name="DepartmentID" />
           </Key>
           <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParentDeptID" Type="Int32" Nullable="false" />
-          <Property Name="CorporationID" Type="Int32" Nullable="true" />
           <Property Name="DepartmentCode" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="ParentDeptID" Type="Int32" Nullable="false" />
+          <Property Name="CorporationID" Type="Int32" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="true" />
           <Property Name="Enabled" Type="Boolean" Nullable="true" />
           <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="Employee" Relationship="WebFrameworksDBModel.EmployeeDepartment" FromRole="Department" ToRole="Employee" />
           <NavigationProperty Name="Corporation" Relationship="WebFrameworksDBModel.CorporationDepartment" FromRole="Department" ToRole="Corporation" />
+          <NavigationProperty Name="EmployeeDepartment" Relationship="WebFrameworksDBModel.DepartmentEmployeeDepartment" FromRole="Department" ToRole="EmployeeDepartment" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CorporationID" Type="Int32" Nullable="true" />
-          <Property Name="DepartmentID" Type="Int32" Nullable="true" />
-          <Property Name="RoleIDs" Type="String" Nullable="true" MaxLength="300" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="UserPwd" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="30" />
-          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="30" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" />
-          <Property Name="PwdExpiredTime" Type="DateTime" Nullable="false" />
-          <Property Name="Sex" Type="Byte" Nullable="false" />
-          <Property Name="Phone" Type="String" Nullable="true" MaxLength="30" />
-          <Property Name="Email" Type="String" Nullable="true" MaxLength="30" />
-          <Property Name="Status" Type="Byte" Nullable="false" />
-          <Property Name="LoginCount" Type="Int32" Nullable="false" />
-          <Property Name="LastLoginTime" Type="DateTime" Nullable="true" />
-          <Property Name="LastLoginIP" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="Enabled" Type="Boolean" Nullable="true" />
+          <Property Name="IsChangePwd" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="200" />
           <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="false" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="Corporation" Relationship="WebFrameworksDBModel.EmployeeCorporation" FromRole="Employee" ToRole="Corporation" />
-          <NavigationProperty Name="Department" Relationship="WebFrameworksDBModel.EmployeeDepartment" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="EmployeeDepartment" Relationship="WebFrameworksDBModel.EmployeeEmployeeDepartment" FromRole="Employee" ToRole="EmployeeDepartment" />
+          <NavigationProperty Name="EmployeeRole" Relationship="WebFrameworksDBModel.EmployeeEmployeeRole" FromRole="Employee" ToRole="EmployeeRole" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleID" />
           </Key>
           <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" />
-          <Property Name="Remark" Type="String" Nullable="true" MaxLength="500" />
+          <Property Name="RoleName" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="200" />
           <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionRole" FromRole="Role" ToRole="RoleFunction" />
+          <NavigationProperty Name="RoleMenuButton" Relationship="WebFrameworksDBModel.RoleRoleMenuButton" FromRole="Role" ToRole="RoleMenuButton" />
+          <NavigationProperty Name="EmployeeRole" Relationship="WebFrameworksDBModel.RoleEmployeeRole" FromRole="Role" ToRole="EmployeeRole" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -339,110 +428,29 @@
           <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentMenuID" Type="Int32" Nullable="false" />
           <Property Name="MenuName" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="MenuCode" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="MenuUrl" Type="String" Nullable="false" MaxLength="100" />
-          <Property Name="MenuLavel" Type="Int32" Nullable="true" />
-          <Property Name="SortOrder" Type="Int32" Nullable="true" />
-          <Property Name="MenuIcon" Type="String" Nullable="true" MaxLength="100" />
-          <Property Name="IsShortCut" Type="Boolean" Nullable="true" />
-          <Property Name="IsShow" Type="Boolean" Nullable="true" />
-          <Property Name="FunctionIDs" Type="String" Nullable="true" MaxLength="300" />
+          <Property Name="Icon" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Sort" Type="Int32" Nullable="true" />
           <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
           <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
           <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionMenu" FromRole="Menu" ToRole="RoleFunction" />
+          <NavigationProperty Name="MenuButton" Relationship="WebFrameworksDBModel.MenuMenuButton" FromRole="Menu" ToRole="MenuButton" />
+          <NavigationProperty Name="RoleMenuButton" Relationship="WebFrameworksDBModel.MenuRoleMenuButton" FromRole="Menu" ToRole="RoleMenuButton" />
         </EntityType>
-        <EntityType Name="Function">
+        <EntityType Name="EmployeeDepartment">
           <Key>
-            <PropertyRef Name="FunctionID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FunctionName" Type="String" Nullable="false" MaxLength="30" />
-          <Property Name="FunctionRefName" Type="String" Nullable="false" MaxLength="30" />
-          <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="30" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
-          <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
-          <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
-          <NavigationProperty Name="RoleFunction" Relationship="WebFrameworksDBModel.RoleFunctionFunction" FromRole="Function" ToRole="RoleFunction" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="WebFrameworksDBModel.EmployeeEmployeeDepartment" FromRole="EmployeeDepartment" ToRole="Employee" />
+          <NavigationProperty Name="Department" Relationship="WebFrameworksDBModel.DepartmentEmployeeDepartment" FromRole="EmployeeDepartment" ToRole="Department" />
         </EntityType>
-        <EntityType Name="RoleFunction">
-          <Key>
-            <PropertyRef Name="RoleFunctionID" />
-          </Key>
-          <Property Name="RoleFunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="Int32" Nullable="true" />
-          <Property Name="MenuID" Type="Int32" Nullable="true" />
-          <Property Name="FunctionID" Type="Int32" Nullable="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
-          <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="30" />
-          <Property Name="LastUpdatedTime" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="WebFrameworksDBModel.RoleFunctionRole" FromRole="RoleFunction" ToRole="Role" />
-          <NavigationProperty Name="Menu" Relationship="WebFrameworksDBModel.RoleFunctionMenu" FromRole="RoleFunction" ToRole="Menu" />
-          <NavigationProperty Name="Function" Relationship="WebFrameworksDBModel.RoleFunctionFunction" FromRole="RoleFunction" ToRole="Function" />
-        </EntityType>
-        <Association Name="EmployeeCorporation">
-          <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Corporation" Role="Corporation" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Corporation">
-              <PropertyRef Name="CorporationID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="CorporationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="EmployeeDepartment">
-          <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Department" Role="Department" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="DepartmentID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="DepartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RoleFunctionRole">
-          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Role" Role="Role" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="RoleFunction">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RoleFunctionMenu">
-          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Menu" Role="Menu" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Menu">
-              <PropertyRef Name="MenuID" />
-            </Principal>
-            <Dependent Role="RoleFunction">
-              <PropertyRef Name="MenuID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RoleFunctionFunction">
-          <End Type="WebFrameworksDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
-          <End Type="WebFrameworksDBModel.Function" Role="Function" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Function">
-              <PropertyRef Name="FunctionID" />
-            </Principal>
-            <Dependent Role="RoleFunction">
-              <PropertyRef Name="FunctionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="CorporationDepartment">
-          <End Type="WebFrameworksDBModel.Corporation" Role="Corporation" Multiplicity="0..1" />
+          <End Type="WebFrameworksDBModel.Corporation" Role="Corporation" Multiplicity="1" />
           <End Type="WebFrameworksDBModel.Department" Role="Department" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Corporation">
@@ -450,6 +458,162 @@
             </Principal>
             <Dependent Role="Department">
               <PropertyRef Name="CorporationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmployeeEmployeeDepartment">
+          <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.EmployeeDepartment" Role="EmployeeDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartment">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DepartmentEmployeeDepartment">
+          <End Type="WebFrameworksDBModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.EmployeeDepartment" Role="EmployeeDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartment">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="WebFrameworksDBModel.EmployeeEmployeeRole" FromRole="EmployeeRole" ToRole="Employee" />
+          <NavigationProperty Name="Role" Relationship="WebFrameworksDBModel.RoleEmployeeRole" FromRole="EmployeeRole" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Button">
+          <Key>
+            <PropertyRef Name="ButtonID" />
+          </Key>
+          <Property Name="ButtonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ButtonName" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="ButtonCode" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Icon" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Sort" Type="Int32" Nullable="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="true" />
+          <Property Name="LastUpdatedBy" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="LastUpdatedTime" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="MenuButton" Relationship="WebFrameworksDBModel.ButtonMenuButton" FromRole="Button" ToRole="MenuButton" />
+          <NavigationProperty Name="RoleMenuButton" Relationship="WebFrameworksDBModel.ButtonRoleMenuButton" FromRole="Button" ToRole="RoleMenuButton" />
+        </EntityType>
+        <EntityType Name="MenuButton">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuID" Type="Int32" Nullable="false" />
+          <Property Name="ButtonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="WebFrameworksDBModel.MenuMenuButton" FromRole="MenuButton" ToRole="Menu" />
+          <NavigationProperty Name="Button" Relationship="WebFrameworksDBModel.ButtonMenuButton" FromRole="MenuButton" ToRole="Button" />
+        </EntityType>
+        <Association Name="MenuMenuButton">
+          <End Type="WebFrameworksDBModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.MenuButton" Role="MenuButton" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="MenuButton">
+              <PropertyRef Name="MenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ButtonMenuButton">
+          <End Type="WebFrameworksDBModel.Button" Role="Button" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.MenuButton" Role="MenuButton" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Button">
+              <PropertyRef Name="ButtonID" />
+            </Principal>
+            <Dependent Role="MenuButton">
+              <PropertyRef Name="ButtonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RoleMenuButton">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="MenuID" Type="Int32" Nullable="false" />
+          <Property Name="ButtonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="WebFrameworksDBModel.RoleRoleMenuButton" FromRole="RoleMenuButton" ToRole="Role" />
+          <NavigationProperty Name="Menu" Relationship="WebFrameworksDBModel.MenuRoleMenuButton" FromRole="RoleMenuButton" ToRole="Menu" />
+          <NavigationProperty Name="Button" Relationship="WebFrameworksDBModel.ButtonRoleMenuButton" FromRole="RoleMenuButton" ToRole="Button" />
+        </EntityType>
+        <Association Name="RoleRoleMenuButton">
+          <End Type="WebFrameworksDBModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.RoleMenuButton" Role="RoleMenuButton" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="RoleMenuButton">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuRoleMenuButton">
+          <End Type="WebFrameworksDBModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.RoleMenuButton" Role="RoleMenuButton" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="RoleMenuButton">
+              <PropertyRef Name="MenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ButtonRoleMenuButton">
+          <End Type="WebFrameworksDBModel.Button" Role="Button" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.RoleMenuButton" Role="RoleMenuButton" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Button">
+              <PropertyRef Name="ButtonID" />
+            </Principal>
+            <Dependent Role="RoleMenuButton">
+              <PropertyRef Name="ButtonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmployeeEmployeeRole">
+          <End Type="WebFrameworksDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.EmployeeRole" Role="EmployeeRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeRole">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoleEmployeeRole">
+          <End Type="WebFrameworksDBModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="WebFrameworksDBModel.EmployeeRole" Role="EmployeeRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="EmployeeRole">
+              <PropertyRef Name="RoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -463,10 +627,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Corporation)">
         <MappingFragment StoreEntitySet="Corporation">
           <ScalarProperty Name="CorporationID" ColumnName="CorporationID" />
-          <ScalarProperty Name="ParentCorpID" ColumnName="ParentCorpID" />
           <ScalarProperty Name="CorporationCode" ColumnName="CorporationCode" />
           <ScalarProperty Name="CorporationName" ColumnName="CorporationName" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ParentCorpID" ColumnName="ParentCorpID" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
           <ScalarProperty Name="Enabled" ColumnName="Enabled" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
@@ -479,10 +643,11 @@
       <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Department)">
         <MappingFragment StoreEntitySet="Department">
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-          <ScalarProperty Name="ParentDeptID" ColumnName="ParentDeptID" />
-          <ScalarProperty Name="CorporationID" ColumnName="CorporationID" />
           <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
           <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="ParentDeptID" ColumnName="ParentDeptID" />
+          <ScalarProperty Name="CorporationID" ColumnName="CorporationID" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
           <ScalarProperty Name="Enabled" ColumnName="Enabled" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
@@ -495,21 +660,12 @@
       <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Employee)">
         <MappingFragment StoreEntitySet="Employee">
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="CorporationID" ColumnName="CorporationID" />
-          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-          <ScalarProperty Name="RoleIDs" ColumnName="RoleIDs" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="PwdExpiredTime" ColumnName="PwdExpiredTime" />
-          <ScalarProperty Name="Sex" ColumnName="Sex" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="LoginCount" ColumnName="LoginCount" />
-          <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
-          <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
           <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="IsChangePwd" ColumnName="IsChangePwd" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
           <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
@@ -522,7 +678,7 @@
         <MappingFragment StoreEntitySet="Role">
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
           <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
@@ -536,13 +692,10 @@
           <ScalarProperty Name="MenuID" ColumnName="MenuID" />
           <ScalarProperty Name="ParentMenuID" ColumnName="ParentMenuID" />
           <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuCode" ColumnName="MenuCode" />
           <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
-          <ScalarProperty Name="MenuLavel" ColumnName="MenuLavel" />
-          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
-          <ScalarProperty Name="IsShortCut" ColumnName="IsShortCut" />
-          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
-          <ScalarProperty Name="FunctionIDs" ColumnName="FunctionIDs" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
           <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
@@ -550,12 +703,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Function">
-      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Function)">
-        <MappingFragment StoreEntitySet="Function">
-          <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
-          <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
-          <ScalarProperty Name="FunctionRefName" ColumnName="FunctionRefName" />
+    <EntitySetMapping Name="EmployeeDepartment">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.EmployeeDepartment)">
+        <MappingFragment StoreEntitySet="EmployeeDepartment">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeRole">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.EmployeeRole)">
+        <MappingFragment StoreEntitySet="EmployeeRole">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Button">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.Button)">
+        <MappingFragment StoreEntitySet="Button">
+          <ScalarProperty Name="ButtonID" ColumnName="ButtonID" />
+          <ScalarProperty Name="ButtonName" ColumnName="ButtonName" />
+          <ScalarProperty Name="ButtonCode" ColumnName="ButtonCode" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
           <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
@@ -563,17 +736,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="RoleFunction">
-      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.RoleFunction)">
-        <MappingFragment StoreEntitySet="RoleFunction">
-          <ScalarProperty Name="RoleFunctionID" ColumnName="RoleFunctionID" />
+    <EntitySetMapping Name="MenuButton">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.MenuButton)">
+        <MappingFragment StoreEntitySet="MenuButton">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="ButtonID" ColumnName="ButtonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleMenuButton">
+      <EntityTypeMapping TypeName="IsTypeOf(WebFrameworksDBModel.RoleMenuButton)">
+        <MappingFragment StoreEntitySet="RoleMenuButton">
+          <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
           <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-          <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-          <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
-          <ScalarProperty Name="LastUpdatedTime" ColumnName="LastUpdatedTime" />
+          <ScalarProperty Name="ButtonID" ColumnName="ButtonID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

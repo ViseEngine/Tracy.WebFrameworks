@@ -29,6 +29,19 @@ namespace Tracy.WebFrameworks.Entity
 public partial class Employee
 {
 
+	/// <summary>
+	/// 创建新实例
+	/// </summary>
+    public Employee()
+    {
+
+        this.EmployeeDepartment = new HashSet<EmployeeDepartment>();
+
+        this.EmployeeRole = new HashSet<EmployeeRole>();
+
+    }
+
+
 
 	/// <summary>
     /// 獲取或設置
@@ -43,7 +56,7 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public Nullable<int> CorporationID { get; set; }
+    public string UserId { get; set; }
 
 
 	/// <summary>
@@ -51,15 +64,7 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public Nullable<int> DepartmentID { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string RoleIDs { get; set; }
+    public string UserPwd { get; set; }
 
 
 	/// <summary>
@@ -75,87 +80,23 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string LoginName { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string Password { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public System.DateTime PwdExpiredTime { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public byte Sex { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string Phone { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string Email { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public byte Status { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public int LoginCount { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<System.DateTime> LastLoginTime { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string LastLoginIP { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
     public Nullable<bool> Enabled { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public bool IsChangePwd { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public string Description { get; set; }
 
 
 	/// <summary>
@@ -196,14 +137,14 @@ public partial class Employee
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual Corporation Corporation { get; set; }
+    public virtual ICollection<EmployeeDepartment> EmployeeDepartment { get; set; }
 
 
 	/// <summary>
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual Department Department { get; set; }
+    public virtual ICollection<EmployeeRole> EmployeeRole { get; set; }
 
 }
 

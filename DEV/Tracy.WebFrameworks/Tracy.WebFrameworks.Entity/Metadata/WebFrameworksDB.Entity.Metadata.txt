@@ -26,6 +26,20 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 	///  CustomMetadata
 	/// </summary>
 	[DataContract]
+	public class ButtonMetadata : ButtonMetadataBase
+	{
+
+	}
+
+	#endregion
+
+
+	#region  CustomMetadata
+
+	/// <summary>
+	///  CustomMetadata
+	/// </summary>
+	[DataContract]
 	public class CorporationMetadata : CorporationMetadataBase
 	{
 
@@ -68,7 +82,21 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 	///  CustomMetadata
 	/// </summary>
 	[DataContract]
-	public class FunctionMetadata : FunctionMetadataBase
+	public class EmployeeDepartmentMetadata : EmployeeDepartmentMetadataBase
+	{
+
+	}
+
+	#endregion
+
+
+	#region  CustomMetadata
+
+	/// <summary>
+	///  CustomMetadata
+	/// </summary>
+	[DataContract]
+	public class EmployeeRoleMetadata : EmployeeRoleMetadataBase
 	{
 
 	}
@@ -96,6 +124,20 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 	///  CustomMetadata
 	/// </summary>
 	[DataContract]
+	public class MenuButtonMetadata : MenuButtonMetadataBase
+	{
+
+	}
+
+	#endregion
+
+
+	#region  CustomMetadata
+
+	/// <summary>
+	///  CustomMetadata
+	/// </summary>
+	[DataContract]
 	public class RoleMetadata : RoleMetadataBase
 	{
 
@@ -110,7 +152,7 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 	///  CustomMetadata
 	/// </summary>
 	[DataContract]
-	public class RoleFunctionMetadata : RoleFunctionMetadataBase
+	public class RoleMenuButtonMetadata : RoleMenuButtonMetadataBase
 	{
 
 	}

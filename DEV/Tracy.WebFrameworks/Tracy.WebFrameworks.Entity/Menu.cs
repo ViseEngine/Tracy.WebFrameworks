@@ -35,7 +35,9 @@ public partial class Menu
     public Menu()
     {
 
-        this.RoleFunction = new HashSet<RoleFunction>();
+        this.MenuButton = new HashSet<MenuButton>();
+
+        this.RoleMenuButton = new HashSet<RoleMenuButton>();
 
     }
 
@@ -70,6 +72,14 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
+    public string MenuCode { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
     public string MenuUrl { get; set; }
 
 
@@ -78,7 +88,7 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public Nullable<int> MenuLavel { get; set; }
+    public string Icon { get; set; }
 
 
 	/// <summary>
@@ -86,39 +96,7 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public Nullable<int> SortOrder { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string MenuIcon { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<bool> IsShortCut { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<bool> IsShow { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string FunctionIDs { get; set; }
+    public Nullable<int> Sort { get; set; }
 
 
 	/// <summary>
@@ -159,7 +137,14 @@ public partial class Menu
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<RoleFunction> RoleFunction { get; set; }
+    public virtual ICollection<MenuButton> MenuButton { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置(導航屬性)
+	/// </summary>
+    [DataMember]
+    public virtual ICollection<RoleMenuButton> RoleMenuButton { get; set; }
 
 }
 

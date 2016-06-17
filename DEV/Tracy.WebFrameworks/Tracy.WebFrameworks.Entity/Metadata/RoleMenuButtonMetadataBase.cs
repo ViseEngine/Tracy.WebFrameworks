@@ -22,7 +22,7 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 ///  CustomMetadata基類
 /// </summary>
 [DataContract]
-public class RoleMetadataBase
+public class RoleMenuButtonMetadataBase
 {
 
 
@@ -34,59 +34,37 @@ public class RoleMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
+    public object ID { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
+    [Required]
+    [Digits]
+    [Max(int.MaxValue)]
+    [DataMember]
     public object RoleID { get; set; }
 
 
 	/// <summary>
     /// 
 	/// </summary>
-    [StringLength(50)]
+    [Required]
+    [Digits]
+    [Max(int.MaxValue)]
     [DataMember]
-    public object RoleName { get; set; }
+    public object MenuID { get; set; }
 
 
 	/// <summary>
     /// 
 	/// </summary>
-    [StringLength(200)]
+    [Required]
+    [Digits]
+    [Max(int.MaxValue)]
     [DataMember]
-    public object Description { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(30)]
-    [DataMember]
-    public object CreatedBy { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [DataType(DataType.Date)]
-    [UIHint("DatePicker")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-    [DataMember]
-    public object CreatedTime { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(30)]
-    [DataMember]
-    public object LastUpdatedBy { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [DataType(DataType.Date)]
-    [UIHint("DatePicker")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-    [DataMember]
-    public object LastUpdatedTime { get; set; }
+    public object ButtonID { get; set; }
 
 }
 

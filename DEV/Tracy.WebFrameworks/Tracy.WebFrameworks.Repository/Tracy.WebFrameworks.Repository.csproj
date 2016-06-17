@@ -46,11 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonRepository.cs" />
     <Compile Include="CorporationRepository.cs" />
-    <Compile Include="Factory\CorporationRepositoryFactory.cs" />
-    <Compile Include="Factory\GenericRepositoryFactory.cs" />
-    <Compile Include="GenericRepository.cs" />
+    <Compile Include="DepartmentRepository.cs" />
+    <Compile Include="EmployeeDepartmentRepository.cs" />
+    <Compile Include="EmployeeRepository.cs" />
+    <Compile Include="EmployeeRoleRepository.cs" />
+    <Compile Include="MenuButtonRepository.cs" />
+    <Compile Include="MenuRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleMenuButtonRepository.cs" />
+    <Compile Include="RoleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tracy.WebFrameworks.Common\Tracy.WebFrameworks.Common.csproj">

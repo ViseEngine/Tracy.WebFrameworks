@@ -89,6 +89,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tracy.WebFrameworks.Repository\Tracy.WebFrameworks.Repository.csproj">
+      <Project>{9e782bb7-982c-4eb6-8c53-b706017c8293}</Project>
+      <Name>Tracy.WebFrameworks.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tracy.WebFrameworks.Service\Tracy.WebFrameworks.Service.csproj">
       <Project>{4f77e333-c5bb-408b-b1bb-e2a396846de4}</Project>
       <Name>Tracy.WebFrameworks.Service</Name>

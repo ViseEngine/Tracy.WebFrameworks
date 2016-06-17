@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4F77E333-C5BB-408B-B1BB-E2A396846DE4}</ProjectGuid>
+    <ProjectGuid>{1B97D495-DE00-46CD-B69B-FD12708BE607}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tracy.WebFrameworks.Service</RootNamespace>
-    <AssemblyName>Tracy.WebFrameworks.Service</AssemblyName>
+    <RootNamespace>Tracy.WebFrameworks.RepositoryFactory</RootNamespace>
+    <AssemblyName>Tracy.WebFrameworks.RepositoryFactory</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,21 +28,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,38 +43,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebFxsCorporationService.svc.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebFxsEmployeeService.svc.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tracy.WebFrameworks.Common\Tracy.WebFrameworks.Common.csproj">
-      <Project>{72ec8c6d-1816-454a-95c8-60422282e99d}</Project>
-      <Name>Tracy.WebFrameworks.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracy.WebFrameworks.Data\Tracy.WebFrameworks.Data.csproj">
-      <Project>{3b0218d3-7ee1-422f-9a23-e5d862ef1c8e}</Project>
-      <Name>Tracy.WebFrameworks.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracy.WebFrameworks.Entity\Tracy.WebFrameworks.Entity.csproj">
-      <Project>{caff06e2-1c6e-49c9-b06e-9ea4cac208c6}</Project>
-      <Name>Tracy.WebFrameworks.Entity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tracy.WebFrameworks.IRepository\Tracy.WebFrameworks.IRepository.csproj">
       <Project>{68a16027-e9ed-4d51-ae67-fc61ab24aaba}</Project>
       <Name>Tracy.WebFrameworks.IRepository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tracy.WebFrameworks.IService\Tracy.WebFrameworks.IService.csproj">
-      <Project>{6b075629-d6f7-4618-ba2c-bf1ef8b53cd2}</Project>
-      <Name>Tracy.WebFrameworks.IService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracy.WebFrameworks.RepositoryFactory\Tracy.WebFrameworks.RepositoryFactory.csproj">
-      <Project>{1b97d495-de00-46cd-b69b-fd12708be607}</Project>
-      <Name>Tracy.WebFrameworks.RepositoryFactory</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

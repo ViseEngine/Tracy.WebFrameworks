@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/14/2016 16:02:26
+-- Date Created: 06/17/2016 10:05:11
 -- Generated from EDMX file: D:\sources.github\Tracy.WebFrameworks\DEV\Tracy.WebFrameworks\Tracy.WebFrameworks.Data\WebFrameworksDB.edmx
 -- --------------------------------------------------
 
@@ -17,23 +17,35 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_EmployeeCorporation]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Employee] DROP CONSTRAINT [FK_EmployeeCorporation];
-GO
-IF OBJECT_ID(N'[dbo].[FK_EmployeeDepartment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Employee] DROP CONSTRAINT [FK_EmployeeDepartment];
-GO
-IF OBJECT_ID(N'[dbo].[FK_RoleFunctionRole]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_RoleFunctionRole];
-GO
-IF OBJECT_ID(N'[dbo].[FK_RoleFunctionMenu]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_RoleFunctionMenu];
-GO
-IF OBJECT_ID(N'[dbo].[FK_RoleFunctionFunction]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RoleFunction] DROP CONSTRAINT [FK_RoleFunctionFunction];
-GO
 IF OBJECT_ID(N'[dbo].[FK_CorporationDepartment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Department] DROP CONSTRAINT [FK_CorporationDepartment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeEmployeeDepartment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeDepartment] DROP CONSTRAINT [FK_EmployeeEmployeeDepartment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DepartmentEmployeeDepartment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeDepartment] DROP CONSTRAINT [FK_DepartmentEmployeeDepartment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MenuMenuButton]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MenuButton] DROP CONSTRAINT [FK_MenuMenuButton];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ButtonMenuButton]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MenuButton] DROP CONSTRAINT [FK_ButtonMenuButton];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoleRoleMenuButton]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RoleMenuButton] DROP CONSTRAINT [FK_RoleRoleMenuButton];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MenuRoleMenuButton]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RoleMenuButton] DROP CONSTRAINT [FK_MenuRoleMenuButton];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ButtonRoleMenuButton]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RoleMenuButton] DROP CONSTRAINT [FK_ButtonRoleMenuButton];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeEmployeeRole]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeRole] DROP CONSTRAINT [FK_EmployeeEmployeeRole];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoleEmployeeRole]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeRole] DROP CONSTRAINT [FK_RoleEmployeeRole];
 GO
 
 -- --------------------------------------------------
@@ -55,11 +67,20 @@ GO
 IF OBJECT_ID(N'[dbo].[Menu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Menu];
 GO
-IF OBJECT_ID(N'[dbo].[Function]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Function];
+IF OBJECT_ID(N'[dbo].[EmployeeDepartment]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmployeeDepartment];
 GO
-IF OBJECT_ID(N'[dbo].[RoleFunction]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[RoleFunction];
+IF OBJECT_ID(N'[dbo].[EmployeeRole]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmployeeRole];
+GO
+IF OBJECT_ID(N'[dbo].[Button]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Button];
+GO
+IF OBJECT_ID(N'[dbo].[MenuButton]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MenuButton];
+GO
+IF OBJECT_ID(N'[dbo].[RoleMenuButton]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RoleMenuButton];
 GO
 
 -- --------------------------------------------------
@@ -69,10 +90,10 @@ GO
 -- Creating table 'Corporation'
 CREATE TABLE [dbo].[Corporation] (
     [CorporationID] int IDENTITY(1,1) NOT NULL,
-    [ParentCorpID] int  NOT NULL,
     [CorporationCode] nvarchar(30)  NULL,
     [CorporationName] nvarchar(50)  NOT NULL,
-    [Address] nvarchar(100)  NOT NULL,
+    [ParentCorpID] int  NOT NULL,
+    [Sort] int  NULL,
     [Enabled] bit  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NULL,
@@ -84,10 +105,11 @@ GO
 -- Creating table 'Department'
 CREATE TABLE [dbo].[Department] (
     [DepartmentID] int IDENTITY(1,1) NOT NULL,
-    [ParentDeptID] int  NOT NULL,
-    [CorporationID] int  NULL,
     [DepartmentCode] nvarchar(30)  NULL,
     [DepartmentName] nvarchar(100)  NOT NULL,
+    [ParentDeptID] int  NOT NULL,
+    [CorporationID] int  NOT NULL,
+    [Sort] int  NULL,
     [Enabled] bit  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NULL,
@@ -99,21 +121,12 @@ GO
 -- Creating table 'Employee'
 CREATE TABLE [dbo].[Employee] (
     [EmployeeID] int IDENTITY(1,1) NOT NULL,
-    [CorporationID] int  NULL,
-    [DepartmentID] int  NULL,
-    [RoleIDs] nvarchar(300)  NULL,
+    [UserId] nvarchar(30)  NOT NULL,
+    [UserPwd] nvarchar(30)  NOT NULL,
     [EmployeeName] nvarchar(30)  NOT NULL,
-    [LoginName] nvarchar(30)  NOT NULL,
-    [Password] nvarchar(30)  NOT NULL,
-    [PwdExpiredTime] datetime  NOT NULL,
-    [Sex] tinyint  NOT NULL,
-    [Phone] nvarchar(30)  NULL,
-    [Email] nvarchar(30)  NULL,
-    [Status] tinyint  NOT NULL,
-    [LoginCount] int  NOT NULL,
-    [LastLoginTime] datetime  NULL,
-    [LastLoginIP] nvarchar(30)  NULL,
     [Enabled] bit  NULL,
+    [IsChangePwd] bit  NOT NULL,
+    [Description] nvarchar(200)  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NOT NULL,
     [LastUpdatedBy] nvarchar(30)  NULL,
@@ -124,8 +137,8 @@ GO
 -- Creating table 'Role'
 CREATE TABLE [dbo].[Role] (
     [RoleID] int IDENTITY(1,1) NOT NULL,
-    [RoleName] nvarchar(50)  NOT NULL,
-    [Remark] nvarchar(500)  NULL,
+    [RoleName] nvarchar(50)  NULL,
+    [Description] nvarchar(200)  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NULL,
     [LastUpdatedBy] nvarchar(30)  NULL,
@@ -138,13 +151,10 @@ CREATE TABLE [dbo].[Menu] (
     [MenuID] int IDENTITY(1,1) NOT NULL,
     [ParentMenuID] int  NOT NULL,
     [MenuName] nvarchar(30)  NOT NULL,
+    [MenuCode] nvarchar(30)  NULL,
     [MenuUrl] nvarchar(100)  NOT NULL,
-    [MenuLavel] int  NULL,
-    [SortOrder] int  NULL,
-    [MenuIcon] nvarchar(100)  NULL,
-    [IsShortCut] bit  NULL,
-    [IsShow] bit  NULL,
-    [FunctionIDs] nvarchar(300)  NULL,
+    [Icon] nvarchar(50)  NULL,
+    [Sort] int  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NULL,
     [LastUpdatedBy] nvarchar(30)  NULL,
@@ -152,28 +162,50 @@ CREATE TABLE [dbo].[Menu] (
 );
 GO
 
--- Creating table 'Function'
-CREATE TABLE [dbo].[Function] (
-    [FunctionID] int IDENTITY(1,1) NOT NULL,
-    [FunctionName] nvarchar(30)  NOT NULL,
-    [FunctionRefName] nvarchar(30)  NOT NULL,
-    [CreatedBy] nvarchar(30)  NULL,
+-- Creating table 'EmployeeDepartment'
+CREATE TABLE [dbo].[EmployeeDepartment] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [EmployeeID] int  NOT NULL,
+    [DepartmentID] int  NOT NULL
+);
+GO
+
+-- Creating table 'EmployeeRole'
+CREATE TABLE [dbo].[EmployeeRole] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [EmployeeID] int  NOT NULL,
+    [RoleID] int  NOT NULL
+);
+GO
+
+-- Creating table 'Button'
+CREATE TABLE [dbo].[Button] (
+    [ButtonID] int IDENTITY(1,1) NOT NULL,
+    [ButtonName] nvarchar(50)  NULL,
+    [ButtonCode] nvarchar(50)  NULL,
+    [Icon] nvarchar(50)  NULL,
+    [Sort] int  NULL,
+    [CreatedBy] nvarchar(50)  NULL,
     [CreatedTime] datetime  NULL,
-    [LastUpdatedBy] nvarchar(30)  NULL,
+    [LastUpdatedBy] nvarchar(50)  NULL,
     [LastUpdatedTime] datetime  NULL
 );
 GO
 
--- Creating table 'RoleFunction'
-CREATE TABLE [dbo].[RoleFunction] (
-    [RoleFunctionID] int IDENTITY(1,1) NOT NULL,
-    [RoleID] int  NULL,
-    [MenuID] int  NULL,
-    [FunctionID] int  NULL,
-    [CreatedBy] nvarchar(max)  NOT NULL,
-    [CreatedTime] datetime  NULL,
-    [LastUpdatedBy] nvarchar(30)  NULL,
-    [LastUpdatedTime] datetime  NOT NULL
+-- Creating table 'MenuButton'
+CREATE TABLE [dbo].[MenuButton] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [MenuID] int  NOT NULL,
+    [ButtonID] int  NOT NULL
+);
+GO
+
+-- Creating table 'RoleMenuButton'
+CREATE TABLE [dbo].[RoleMenuButton] (
+    [ID] int IDENTITY(1,1) NOT NULL,
+    [RoleID] int  NOT NULL,
+    [MenuID] int  NOT NULL,
+    [ButtonID] int  NOT NULL
 );
 GO
 
@@ -211,16 +243,34 @@ ADD CONSTRAINT [PK_Menu]
     PRIMARY KEY CLUSTERED ([MenuID] ASC);
 GO
 
--- Creating primary key on [FunctionID] in table 'Function'
-ALTER TABLE [dbo].[Function]
-ADD CONSTRAINT [PK_Function]
-    PRIMARY KEY CLUSTERED ([FunctionID] ASC);
+-- Creating primary key on [ID] in table 'EmployeeDepartment'
+ALTER TABLE [dbo].[EmployeeDepartment]
+ADD CONSTRAINT [PK_EmployeeDepartment]
+    PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
--- Creating primary key on [RoleFunctionID] in table 'RoleFunction'
-ALTER TABLE [dbo].[RoleFunction]
-ADD CONSTRAINT [PK_RoleFunction]
-    PRIMARY KEY CLUSTERED ([RoleFunctionID] ASC);
+-- Creating primary key on [ID] in table 'EmployeeRole'
+ALTER TABLE [dbo].[EmployeeRole]
+ADD CONSTRAINT [PK_EmployeeRole]
+    PRIMARY KEY CLUSTERED ([ID] ASC);
+GO
+
+-- Creating primary key on [ButtonID] in table 'Button'
+ALTER TABLE [dbo].[Button]
+ADD CONSTRAINT [PK_Button]
+    PRIMARY KEY CLUSTERED ([ButtonID] ASC);
+GO
+
+-- Creating primary key on [ID] in table 'MenuButton'
+ALTER TABLE [dbo].[MenuButton]
+ADD CONSTRAINT [PK_MenuButton]
+    PRIMARY KEY CLUSTERED ([ID] ASC);
+GO
+
+-- Creating primary key on [ID] in table 'RoleMenuButton'
+ALTER TABLE [dbo].[RoleMenuButton]
+ADD CONSTRAINT [PK_RoleMenuButton]
+    PRIMARY KEY CLUSTERED ([ID] ASC);
 GO
 
 -- --------------------------------------------------

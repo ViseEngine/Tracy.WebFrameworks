@@ -22,7 +22,7 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 ///  CustomMetadata基類
 /// </summary>
 [DataContract]
-public class FunctionMetadataBase
+public class EmployeeDepartmentMetadataBase
 {
 
 
@@ -34,61 +34,27 @@ public class FunctionMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object FunctionID { get; set; }
+    public object ID { get; set; }
 
 
 	/// <summary>
     /// 
 	/// </summary>
     [Required]
-    [StringLength(30)]
+    [Digits]
+    [Max(int.MaxValue)]
     [DataMember]
-    public object FunctionName { get; set; }
+    public object EmployeeID { get; set; }
 
 
 	/// <summary>
     /// 
 	/// </summary>
     [Required]
-    [StringLength(30)]
+    [Digits]
+    [Max(int.MaxValue)]
     [DataMember]
-    public object FunctionRefName { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(30)]
-    [DataMember]
-    public object CreatedBy { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [DataType(DataType.Date)]
-    [UIHint("DatePicker")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-    [DataMember]
-    public object CreatedTime { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(30)]
-    [DataMember]
-    public object LastUpdatedBy { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [DataType(DataType.Date)]
-    [UIHint("DatePicker")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-    [DataMember]
-    public object LastUpdatedTime { get; set; }
+    public object DepartmentID { get; set; }
 
 }
 

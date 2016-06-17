@@ -35,7 +35,7 @@ public partial class Department
     public Department()
     {
 
-        this.Employee = new HashSet<Employee>();
+        this.EmployeeDepartment = new HashSet<EmployeeDepartment>();
 
     }
 
@@ -54,22 +54,6 @@ public partial class Department
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ParentDeptID { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<int> CorporationID { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
     public string DepartmentCode { get; set; }
 
 
@@ -79,6 +63,30 @@ public partial class Department
     [DatabaseTableColumn]
     [DataMember]
     public string DepartmentName { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public int ParentDeptID { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public int CorporationID { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置
+	/// </summary>
+    [DatabaseTableColumn]
+    [DataMember]
+    public Nullable<int> Sort { get; set; }
 
 
 	/// <summary>
@@ -127,14 +135,14 @@ public partial class Department
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<Employee> Employee { get; set; }
+    public virtual Corporation Corporation { get; set; }
 
 
 	/// <summary>
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual Corporation Corporation { get; set; }
+    public virtual ICollection<EmployeeDepartment> EmployeeDepartment { get; set; }
 
 }
 

@@ -59,6 +59,14 @@ public class MenuMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
+    [StringLength(30)]
+    [DataMember]
+    public object MenuCode { get; set; }
+
+
+	/// <summary>
+    /// 
+	/// </summary>
     [Required]
     [StringLength(100)]
     [DataMember]
@@ -68,10 +76,9 @@ public class MenuMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Digits]
-    [Max(int.MaxValue)]
+    [StringLength(50)]
     [DataMember]
-    public object MenuLavel { get; set; }
+    public object Icon { get; set; }
 
 
 	/// <summary>
@@ -80,37 +87,7 @@ public class MenuMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object SortOrder { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(100)]
-    [DataMember]
-    public object MenuIcon { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [DataMember]
-    public object IsShortCut { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [DataMember]
-    public object IsShow { get; set; }
-
-
-	/// <summary>
-    /// 
-	/// </summary>
-    [StringLength(300)]
-    [DataMember]
-    public object FunctionIDs { get; set; }
+    public object Sort { get; set; }
 
 
 	/// <summary>

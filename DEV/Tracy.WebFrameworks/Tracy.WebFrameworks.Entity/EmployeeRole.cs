@@ -25,8 +25,8 @@ namespace Tracy.WebFrameworks.Entity
 /// </summary>
 [Serializable]
 [DataContract(IsReference = true)]
-[MetadataType(typeof(RoleFunctionMetadata))]
-public partial class RoleFunction
+[MetadataType(typeof(EmployeeRoleMetadata))]
+public partial class EmployeeRole
 {
 
 
@@ -35,7 +35,7 @@ public partial class RoleFunction
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int RoleFunctionID { get; set; }
+    public int ID { get; set; }
 
 
 	/// <summary>
@@ -43,7 +43,7 @@ public partial class RoleFunction
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public Nullable<int> RoleID { get; set; }
+    public int EmployeeID { get; set; }
 
 
 	/// <summary>
@@ -51,49 +51,16 @@ public partial class RoleFunction
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public Nullable<int> MenuID { get; set; }
+    public int RoleID { get; set; }
+
+
 
 
 	/// <summary>
-    /// 獲取或設置
+    /// 獲取或設置(導航屬性)
 	/// </summary>
-    [DatabaseTableColumn]
     [DataMember]
-    public Nullable<int> FunctionID { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string CreatedBy { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public Nullable<System.DateTime> CreatedTime { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public string LastUpdatedBy { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置
-	/// </summary>
-    [DatabaseTableColumn]
-    [DataMember]
-    public System.DateTime LastUpdatedTime { get; set; }
-
-
+    public virtual Employee Employee { get; set; }
 
 
 	/// <summary>
@@ -101,20 +68,6 @@ public partial class RoleFunction
 	/// </summary>
     [DataMember]
     public virtual Role Role { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置(導航屬性)
-	/// </summary>
-    [DataMember]
-    public virtual Menu Menu { get; set; }
-
-
-	/// <summary>
-    /// 獲取或設置(導航屬性)
-	/// </summary>
-    [DataMember]
-    public virtual Function Function { get; set; }
 
 }
 

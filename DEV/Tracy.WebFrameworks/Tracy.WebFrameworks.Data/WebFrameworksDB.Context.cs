@@ -33,7 +33,10 @@ namespace Tracy.WebFrameworks.Data
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Menu> Menu { get; set; }
-        public DbSet<Function> Function { get; set; }
-        public DbSet<RoleFunction> RoleFunction { get; set; }
+        public DbSet<EmployeeDepartment> EmployeeDepartment { get; set; }
+        public DbSet<EmployeeRole> EmployeeRole { get; set; }
+        public DbSet<Button> Button { get; set; }
+        public DbSet<MenuButton> MenuButton { get; set; }
+        public DbSet<RoleMenuButton> RoleMenuButton { get; set; }
     }
 }
