@@ -48,6 +48,7 @@
     <Compile Include="Button.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="CommonBO\AjaxResult.cs" />
     <Compile Include="CommonBO\CommonsBO.cs" />
     <Compile Include="CommonBO\WebFxsResult.cs" />
     <Compile Include="CommonBO\PagingBase.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="RoleMenuButton.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CheckLoginRequest.cs" />
     <Compile Include="ViewModel\CheckLoginRQ.cs" />
     <Compile Include="WebFrameworks.Entity.Partial.cs" />
   </ItemGroup>

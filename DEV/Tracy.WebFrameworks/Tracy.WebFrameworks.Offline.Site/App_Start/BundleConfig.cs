@@ -9,32 +9,23 @@ namespace Tracy.WebFrameworks.Offline.Site
         public static void RegisterBundles(BundleCollection bundles)
         {
             //js
+            //jquery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
-                        "~/Scripts/easyui/jquery.easyui.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryform").Include(
+                        "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.form.js"));
 
+            //easyui
+            bundles.Add(new ScriptBundle("~/bundles/easyui").Include(
+                        "~/Scripts/easyui-1.3.2/jquery.easyui.min.js",
+                        "~/Scripts/easyui-1.3.2/easyui-lang-zh_CN.js"));
+
             //css
-            bundles.Add(new StyleBundle("~/Content/easyui/default").Include(
-                      "~/Content/easyui/default/easyui.css",
-                      "~/Content/easyui/icon.css"));
-            //css.gray
-            bundles.Add(new StyleBundle("~/Content/easyui/gray").Include(
-                      "~/Content/easyui/gray/easyui.css",
-                      "~/Content/easyui/icon.css"));
-            //css.bootstrap
+            //easyui
             bundles.Add(new StyleBundle("~/Content/easyui/bootstrap").Include(
                       "~/Content/easyui/bootstrap/easyui.css",
                       "~/Content/easyui/icon.css"));
-            //css.metro
-            bundles.Add(new StyleBundle("~/Content/easyui/metro").Include(
-                      "~/Content/easyui/metro/easyui.css",
-                      "~/Content/easyui/icon.css"));
 
+            //Site
             bundles.Add(new StyleBundle("~/Content/site").Include(
                         "~/Content/Site.css"));
         }
