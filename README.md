@@ -11,7 +11,7 @@ WCF</br></br>
 ASP.NET MVC5.0</br>
 easyui v1.3.2(jquery 1.8.2)</br></br>
 
-3，数据库
+3，数据库</br>
 sql server2008r2</br></br>
 
 二，目前集成的功能</br>
