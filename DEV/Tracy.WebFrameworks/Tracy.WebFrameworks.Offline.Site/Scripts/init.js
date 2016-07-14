@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿/// <reference path="jquery-1.8.2.js" />
+
+$(function () {
     initLogin();
 })
 
@@ -203,24 +205,13 @@ function changePwd() {
 
 //退出系统
 function loginOut() {
-    //$.messager.confirm('提示！', '确定退出系统？', function (r) {
-    //if(r){
-    if (confirm("确定退出当前陆登账户？")) {
-        var para = { "action": "logout" };
-        $.ajax({
-            url: "ashx/bg_user_login.ashx",
-            type: "post",
-            data: para,
-            dataType: "json",
-            success: function (result) {
-                if (result.success) {
-                    window.location.href = "login.html";
-                }
-                else {
-                    $.show_warning("提示", result.msg);
-                }
+    if (confirm("确定退出当前登陆账户？")) {
+        $.post("../Account/LogOut", null, function (result)
+        {
+            if (result.success) {
+                window.location.href = '../Account/Login';
             }
-        })
+        });
     }
     //}
     //})

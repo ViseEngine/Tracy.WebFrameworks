@@ -88,22 +88,10 @@ namespace Tracy.WebFrameworks.Service
         {
             var result = new WebFxsResult<Employee> 
             {
-                ReturnCode= ReturnCodeType.Error,
-                Content= new Employee()
+                ReturnCode= ReturnCodeType.Error
             };
 
             var employee = GetByCondition(p=> p.UserId.Equals(request.loginName) && p.UserPwd.Equals(request.loginPwd)).FirstOrDefault();
-            if (employee== null)
-            {
-                result.Message = "用户名或密码错误!";
-                return result;
-            }
-            if (employee.Enabled.Value == false)
-            {
-                result.Message = "该用户已被禁用!";
-                return result;
-            }
-
             result.ReturnCode = ReturnCodeType.Success;
             result.Content = employee;
 

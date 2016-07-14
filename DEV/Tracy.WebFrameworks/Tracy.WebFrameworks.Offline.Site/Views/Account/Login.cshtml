@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -111,7 +110,7 @@
             var url = location.href;
             //登录
             $("#loginFrm").form({
-                url: '@Url.Action("CheckLogin", "Login")',
+                url: '@Url.Action("Login", "Account")',
                 onSubmit: function () {
                     return checkInput();   //验证码是否正确
                 },
@@ -147,7 +146,7 @@
 
         function getiflogin() {
             $.ajax({
-                url: '@Url.Action("CheckIfLogin", "Login")',
+                url: '@Url.Action("IfLogin", "Account")',
                 type: "post",
                 dataType: "json",
                 success: function (result) {
@@ -156,7 +155,7 @@
                     }
                 },
                 beforeSend: function () {
-                    $('#loginBtn').linkbutton('disable'); 
+                    $('#loginBtn').linkbutton('disable');
                 },
                 complete: function () {
                     $('#loginBtn').linkbutton('enable');
