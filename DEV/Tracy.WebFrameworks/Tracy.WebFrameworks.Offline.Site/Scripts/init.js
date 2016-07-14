@@ -7,7 +7,8 @@ $(function () {
 function initLogin() {
     $('#treeLeft').tree({    //初始化左侧功能树（不同用户显示的树是不同的）
         method: 'GET',
-        url: 'ashx/bg_menu.ashx?action=getUserMenu',
+        //url: 'ashx/bg_menu.ashx?action=getUserMenu',
+        url: '../Menu/GetUserMenu',
         lines: true,
         onClick: function (node) {    //点击左侧的tree节点  打开右侧tabs显示内容
             if (node.attributes) {
@@ -17,7 +18,8 @@ function initLogin() {
     });
 
     $.ajax({
-        url: "ashx/bg_user_login.ashx",
+        //url: "ashx/bg_user_login.ashx",
+        url: '../Account/GetUser',
         type: "post",
         data: { action: "getuser" },
         dataType: "json",

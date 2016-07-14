@@ -15,6 +15,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public ActionResult Index()
         {
             return View();
