@@ -116,7 +116,6 @@
                     return checkInput();   //验证码是否正确
                 },
                 success: function (data) {
-                    debugger;
                     var result = eval('(' + data + ')');
                     if (result.success) {
                         if (url.indexOf("ReturnUrl=") != -1) {
@@ -147,7 +146,6 @@
         })
 
         function getiflogin() {
-            debugger;
             $.ajax({
                 url: '@Url.Action("CheckIfLogin", "Login")',
                 type: "post",

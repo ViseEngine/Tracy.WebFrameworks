@@ -14,6 +14,10 @@ using System.Text;
  * *******************************************************/
 namespace Tracy.WebFrameworks.Entity.CommonBO
 {
+    /// <summary>
+    /// service传给前端的结果实体
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [DataContract, Serializable]
     public class WebFxsResult<T>
     {

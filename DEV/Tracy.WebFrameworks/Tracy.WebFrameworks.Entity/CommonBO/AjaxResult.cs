@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Tracy.WebFrameworks.Entity.CommonBO
 {
+    /// <summary>
+    /// 前端给客户端的结果实体
+    /// </summary>
     [Serializable]
     public class AjaxResult
     {

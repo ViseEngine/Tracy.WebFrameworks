@@ -19,7 +19,7 @@ namespace Tracy.WebFrameworks.IService
         /// <param name="rq"></param>
         /// <returns></returns>
         [OperationContract]
-        WebFxsResult<bool> CheckLogin(CheckLoginRQ rq);
+        WebFxsResult<Employee> CheckLogin(CheckLoginRequest request);
 
     }
 }

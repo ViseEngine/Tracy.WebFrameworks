@@ -84,29 +84,28 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="rq"></param>
         /// <returns></returns>
-        public WebFxsResult<bool> CheckLogin(CheckLoginRQ rq)
+        public WebFxsResult<Employee> CheckLogin(CheckLoginRequest request)
         {
-            var result = new WebFxsResult<bool>()
+            var result = new WebFxsResult<Employee> 
             {
-                ReturnCode = ReturnCodeType.Error,
-                Content = false,
-                Message = string.Empty
+                ReturnCode= ReturnCodeType.Error,
+                Content= new Employee()
             };
 
-            var employees = this.GetByCondition(p => p.Enabled.Value == true && p.UserId.Equals(rq.LoginName) && p.UserPwd.Equals(rq.Password));
-            if (employees != null && employees.Count() > 1)
+            var employee = GetByCondition(p=> p.UserId.Equals(request.loginName) && p.UserPwd.Equals(request.loginPwd)).FirstOrDefault();
+            if (employee== null)
             {
-                result.Message = "存在重复的用户名和密码,请联系系统管理员!";
+                result.Message = "用户名或密码错误!";
+                return result;
             }
-            else if (employees != null && employees.Count() == 1)
+            if (employee.Enabled.Value == false)
             {
-                result.ReturnCode = ReturnCodeType.Success;
-                result.Content = true;
+                result.Message = "该用户已被禁用!";
+                return result;
             }
-            else
-            {
-                result.Message = "不存在该用户名和密码,请联系系统管理员!";
-            }
+
+            result.ReturnCode = ReturnCodeType.Success;
+            result.Content = employee;
 
             return result;
         }
