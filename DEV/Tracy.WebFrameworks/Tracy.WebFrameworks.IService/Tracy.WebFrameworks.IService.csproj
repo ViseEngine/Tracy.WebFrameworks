@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWebFxsCommonService.cs" />
     <Compile Include="IWebFxsCorporationService.cs" />
     <Compile Include="IWebFxsEmployeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

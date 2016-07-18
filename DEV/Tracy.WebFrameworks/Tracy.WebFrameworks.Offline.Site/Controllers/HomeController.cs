@@ -20,5 +20,32 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 获取该用户所拥有的菜单权限
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetUserMenu()
+        {
+            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var result = client.GetUserMenu(CurrentUserInfo.EmployeeID);
+                return Content(result.Content);
+            }
+        }
+
+        /// <summary>
+        /// 获取该用户的信息并再次验证cookie
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetUserInfo()
+        {
+
+
+            return View();
+        }
+
+
     }
 }

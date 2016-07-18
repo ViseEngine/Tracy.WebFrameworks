@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\DatabaseTableColumnAttribute.cs" />
+    <Compile Include="BusinessBO\UserMenuResponse.cs" />
     <Compile Include="Button.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
@@ -119,9 +120,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessBO\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Metadata\WebFrameworksDB.Entity.Metadata.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

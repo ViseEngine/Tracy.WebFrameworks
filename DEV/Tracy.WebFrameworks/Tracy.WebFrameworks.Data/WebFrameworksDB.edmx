@@ -124,7 +124,7 @@
     <Property Name="ParentMenuID" Type="int" Nullable="false" />
     <Property Name="MenuName" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="MenuCode" Type="nvarchar" Nullable="true" MaxLength="30" />
-    <Property Name="MenuUrl" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="MenuUrl" Type="nvarchar" Nullable="true" MaxLength="100" />
     <Property Name="Icon" Type="nvarchar" Nullable="true" MaxLength="50" />
     <Property Name="Sort" Type="int" Nullable="true" />
     <Property Name="CreatedBy" Type="nvarchar" Nullable="true" MaxLength="30" />
@@ -429,7 +429,7 @@
           <Property Name="ParentMenuID" Type="Int32" Nullable="false" />
           <Property Name="MenuName" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="MenuCode" Type="String" Nullable="true" MaxLength="30" />
-          <Property Name="MenuUrl" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="MenuUrl" Type="String" Nullable="true" MaxLength="100" />
           <Property Name="Icon" Type="String" Nullable="true" MaxLength="50" />
           <Property Name="Sort" Type="Int32" Nullable="true" />
           <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="30" />

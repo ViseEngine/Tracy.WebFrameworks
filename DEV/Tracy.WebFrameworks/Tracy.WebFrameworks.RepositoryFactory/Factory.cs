@@ -79,5 +79,10 @@ namespace Tracy.WebFrameworks.RepositoryFactory
             return GetInstance("RoleMenuButtonRepository") as IRoleMenuButtonRepository;
         }
 
+        public static ICommonRepository GetCommonRepository()
+        {
+            return GetInstance("CommonRepository") as ICommonRepository;
+        }
+
     }
 }

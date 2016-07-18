@@ -5,12 +5,11 @@ $(function () {
 })
 
 function initLogin() {
-    $('#treeLeft').tree({    //初始化左侧功能树（不同用户显示的树是不同的）
+    $('#treeLeft').tree({
         method: 'GET',
-        //url: 'ashx/bg_menu.ashx?action=getUserMenu',
-        url: '../Menu/GetUserMenu',
+        url: '../Home/GetUserMenu',//获取该用户所拥有的菜单权限
         lines: true,
-        onClick: function (node) {    //点击左侧的tree节点  打开右侧tabs显示内容
+        onClick: function (node) {
             if (node.attributes) {
                 addTab(node.text, node.attributes.url, node.iconCls);
             }
@@ -18,14 +17,12 @@ function initLogin() {
     });
 
     $.ajax({
-        //url: "ashx/bg_user_login.ashx",
-        url: '../Account/GetUser',
+        url: '../Home/GetUserInfo',//获取该用户的信息并再次验证cookie
         type: "post",
-        data: { action: "getuser" },
+        //data: { action: "getuser" },
         dataType: "json",
         success: function (result) {
             if (result.success) {
-                //console.log(result.msg);    //当前用户对象
                 $("#div_welcome").html("当前登录用户：" + result.msg.UserName);
                 if (!result.msg.IfChangePwd) {    //如果是首次登陆必须重置密码
                     $("<div/>").dialog({

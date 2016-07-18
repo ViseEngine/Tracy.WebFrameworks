@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/17/2016 10:05:11
+-- Date Created: 07/18/2016 16:13:53
 -- Generated from EDMX file: D:\sources.github\Tracy.WebFrameworks\DEV\Tracy.WebFrameworks\Tracy.WebFrameworks.Data\WebFrameworksDB.edmx
 -- --------------------------------------------------
 
@@ -152,7 +152,7 @@ CREATE TABLE [dbo].[Menu] (
     [ParentMenuID] int  NOT NULL,
     [MenuName] nvarchar(30)  NOT NULL,
     [MenuCode] nvarchar(30)  NULL,
-    [MenuUrl] nvarchar(100)  NOT NULL,
+    [MenuUrl] nvarchar(100)  NULL,
     [Icon] nvarchar(50)  NULL,
     [Sort] int  NULL,
     [CreatedBy] nvarchar(30)  NULL,

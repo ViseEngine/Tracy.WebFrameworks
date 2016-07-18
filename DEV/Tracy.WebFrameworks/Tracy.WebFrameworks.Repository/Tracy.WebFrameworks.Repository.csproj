@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonRepository.cs" />
+    <Compile Include="CommonRepository.cs" />
     <Compile Include="CorporationRepository.cs" />
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="EmployeeDepartmentRepository.cs" />

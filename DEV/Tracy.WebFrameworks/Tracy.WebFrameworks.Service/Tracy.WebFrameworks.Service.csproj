@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WebFxsCommonService.svc.cs" />
     <Compile Include="WebFxsCorporationService.svc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebFxsEmployeeService.svc.cs" />

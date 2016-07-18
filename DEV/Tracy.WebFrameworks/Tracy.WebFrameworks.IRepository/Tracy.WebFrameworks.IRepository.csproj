@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IButtonRepository.cs" />
+    <Compile Include="ICommonRepository.cs" />
     <Compile Include="ICorporationRepository.cs" />
     <Compile Include="IDepartmentRepository.cs" />
     <Compile Include="IEmployeeDepartmentRepository.cs" />
