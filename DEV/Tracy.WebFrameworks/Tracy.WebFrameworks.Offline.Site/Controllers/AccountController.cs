@@ -27,7 +27,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         public ActionResult Login(CheckLoginRequest request)
         {
             //验证输入的用户名和密码
-            var flag = true;
+            var flag = false;
             var msg = string.Empty;
 
             using (var factory = new ChannelFactory<IWebFxsEmployeeService>("*"))
@@ -39,13 +39,11 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     var emp = result.Content;
                     if (emp == null)
                     {
-                        flag = false;
                         msg = "用户名或密码错误!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
                     if (emp.Enabled.Value == false)
                     {
-                        flag = false;
                         msg = "该用户已被禁用,请联系系统管理员!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
@@ -66,6 +64,8 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                         cookie.Expires = dateCookieExpires;
                     }
                     Response.Cookies.Add(cookie);
+
+                    flag = true;
                 }
             }
 
@@ -99,13 +99,11 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     var emp1 = result.Content;
                     if (emp1 == null)
                     {
-                        flag = false;
                         msg = "用户名或密码错误!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
                     if (emp1.Enabled.Value == false)
                     {
-                        flag = false;
                         msg = "该用户已被禁用,请联系系统管理员!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }

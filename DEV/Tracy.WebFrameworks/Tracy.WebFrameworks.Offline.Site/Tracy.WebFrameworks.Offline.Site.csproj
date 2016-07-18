@@ -1655,6 +1655,7 @@
     <Content Include="Content\easyui\icon\zoom.png" />
     <Content Include="Content\easyui\icon\zoom_in.png" />
     <Content Include="Content\easyui\icon\zoom_out.png" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
