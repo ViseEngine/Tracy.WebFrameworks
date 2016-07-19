@@ -115,6 +115,7 @@
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CheckLoginRequest.cs" />
+    <Compile Include="ViewModel\FirstLoginRequest.cs" />
     <Compile Include="WebFrameworks.Entity.Partial.cs" />
   </ItemGroup>
   <ItemGroup>

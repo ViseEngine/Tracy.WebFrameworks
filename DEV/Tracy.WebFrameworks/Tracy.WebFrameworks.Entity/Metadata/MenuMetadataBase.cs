@@ -67,7 +67,6 @@ public class MenuMetadataBase
 	/// <summary>
     /// 
 	/// </summary>
-    [Required]
     [StringLength(100)]
     [DataMember]
     public object MenuUrl { get; set; }

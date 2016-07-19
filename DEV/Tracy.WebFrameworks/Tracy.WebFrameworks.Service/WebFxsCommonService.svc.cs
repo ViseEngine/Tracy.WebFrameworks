@@ -10,6 +10,8 @@ using Tracy.WebFrameworks.RepositoryFactory;
 using Tracy.Frameworks.Common.Extends;
 using System.ServiceModel.Activation;
 using System.ServiceModel;
+using Tracy.WebFrameworks.Entity;
+using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.Service
 {
@@ -75,6 +77,46 @@ namespace Tracy.WebFrameworks.Service
             }
             result.ReturnCode = Entity.ReturnCodeType.Success;
             result.Content = sb.ToString();
+
+            return result;
+        }
+
+        /// <summary>
+        /// 检查登录
+        /// </summary>
+        /// <param name="rq"></param>
+        /// <returns></returns>
+        public WebFxsResult<Employee> CheckLogin(CheckLoginRequest request)
+        {
+            var result = new WebFxsResult<Employee>
+            {
+                ReturnCode = ReturnCodeType.Error
+            };
+
+            var employee = repository.CheckLogin(request);
+            result.ReturnCode = ReturnCodeType.Success;
+            result.Content = employee;
+
+            return result;
+        }
+
+        /// <summary>
+        /// 首次登录初始化密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public WebFxsResult<bool> InitUserPwd(FirstLoginRequest request)
+        {
+            var result = new WebFxsResult<bool> 
+            {
+                ReturnCode= ReturnCodeType.Error
+            };
+
+            if (repository.InitUserPwd(request))
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = true;
+            }
 
             return result;
         }

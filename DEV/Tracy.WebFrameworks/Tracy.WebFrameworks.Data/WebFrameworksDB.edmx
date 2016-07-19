@@ -94,7 +94,7 @@
     </Key>
     <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="30" />
-    <Property Name="UserPwd" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="UserPwd" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="EmployeeName" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="Enabled" Type="bit" Nullable="true" />
     <Property Name="IsChangePwd" Type="bit" Nullable="false" />
@@ -395,7 +395,7 @@
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="30" />
-          <Property Name="UserPwd" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="UserPwd" Type="String" Nullable="false" MaxLength="32" />
           <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="Enabled" Type="Boolean" Nullable="true" />
           <Property Name="IsChangePwd" Type="Boolean" Nullable="false" />

@@ -79,23 +79,6 @@ namespace Tracy.WebFrameworks.Service
 
         #endregion
 
-        /// <summary>
-        /// 检查登录
-        /// </summary>
-        /// <param name="rq"></param>
-        /// <returns></returns>
-        public WebFxsResult<Employee> CheckLogin(CheckLoginRequest request)
-        {
-            var result = new WebFxsResult<Employee> 
-            {
-                ReturnCode= ReturnCodeType.Error
-            };
-
-            var employee = GetByCondition(p=> p.UserId.Equals(request.loginName) && p.UserPwd.Equals(request.loginPwd)).FirstOrDefault();
-            result.ReturnCode = ReturnCodeType.Success;
-            result.Content = employee;
-
-            return result;
-        }
+        
     }
 }

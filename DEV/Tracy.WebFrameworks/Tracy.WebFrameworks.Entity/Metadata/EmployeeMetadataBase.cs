@@ -50,7 +50,7 @@ public class EmployeeMetadataBase
     /// 
 	/// </summary>
     [Required]
-    [StringLength(30)]
+    [StringLength(32)]
     [DataMember]
     public object UserPwd { get; set; }
 

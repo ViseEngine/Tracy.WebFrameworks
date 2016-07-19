@@ -30,9 +30,10 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             var flag = false;
             var msg = string.Empty;
 
-            using (var factory = new ChannelFactory<IWebFxsEmployeeService>("*"))
+            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
+                request.loginPwd = request.loginPwd.To32bitMD5();
                 var result = client.CheckLogin(request);
                 if (result.ReturnCode == Entity.ReturnCodeType.Success)
                 {
@@ -90,7 +91,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             var id = (FormsIdentity)HttpContext.User.Identity;
             var ticket = id.Ticket;
             var emp = ticket.UserData.FromJson<Employee>();
-            using (var factory = new ChannelFactory<IWebFxsEmployeeService>("*"))
+            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
                 var result = client.CheckLogin(new CheckLoginRequest() { loginName = emp.UserId, loginPwd = emp.UserPwd });

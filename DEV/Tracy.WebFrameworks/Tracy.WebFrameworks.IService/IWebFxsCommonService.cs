@@ -4,7 +4,9 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.CommonBO;
+using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.IService
 {
@@ -18,6 +20,22 @@ namespace Tracy.WebFrameworks.IService
         /// <returns></returns>
         [OperationContract]
         WebFxsResult<string> GetUserMenu(int employeeId);
+
+        /// <summary>
+        /// 检查登录
+        /// </summary>
+        /// <param name="rq"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<Employee> CheckLogin(CheckLoginRequest request);
+
+        /// <summary>
+        /// 首次登录初始化密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<bool> InitUserPwd(FirstLoginRequest request);
 
     }
 }

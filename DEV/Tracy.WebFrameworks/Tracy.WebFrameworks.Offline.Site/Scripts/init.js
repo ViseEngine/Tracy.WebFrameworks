@@ -19,15 +19,15 @@ function initLogin() {
     $.ajax({
         url: '../Home/GetUserInfo',//获取该用户的信息并再次验证cookie
         type: "post",
-        //data: { action: "getuser" },
         dataType: "json",
         success: function (result) {
             if (result.success) {
-                $("#div_welcome").html("当前登录用户：" + result.msg.UserName);
-                if (!result.msg.IfChangePwd) {    //如果是首次登陆必须重置密码
+                var resultMsg = eval('(' + result.msg + ')');
+                $("#div_welcome").html("当前登录用户：" + resultMsg.EmployeeName);
+                if (!resultMsg.IsChangePwd) {    //如果是首次登陆必须重置密码
                     $("<div/>").dialog({
                         id: "ui_user_userfirstlogin_dialog",   //给dialog一个id，操作完好销毁，否则一直在html里
-                        href: "html/ui_user_firstlogin.html",
+                        href: '../Home/FirstLogin',
                         title: "首次登陆需重置密码",
                         height: 160,
                         width: 360,
@@ -38,11 +38,10 @@ function initLogin() {
                             text: '修 改',
                             handler: function () {
                                 $("#ui_user_userfirstlogin_form").form("submit", {
-                                    url: "ashx/bg_user.ashx",
+                                    url: '../Home/FirstLogin',
                                     onSubmit: function (param) {
                                         $('#ui_user_userfirstlogin_edit').linkbutton('disable');  //点击就不可用，防止连击
-                                        param.action = 'firstlogin';
-                                        //return $(this).form('validate');   //这么验证如果出错无法恢复按钮状态
+                                        //param.action = 'firstlogin';
                                         if ($(this).form('validate'))
                                             return true;
                                         else {
@@ -69,8 +68,8 @@ function initLogin() {
                             handler: function () { loginOut(); }
                         }],
                         onLoad: function () {
-                            $("#ui_user_firstlogin_pwd").focus();    //聚焦密码框
-                            $("#ui_user_firstlogin_id").val(result.msg.Id);
+                            $("#NewPwd").focus();
+                            $("#EmployeeId").val(resultMsg.EmployeeID);
                         }
                     });
                 }
