@@ -24,9 +24,9 @@ function initLogin() {
             if (result.success) {
                 var resultMsg = eval('(' + result.msg + ')');
                 $("#div_welcome").html("当前登录用户：" + resultMsg.EmployeeName);
-                if (!resultMsg.IsChangePwd) {    //如果是首次登陆必须重置密码
+                if (!resultMsg.IsChangePwd) {
                     $("<div/>").dialog({
-                        id: "ui_user_userfirstlogin_dialog",   //给dialog一个id，操作完好销毁，否则一直在html里
+                        id: "ui_user_userfirstlogin_dialog",
                         href: '../Home/FirstLogin',
                         title: "首次登陆需重置密码",
                         height: 160,
@@ -34,26 +34,25 @@ function initLogin() {
                         modal: true,
                         closable: false,
                         buttons: [{
-                            id: "ui_user_userfirstlogin_edit",   //给button一个id 方便控制其可用和不可用
+                            id: "ui_user_userfirstlogin_edit",
                             text: '修 改',
                             handler: function () {
                                 $("#ui_user_userfirstlogin_form").form("submit", {
                                     url: '../Home/FirstLogin',
                                     onSubmit: function (param) {
-                                        $('#ui_user_userfirstlogin_edit').linkbutton('disable');  //点击就不可用，防止连击
-                                        //param.action = 'firstlogin';
+                                        $('#ui_user_userfirstlogin_edit').linkbutton('disable');
                                         if ($(this).form('validate'))
                                             return true;
                                         else {
-                                            $('#ui_user_userfirstlogin_edit').linkbutton('enable');   //恢复按钮
+                                            $('#ui_user_userfirstlogin_edit').linkbutton('enable');
                                             return false;
                                         }
                                     },
                                     success: function (data) {
-                                        $('#ui_user_userfirstlogin_edit').linkbutton('enable');   //恢复按钮
-                                        var dataBack = $.parseJSON(data);   //序列化成对象，否则是字符串
+                                        $('#ui_user_userfirstlogin_edit').linkbutton('enable');
+                                        var dataBack = $.parseJSON(data);
                                         if (dataBack.success) {
-                                            $("#ui_user_userfirstlogin_dialog").dialog('destroy');  //销毁dialog对象
+                                            $("#ui_user_userfirstlogin_dialog").dialog('destroy');
                                             $.show_warning("提示", dataBack.msg);
                                         }
                                         else {

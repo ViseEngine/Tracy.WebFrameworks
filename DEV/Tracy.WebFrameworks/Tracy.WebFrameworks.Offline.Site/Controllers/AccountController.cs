@@ -37,13 +37,13 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                 var result = client.CheckLogin(request);
                 if (result.ReturnCode == Entity.ReturnCodeType.Success)
                 {
-                    var emp = result.Content;
-                    if (emp == null)
+                    var employee = result.Content;
+                    if (employee == null)
                     {
                         msg = "用户名或密码错误!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
-                    if (emp.Enabled.Value == false)
+                    if (employee.Enabled.Value == false)
                     {
                         msg = "该用户已被禁用,请联系系统管理员!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
@@ -53,11 +53,11 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
                     (
                         2,
-                        emp.UserId,
+                        employee.UserId,
                         DateTime.Now,
                         dateCookieExpires,
                         false,
-                        emp.ToJson()
+                        employee.ToJson()
                     );
                     HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
                     if (dateCookieExpires != new DateTime(9999, 12, 31))
@@ -77,6 +77,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// 检查是否已登录
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult IfLogin()
         {
             var flag = false;
@@ -90,21 +91,23 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
 
             var id = (FormsIdentity)HttpContext.User.Identity;
             var ticket = id.Ticket;
-            var emp = ticket.UserData.FromJson<Employee>();
+            var empFromCookie = ticket.UserData.FromJson<Employee>();
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
-                var result = client.CheckLogin(new CheckLoginRequest() { loginName = emp.UserId, loginPwd = emp.UserPwd });
+                var result = client.CheckLogin(new CheckLoginRequest() { loginName = empFromCookie.UserId, loginPwd = empFromCookie.UserPwd });
                 if (result.ReturnCode == ReturnCodeType.Success)
                 {
-                    var emp1 = result.Content;
-                    if (emp1 == null)
+                    var empFromDB = result.Content;
+                    if (empFromDB == null)
                     {
+                        FormsAuthentication.SignOut();
                         msg = "用户名或密码错误!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
-                    if (emp1.Enabled.Value == false)
+                    if (empFromDB.Enabled.Value == false)
                     {
+                        FormsAuthentication.SignOut();
                         msg = "该用户已被禁用,请联系系统管理员!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }

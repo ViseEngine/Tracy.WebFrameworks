@@ -70,6 +70,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     FormsIdentity id = (FormsIdentity)HttpContext.User.Identity;
                     FormsAuthenticationTicket ticketOld = id.Ticket;
                     CurrentUserInfo.UserPwd= request.NewPwd.To32bitMD5();
+                    CurrentUserInfo.IsChangePwd = true;
 
                     FormsAuthentication.SignOut();
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
@@ -144,7 +145,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     var empFromDB = result.Content;
                     if (empFromDB == null)
                     {
-                        FormsAuthentication.SignOut();   //干掉cookie
+                        FormsAuthentication.SignOut();
                         msg = "用户名或密码错误!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
@@ -154,7 +155,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                         msg = "用户被禁用!";
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
-                    else if (empFromCookie.IsChangePwd != empFromDB.IsChangePwd || empFromCookie.UserId != empFromDB.UserId)
+                    else if (empFromCookie.IsChangePwd != empFromDB.IsChangePwd || empFromCookie.EmployeeName != empFromDB.EmployeeName)
                     {
                         FormsAuthentication.SignOut();
                         FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
