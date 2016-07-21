@@ -7,7 +7,7 @@ $(function () {
 function initLogin() {
     $('#treeLeft').tree({
         method: 'GET',
-        url: '../Home/GetUserMenu',//获取该用户所拥有的菜单权限
+        url: 'Home/GetUserMenu',//获取该用户所拥有的菜单权限
         lines: true,
         onClick: function (node) {
             if (node.attributes) {
@@ -17,7 +17,7 @@ function initLogin() {
     });
 
     $.ajax({
-        url: '../Home/GetUserInfo',//获取该用户的信息并再次验证cookie
+        url: 'Home/GetUserInfo',//获取该用户的信息并再次验证cookie
         type: "post",
         dataType: "json",
         success: function (result) {
@@ -27,7 +27,7 @@ function initLogin() {
                 if (!resultMsg.IsChangePwd) {
                     $("<div/>").dialog({
                         id: "ui_user_userfirstlogin_dialog",
-                        href: '../Home/FirstLogin',
+                        href: 'Home/FirstLogin',
                         title: "首次登陆需重置密码",
                         height: 160,
                         width: 360,
@@ -76,7 +76,7 @@ function initLogin() {
             else {
                 //直接访问index页面没有cookie不会发这个ajax请求的，而是被FormsAuthentication带到了登录页面了
                 //这个else是有cookie，但是cookie里的用户再次验证的时候发现数据库里的当前用户已经修改密码/设置不可用等，然后干掉了cookie
-                window.location.href = "../Account/Login";
+                window.location.href = "Account/Login";
             }
         }
     });
