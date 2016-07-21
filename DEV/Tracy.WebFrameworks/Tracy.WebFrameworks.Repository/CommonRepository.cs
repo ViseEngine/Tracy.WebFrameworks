@@ -97,5 +97,31 @@ namespace Tracy.WebFrameworks.Repository
             }
         }
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public bool ChangePwd(ChangePwdRequest request)
+        {
+            using (var db = new WebFrameworksDB())
+            {
+                var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == request.EmployeeId);
+                if (employee!= null)
+                {
+                    employee.UserPwd = request.NewPwd;
+                }
+                if (db.SaveChanges() >0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+
     }
 }

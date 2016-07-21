@@ -121,5 +121,26 @@ namespace Tracy.WebFrameworks.Service
             return result;
         }
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public WebFxsResult<bool> ChangePwd(ChangePwdRequest request)
+        {
+            var result = new WebFxsResult<bool>
+            {
+                ReturnCode = ReturnCodeType.Error
+            };
+
+            if (repository.ChangePwd(request))
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = true;
+            }
+
+            return result;
+        }
+
     }
 }

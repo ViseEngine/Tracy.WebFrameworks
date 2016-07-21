@@ -32,5 +32,12 @@ namespace Tracy.WebFrameworks.IRepository
         /// <returns></returns>
         bool InitUserPwd(FirstLoginRequest request);
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        bool ChangePwd(ChangePwdRequest request);
+
     }
 }

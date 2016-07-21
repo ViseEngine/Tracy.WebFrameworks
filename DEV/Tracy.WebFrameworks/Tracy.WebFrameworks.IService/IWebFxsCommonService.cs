@@ -37,5 +37,13 @@ namespace Tracy.WebFrameworks.IService
         [OperationContract]
         WebFxsResult<bool> InitUserPwd(FirstLoginRequest request);
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<bool> ChangePwd(ChangePwdRequest request);
+
     }
 }

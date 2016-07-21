@@ -55,9 +55,181 @@
         <script type="text/javascript" src="~/Scripts/jquery-1.8.2.js"></script>
     }
     <script type="text/javascript">
+        $(function () {
+            initLogin();
+        });
 
+        function initLogin() {
+            $('#treeLeft').tree({
+                method: 'GET',
+                url: '@Url.Action("GetUserMenu", "Home")',//获取该用户所拥有的菜单权限
+                lines: true,
+                onClick: function (node) {
+                    if (node.attributes) {
+                        addTab(node.text, node.attributes.url, node.iconCls);
+                    }
+                }
+            });
 
+            $.ajax({
+                url: '@Url.Action("GetUserInfo", "Home")',//获取该用户的信息并再次验证cookie
+                type: "post",
+                dataType: "json",
+                success: function (result) {
+                    if (result.success) {
+                        var resultMsg = eval('(' + result.msg + ')');
+                        $("#div_welcome").html("当前登录用户：" + resultMsg.EmployeeName);
+                        if (!resultMsg.IsChangePwd) {
+                            $("<div/>").dialog({
+                                id: "ui_user_userfirstlogin_dialog",
+                                href: '@Url.Action("FirstLogin", "Home")',
+                                title: "首次登陆需重置密码",
+                                height: 160,
+                                width: 360,
+                                modal: true,
+                                closable: false,
+                                buttons: [{
+                                    id: "ui_user_userfirstlogin_edit",
+                                    text: '修 改',
+                                    handler: function () {
+                                        $("#ui_user_userfirstlogin_form").form("submit", {
+                                            url: '@Url.Action("FirstLogin", "Home")',
+                                            onSubmit: function (param) {
+                                                $('#ui_user_userfirstlogin_edit').linkbutton('disable');
+                                                if ($(this).form('validate'))
+                                                    return true;
+                                                else {
+                                                    $('#ui_user_userfirstlogin_edit').linkbutton('enable');
+                                                    return false;
+                                                }
+                                            },
+                                            success: function (data) {
+                                                $('#ui_user_userfirstlogin_edit').linkbutton('enable');
+                                                var dataBack = $.parseJSON(data);
+                                                if (dataBack.success) {
+                                                    $("#ui_user_userfirstlogin_dialog").dialog('destroy');
+                                                    $.show_warning("提示", dataBack.msg);
+                                                }
+                                                else {
+                                                    $('#ui_user_userfirstlogin_edit').linkbutton('enable');
+                                                    $.show_warning("提示", dataBack.msg);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }, {
+                                    text: '退 出',
+                                    handler: function () { loginOut(); }
+                                }],
+                                onLoad: function () {
+                                    $("#NewPwd").focus();
+                                    $("#EmployeeId").val(resultMsg.EmployeeID);
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        window.location.href = '@Url.Action("Login", "Account")';
+                    }
+                }
+            });
+        }
 
+        //查看当前用户信息
+        function searchMyInfo() {
+            $("<div/>").dialog({
+                id: "ui_myinfo_dialog",
+                href: "html/ui_myinfo.html",
+                title: "我的信息",
+                height: 500,
+                width: 580,
+                modal: true,
+                onLoad: function () {
+                    $.ajax({
+                        url: "ashx/bg_user.ashx?action=getUserInfo&timespan=" + new Date().getTime(),
+                        type: "post",
+                        dataType: "json",
+                        success: function (result) {
+                            $("#ui_myinfo_userid").html(result[0].UserId);
+                            $("#ui_myinfo_username").html(result[0].UserName);
+                            $("#ui_myinfo_adddate").html(result[0].AddDate);
+                            $("#ui_myinfo_roles").html(result[0].RoleName.length > 12 ? "<span title=" + result[0].RoleName + ">" + result[0].RoleName.substring(0, 12) + "...</span>" : result[0].RoleName);
+                            $("#ui_myinfo_departments").html(result[0].DepartmentName.length > 12 ? "<span title=" + result[0].DepartmentName + ">" + result[0].DepartmentName.substring(0, 12) + "...</span>" : result[0].DepartmentName);
+                            //长度超过12个字符就隐藏
+                        }
+                    });
+
+                    $('#ui_myinfo_authority').tree({
+                        url: "ashx/bg_menu.ashx?action=getMyAuthority&timespan=" + new Date().getTime(),
+                        onlyLeafCheck: true,
+                        checkbox: true
+                    });
+                },
+                onClose: function () {
+                    $("#ui_myinfo_dialog").dialog('destroy');  //销毁dialog对象
+                }
+            });
+        }
+
+        //修改密码
+        function changePwd() {
+            $("<div/>").dialog({
+                id: "ui_user_userchangepwd_dialog",
+                href: '@Url.Action("ChangePwd", "Home")',
+                title: "修改密码",
+                height: 240,
+                width: 380,
+                modal: true,
+                closable: false,
+                buttons: [{
+                    id: "ui_user_userchangepwd_edit",
+                    text: '修 改',
+                    handler: function () {
+                        $("#ui_user_userchangepwd_form").form("submit", {
+                            url: '@Url.Action("ChangePwd", "Home")',
+                            onSubmit: function (param) {
+                                $('#ui_user_userchangepwd_edit').linkbutton('disable');
+                                if ($(this).form('validate'))
+                                    return true;
+                                else {
+                                    $('#ui_user_userchangepwd_edit').linkbutton('enable');
+                                    return false;
+                                }
+                            },
+                            success: function (data) {
+                                $('#ui_user_userchangepwd_edit').linkbutton('enable');
+                                var dataBack = $.parseJSON(data);
+                                if (dataBack.success) {
+                                    alert(dataBack.msg);
+                                    window.location.href = '@Url.Action("Login", "Account")';
+                                }
+                                else {
+                                    $('#ui_user_userchangepwd_edit').linkbutton('enable');
+                                    $.show_warning("提示", dataBack.msg);
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    text: '取 消',
+                    handler: function () { $("#ui_user_userchangepwd_dialog").dialog('destroy'); }
+                }],
+                onLoad: function () {
+                    $("#OriginalPwd").focus();
+                }
+            });
+        }
+
+        //退出系统
+        function loginOut() {
+            if (confirm("确定退出当前登陆账户？")) {
+                $.post('@Url.Action("LogOut", "Account")', null, function (result) {
+                    if (result.success) {
+                        window.location.href = '@Url.Action("Login", "Account")';
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>
