@@ -9,6 +9,7 @@ using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.ViewModel;
 using Tracy.WebFrameworks.IService;
 using Tracy.Frameworks.Common.Extends;
+using Tracy.WebFrameworks.Offline.Site.Filters;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -49,6 +50,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                         return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
                     }
 
+                    //登录成功要保存(更新)cookie
                     DateTime dateCookieExpires = GetCookieExpires(request);
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
                     (

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
@@ -9,7 +7,7 @@ using Tracy.WebFrameworks.Entity.ViewModel;
 using Tracy.WebFrameworks.IService;
 using Tracy.Frameworks.Common.Extends;
 using Tracy.WebFrameworks.Entity;
-using Tracy.WebFrameworks.Entity.ViewModel;
+using Tracy.WebFrameworks.Offline.Site.Filters;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -19,7 +17,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
-        [Authorize]
+        [LoginAuthorization]
         public ActionResult Index()
         {
             return View();
@@ -29,6 +27,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// 首次登录,需修改密码
         /// </summary>
         /// <returns></returns>
+        [LoginAuthorization]
         public ActionResult FirstLogin()
         {
             return View();
@@ -106,6 +105,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// 修改密码
         /// </summary>
         /// <returns></returns>
+        [LoginAuthorization]
         public ActionResult ChangePwd()
         {
             return View();
@@ -179,65 +179,15 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             var flag = false;
             var msg = "";
 
-            //检查cookie里的用户信息是否与DB中的用户信息一致
-            if (!HttpContext.Request.IsAuthenticated)
-            {
-                msg = "nocookie";
-                return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
-            }
-
+            //能走到这里说明cookie已经验证通过
             FormsIdentity id = (FormsIdentity)HttpContext.User.Identity;
-            FormsAuthenticationTicket tickets = id.Ticket;
-
-            var empFromCookie = tickets.UserData.FromJson<Employee>();
-            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
+            FormsAuthenticationTicket ticket = id.Ticket;
+            msg = ticket.UserData;
+            if (!msg.IsNullOrEmpty())
             {
-                var client = factory.CreateChannel();
-                var result = client.CheckLogin(new CheckLoginRequest { loginName = empFromCookie.UserId, loginPwd = empFromCookie.UserPwd });
-                if (result.ReturnCode == ReturnCodeType.Success)
-                {
-                    var empFromDB = result.Content;
-                    if (empFromDB == null)
-                    {
-                        FormsAuthentication.SignOut();
-                        msg = "用户名或密码错误!";
-                        return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
-                    }
-                    else if (empFromDB.Enabled.Value == false)
-                    {
-                        FormsAuthentication.SignOut();
-                        msg = "用户被禁用!";
-                        return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
-                    }
-                    else if (empFromCookie.IsChangePwd != empFromDB.IsChangePwd || empFromCookie.EmployeeName != empFromDB.EmployeeName)
-                    {
-                        FormsAuthentication.SignOut();
-                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket
-                        (
-                            2,
-                            empFromDB.UserId,
-                            DateTime.Now,
-                            tickets.Expiration,
-                            false,
-                            empFromDB.ToJson()
-                        );
-                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
-                        if (tickets.Expiration != new DateTime(9999, 12, 31))
-                        {
-                            cookie.Expires = tickets.Expiration;
-                        }
-                        Response.Cookies.Add(cookie);
-
-                        msg = empFromDB.ToJson();
-                    }
-                    else
-                    {
-                        msg = tickets.UserData;
-                    }
-                }
+                flag = true;                
             }
 
-            flag = true;
             return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 
