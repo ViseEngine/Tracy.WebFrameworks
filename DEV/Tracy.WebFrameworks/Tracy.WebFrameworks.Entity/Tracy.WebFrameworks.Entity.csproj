@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\DatabaseTableColumnAttribute.cs" />
+    <Compile Include="BusinessBO\GetMyInfoResponse.cs" />
     <Compile Include="BusinessBO\UserMenuResponse.cs" />
     <Compile Include="Button.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>

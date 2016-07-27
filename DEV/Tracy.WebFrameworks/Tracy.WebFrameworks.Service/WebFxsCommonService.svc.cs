@@ -12,6 +12,7 @@ using System.ServiceModel.Activation;
 using System.ServiceModel;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.ViewModel;
+using Tracy.WebFrameworks.Entity.BusinessBO;
 
 namespace Tracy.WebFrameworks.Service
 {
@@ -42,16 +43,16 @@ namespace Tracy.WebFrameworks.Service
             if (userMenus.HasValue())
             {
                 //TODO:组装json字符串，有更好的方案要优化
-                var rootUserMenus= userMenus.Where(p => p.MenuParentId == 0).ToList();
+                var rootUserMenus = userMenus.Where(p => p.MenuParentId == 0).ToList();
                 if (rootUserMenus.HasValue())
                 {
-                    rootUserMenus.ForEach(item => 
+                    rootUserMenus.ForEach(item =>
                     {
                         sb.Append("{\"id\":\"" + item.MenuId + "\",\"text\":\"" + item.MenuName + "\",\"iconCls\":\"" + item.MenuIcon + "\",\"children\":[");
-                        var childUserMenus= userMenus.Where(p => p.MenuParentId == item.MenuId).ToList();
+                        var childUserMenus = userMenus.Where(p => p.MenuParentId == item.MenuId).ToList();
                         if (childUserMenus.HasValue())
                         {
-                            childUserMenus.ForEach(subItem => 
+                            childUserMenus.ForEach(subItem =>
                             {
                                 sb.Append("{\"id\":\"" + subItem.MenuId + "\",\"text\":\"" + subItem.MenuName + "\",\"iconCls\":\"" + subItem.MenuIcon + "\",\"attributes\":{\"url\":\"" + subItem.LinkAddress + "\"}},");
                             });
@@ -107,9 +108,9 @@ namespace Tracy.WebFrameworks.Service
         /// <returns></returns>
         public WebFxsResult<bool> InitUserPwd(FirstLoginRequest request)
         {
-            var result = new WebFxsResult<bool> 
+            var result = new WebFxsResult<bool>
             {
-                ReturnCode= ReturnCodeType.Error
+                ReturnCode = ReturnCodeType.Error
             };
 
             if (repository.InitUserPwd(request))
@@ -137,6 +138,32 @@ namespace Tracy.WebFrameworks.Service
             {
                 result.ReturnCode = ReturnCodeType.Success;
                 result.Content = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 我的信息
+        /// </summary>
+        /// <returns></returns>
+        public WebFxsResult<GetMyInfoResponse> GetMyInfo(int id)
+        {
+            var result = new WebFxsResult<GetMyInfoResponse>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = new GetMyInfoResponse()
+            };
+
+            var myInfo = repository.GetMyInfo(id);
+            if (myInfo != null)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = myInfo;
+            }
+            else
+            {
+                result.Message = "获取我的信息失败!";
             }
 
             return result;

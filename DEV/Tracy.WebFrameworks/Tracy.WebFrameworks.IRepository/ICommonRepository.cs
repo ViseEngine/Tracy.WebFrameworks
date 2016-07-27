@@ -39,5 +39,12 @@ namespace Tracy.WebFrameworks.IRepository
         /// <returns></returns>
         bool ChangePwd(ChangePwdRequest request);
 
+        /// <summary>
+        /// 我的信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        GetMyInfoResponse GetMyInfo(int id);
+
     }
 }

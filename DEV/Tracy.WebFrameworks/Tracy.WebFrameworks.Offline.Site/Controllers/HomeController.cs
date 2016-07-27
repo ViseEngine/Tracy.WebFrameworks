@@ -8,6 +8,7 @@ using Tracy.WebFrameworks.IService;
 using Tracy.Frameworks.Common.Extends;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Offline.Site.Filters;
+using Tracy.WebFrameworks.Entity.BusinessBO;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -68,7 +69,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     //更新cookie
                     FormsIdentity id = (FormsIdentity)HttpContext.User.Identity;
                     FormsAuthenticationTicket ticketOld = id.Ticket;
-                    CurrentUserInfo.UserPwd= request.NewPwd.To32bitMD5();
+                    CurrentUserInfo.UserPwd = request.NewPwd.To32bitMD5();
                     CurrentUserInfo.IsChangePwd = true;
 
                     FormsAuthentication.SignOut();
@@ -83,7 +84,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     );
                     HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
                     if (ticket.Expiration != new DateTime(9999, 12, 31))
-                    { 
+                    {
                         cookie.Expires = ticketOld.Expiration;
                     }
                     HttpContext.Response.Cookies.Add(cookie);
@@ -137,7 +138,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                 request.EmployeeId = CurrentUserInfo.EmployeeID;
                 request.NewPwd = newPwd;
                 var result = client.ChangePwd(request);
-                if (result.ReturnCode== ReturnCodeType.Success && result.Content== true)
+                if (result.ReturnCode == ReturnCodeType.Success && result.Content == true)
                 {
                     //修改成功要清除cookie然后到登录页面重写cookie
                     FormsAuthentication.SignOut();
@@ -153,8 +154,6 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
 
             return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
         }
-
-
 
         /// <summary>
         /// 获取该用户所拥有的菜单权限
@@ -174,21 +173,69 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// 获取该用户的信息并再次验证cookie
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetUserInfo()
+        public ActionResult GetCurrentUser()
         {
             var flag = false;
             var msg = "";
 
-            //能走到这里说明cookie已经验证通过
+            //已登录并且cookie验证通过，所以直接从cookie中取就可以
             FormsIdentity id = (FormsIdentity)HttpContext.User.Identity;
             FormsAuthenticationTicket ticket = id.Ticket;
             msg = ticket.UserData;
             if (!msg.IsNullOrEmpty())
             {
-                flag = true;                
+                flag = true;
             }
 
             return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 我的信息
+        /// </summary>
+        /// <returns></returns>
+        [LoginAuthorization]
+        public ActionResult GetMyInfo()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 我的信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GetMyInfoPost()
+        {
+            var flag = false;
+            var msg = string.Empty;
+            var data = new GetMyInfoResponse();
+
+            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var result = client.GetMyInfo(CurrentUserInfo.EmployeeID);
+                if (result.ReturnCode == ReturnCodeType.Success)
+                {
+                    flag = true;
+                    data = result.Content;
+                }
+                else
+                {
+                    msg = result.Message;
+                }
+            }
+
+            return Json(new { success = flag, msg = msg, data = data }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 我的权限
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetMyAuthority()
+        {
+            return Content("");
         }
 
 

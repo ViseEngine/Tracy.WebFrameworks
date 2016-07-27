@@ -72,7 +72,7 @@
             });
 
             $.ajax({
-                url: '@Url.Action("GetUserInfo", "Home")',//获取该用户的信息并再次验证cookie
+                url: '@Url.Action("GetCurrentUser", "Home")',//获取该用户的信息并再次验证cookie
                 type: "post",
                 dataType: "json",
                 success: function (result) {
@@ -139,31 +139,30 @@
         function searchMyInfo() {
             $("<div/>").dialog({
                 id: "ui_myinfo_dialog",
-                href: "html/ui_myinfo.html",
+                href: '@Url.Action("GetMyInfo", "Home")',
                 title: "我的信息",
                 height: 500,
                 width: 580,
                 modal: true,
                 onLoad: function () {
                     $.ajax({
-                        url: "ashx/bg_user.ashx?action=getUserInfo&timespan=" + new Date().getTime(),
-                        type: "post",
+                        url: '@Url.Action("GetMyInfoPost", "Home")',
+                        type: "POST",
                         dataType: "json",
                         success: function (result) {
-                            $("#ui_myinfo_userid").html(result[0].UserId);
-                            $("#ui_myinfo_username").html(result[0].UserName);
-                            $("#ui_myinfo_adddate").html(result[0].AddDate);
-                            $("#ui_myinfo_roles").html(result[0].RoleName.length > 12 ? "<span title=" + result[0].RoleName + ">" + result[0].RoleName.substring(0, 12) + "...</span>" : result[0].RoleName);
-                            $("#ui_myinfo_departments").html(result[0].DepartmentName.length > 12 ? "<span title=" + result[0].DepartmentName + ">" + result[0].DepartmentName.substring(0, 12) + "...</span>" : result[0].DepartmentName);
-                            //长度超过12个字符就隐藏
+                            $("#ui_myinfo_userid").html(result.data.UserId);
+                            $("#ui_myinfo_username").html(result.data.UserName);
+                            $("#ui_myinfo_adddate").html(result.data.CreatedTime);
+                            $("#ui_myinfo_roles").html(result.data.RolesName.length > 12 ? "<span title=" + result.data.RolesName + ">" + result.data.RolesName.substring(0, 12) + "...</span>" : result.data.RolesName);
+                            $("#ui_myinfo_departments").html(result.data.DepartmentsName.length > 12 ? "<span title=" + result.data.DepartmentsName + ">" + result.data.DepartmentsName.substring(0, 12) + "...</span>" : result.data.DepartmentsName);
                         }
                     });
 
-                    $('#ui_myinfo_authority').tree({
-                        url: "ashx/bg_menu.ashx?action=getMyAuthority&timespan=" + new Date().getTime(),
+                    @*$('#ui_myinfo_authority').tree({
+                        url: '@Url.Action("GetMyAuthority", "Home")',
                         onlyLeafCheck: true,
                         checkbox: true
-                    });
+                    });*@
                 },
                 onClose: function () {
                     $("#ui_myinfo_dialog").dialog('destroy');  //销毁dialog对象

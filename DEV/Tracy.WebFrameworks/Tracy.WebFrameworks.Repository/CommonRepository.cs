@@ -10,6 +10,7 @@ using Tracy.WebFrameworks.Entity.BusinessBO;
 using Tracy.WebFrameworks.Entity.ViewModel;
 using Tracy.WebFrameworks.IRepository;
 using Tracy.Frameworks.Common.Extends;
+using Tracy.Frameworks.Common.Const;
 
 namespace Tracy.WebFrameworks.Repository
 {
@@ -107,11 +108,11 @@ namespace Tracy.WebFrameworks.Repository
             using (var db = new WebFrameworksDB())
             {
                 var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == request.EmployeeId);
-                if (employee!= null)
+                if (employee != null)
                 {
                     employee.UserPwd = request.NewPwd;
                 }
-                if (db.SaveChanges() >0)
+                if (db.SaveChanges() > 0)
                 {
                     return true;
                 }
@@ -121,6 +122,52 @@ namespace Tracy.WebFrameworks.Repository
                 }
             }
 
+        }
+
+        /// <summary>
+        /// 我的信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public GetMyInfoResponse GetMyInfo(int id)
+        {
+            var result = new GetMyInfoResponse();
+
+            DBHelper.NoLockInvokeDB(() =>
+            {
+                using (var db = new WebFrameworksDB())
+                {
+                    var query = from emp in db.Employee
+                                join empRole in db.EmployeeRole on emp.EmployeeID equals empRole.EmployeeID into aa
+                                from empRole in aa.DefaultIfEmpty()
+                                join role in db.Role on empRole.RoleID equals role.RoleID into bb
+                                from role in bb.DefaultIfEmpty()
+                                join empDepartment in db.EmployeeDepartment on emp.EmployeeID equals empDepartment.EmployeeID into cc
+                                from empDepartment in cc.DefaultIfEmpty()
+                                join depart in db.Department on empDepartment.DepartmentID equals depart.DepartmentID into dd
+                                from depart in dd.DefaultIfEmpty()
+                                where emp.EmployeeID == id
+                                select new
+                                {
+                                    UserId = emp.UserId,
+                                    UserName = emp.EmployeeName,
+                                    CreatedTime = emp.CreatedTime,
+                                    RolesName = role.RoleName,
+                                    DepartmentsName = depart.DepartmentName
+                                };
+                    if (query != null && query.Count() > 0)
+                    {
+                        var list = query.ToList();
+                        result.UserId = list[0].UserId;
+                        result.UserName = list[0].UserName;
+                        result.CreatedTime = list[0].CreatedTime.ToString(DateFormat.DATETIME);
+                        result.RolesName = string.Join(",", list.Select(p => p.RolesName));
+                        result.DepartmentsName = string.Join(",", list.Select(p => p.DepartmentsName));
+                    }
+                }
+            });
+
+            return result;
         }
 
     }

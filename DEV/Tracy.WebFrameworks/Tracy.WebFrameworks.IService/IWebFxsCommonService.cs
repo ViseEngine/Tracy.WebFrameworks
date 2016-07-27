@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Tracy.WebFrameworks.Entity;
+using Tracy.WebFrameworks.Entity.BusinessBO;
 using Tracy.WebFrameworks.Entity.CommonBO;
 using Tracy.WebFrameworks.Entity.ViewModel;
 
@@ -44,6 +45,13 @@ namespace Tracy.WebFrameworks.IService
         /// <returns></returns>
         [OperationContract]
         WebFxsResult<bool> ChangePwd(ChangePwdRequest request);
+
+        /// <summary>
+        /// 我的信息
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<GetMyInfoResponse> GetMyInfo(int id);
 
     }
 }
