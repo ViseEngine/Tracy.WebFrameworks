@@ -10,10 +10,11 @@ using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.IService
 {
-    [ServiceContract(ConfigurationName = "WebFxsEmployeeService.IWebFxsEmployeeService")]
-    public interface IWebFxsEmployeeService
+    [ServiceContract(ConfigurationName = "WebFxsUserService.IWebFxsUserService")]
+    public interface IWebFxsUserService
     {
-        
+        [OperationContract]
+        void Test();
 
     }
 }

@@ -44,9 +44,9 @@
     <Compile Include="ICommonRepository.cs" />
     <Compile Include="ICorporationRepository.cs" />
     <Compile Include="IDepartmentRepository.cs" />
-    <Compile Include="IEmployeeDepartmentRepository.cs" />
-    <Compile Include="IEmployeeRepository.cs" />
-    <Compile Include="IEmployeeRoleRepository.cs" />
+    <Compile Include="IUserDepartmentRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
+    <Compile Include="IUserRoleRepository.cs" />
     <Compile Include="IMenuButtonRepository.cs" />
     <Compile Include="IMenuRepository.cs" />
     <Compile Include="IRoleMenuButtonRepository.cs" />

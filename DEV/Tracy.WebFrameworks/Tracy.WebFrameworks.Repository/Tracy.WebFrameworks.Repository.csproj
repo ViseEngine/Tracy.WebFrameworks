@@ -53,9 +53,9 @@
     <Compile Include="CommonRepository.cs" />
     <Compile Include="CorporationRepository.cs" />
     <Compile Include="DepartmentRepository.cs" />
-    <Compile Include="EmployeeDepartmentRepository.cs" />
-    <Compile Include="EmployeeRepository.cs" />
-    <Compile Include="EmployeeRoleRepository.cs" />
+    <Compile Include="UserDepartmentRepository.cs" />
+    <Compile Include="UserRepository.cs" />
+    <Compile Include="UserRoleRepository.cs" />
     <Compile Include="MenuButtonRepository.cs" />
     <Compile Include="MenuRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

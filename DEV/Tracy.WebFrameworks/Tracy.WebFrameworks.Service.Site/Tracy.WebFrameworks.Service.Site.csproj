@@ -72,7 +72,7 @@
     <Content Include="Web.config" />
     <Content Include="WebFxsCommonService.svc" />
     <Content Include="WebFxsCorporationService.svc" />
-    <Content Include="WebFxsEmployeeService.svc" />
+    <Content Include="WebFxsUserService.svc" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">

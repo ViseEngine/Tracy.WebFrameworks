@@ -11,7 +11,7 @@ using Tracy.WebFrameworks.IRepository;
 
 namespace Tracy.WebFrameworks.Repository
 {
-    public class EmployeeRoleRepository: IEmployeeRoleRepository
+    public class UserRoleRepository: IUserRoleRepository
     {
         /// <summary>
         /// 依据id查询

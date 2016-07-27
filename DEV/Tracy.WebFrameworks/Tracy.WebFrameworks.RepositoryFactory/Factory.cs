@@ -39,14 +39,14 @@ namespace Tracy.WebFrameworks.RepositoryFactory
             return GetInstance("DepartmentRepository") as IDepartmentRepository;
         }
 
-        public static IEmployeeRepository GetEmployeeRepository()
+        public static IUserRepository GetEmployeeRepository()
         {
-            return GetInstance("EmployeeRepository") as IEmployeeRepository;
+            return GetInstance("EmployeeRepository") as IUserRepository;
         }
 
-        public static IEmployeeDepartmentRepository GetEmployeeDepartmentRepository()
+        public static IUserDepartmentRepository GetEmployeeDepartmentRepository()
         {
-            return GetInstance("EmployeeDepartmentRepository") as IEmployeeDepartmentRepository;
+            return GetInstance("EmployeeDepartmentRepository") as IUserDepartmentRepository;
         }
 
         public static IRoleRepository GetRoleRepository()
@@ -54,9 +54,9 @@ namespace Tracy.WebFrameworks.RepositoryFactory
             return GetInstance("RoleRepository") as IRoleRepository;
         }
 
-        public static IEmployeeRoleRepository GetEmployeeRoleRepository()
+        public static IUserRoleRepository GetEmployeeRoleRepository()
         {
-            return GetInstance("EmployeeRoleRepository") as IEmployeeRoleRepository;
+            return GetInstance("EmployeeRoleRepository") as IUserRoleRepository;
         }
 
         public static IMenuRepository GetMenuRepository()

@@ -58,7 +58,7 @@
     <Compile Include="WebFxsCommonService.svc.cs" />
     <Compile Include="WebFxsCorporationService.svc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebFxsEmployeeService.svc.cs" />
+    <Compile Include="WebFxsUserService.svc.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tracy.WebFrameworks.Common\Tracy.WebFrameworks.Common.csproj">

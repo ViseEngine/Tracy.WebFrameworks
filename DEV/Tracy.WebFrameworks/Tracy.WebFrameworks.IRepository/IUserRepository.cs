@@ -9,16 +9,16 @@ using Tracy.WebFrameworks.Entity;
 namespace Tracy.WebFrameworks.IRepository
 {
     /// <summary>
-    /// 职员-角色仓储接口
+    /// 职员仓储接口
     /// </summary>
-    public interface IEmployeeRoleRepository
+    public interface IUserRepository
     {
         /// <summary>
         /// 依据id查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        UserRole GetById(int id);
+        User GetById(int id);
 
         /// <summary>
         /// 依条件表达式查询
@@ -26,21 +26,21 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        IEnumerable<UserRole> GetByCondition(Expression<Func<UserRole, bool>> filter = null, Func<IQueryable<UserRole>, IOrderedQueryable<UserRole>> orderby = null);
+        IEnumerable<User> GetByCondition(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderby = null);
 
         /// <summary>
         /// 插入
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        UserRole Insert(UserRole item);
+        User Insert(User item);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        bool Update(UserRole item);
+        bool Update(User item);
 
         /// <summary>
         /// 删除
@@ -48,5 +48,6 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="id"></param>
         /// <returns></returns>
         bool Delete(int id);
+
     }
 }

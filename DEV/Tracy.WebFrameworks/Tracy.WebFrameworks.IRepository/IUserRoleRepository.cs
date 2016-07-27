@@ -9,16 +9,16 @@ using Tracy.WebFrameworks.Entity;
 namespace Tracy.WebFrameworks.IRepository
 {
     /// <summary>
-    /// 职员-部门仓储接口
+    /// 职员-角色仓储接口
     /// </summary>
-    public interface IEmployeeDepartmentRepository
+    public interface IUserRoleRepository
     {
         /// <summary>
         /// 依据id查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        UserDepartment GetById(int id);
+        UserRole GetById(int id);
 
         /// <summary>
         /// 依条件表达式查询
@@ -26,21 +26,21 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        IEnumerable<UserDepartment> GetByCondition(Expression<Func<UserDepartment, bool>> filter = null, Func<IQueryable<UserDepartment>, IOrderedQueryable<UserDepartment>> orderby = null);
+        IEnumerable<UserRole> GetByCondition(Expression<Func<UserRole, bool>> filter = null, Func<IQueryable<UserRole>, IOrderedQueryable<UserRole>> orderby = null);
 
         /// <summary>
         /// 插入
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        UserDepartment Insert(UserDepartment item);
+        UserRole Insert(UserRole item);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        bool Update(UserDepartment item);
+        bool Update(UserRole item);
 
         /// <summary>
         /// 删除

@@ -21,9 +21,9 @@ namespace Tracy.WebFrameworks.Service
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     //[WcfServiceCounter(SystemCode = "WebFrameworks", Source = "Offline.Service")]
-    public class WebFxsEmployeeService : IWebFxsEmployeeService
+    public class WebFxsUserService : IWebFxsUserService
     {
-        private static readonly IEmployeeRepository repository = Factory.GetEmployeeRepository();
+        private static readonly IUserRepository repository = Factory.GetEmployeeRepository();
 
         #region IRepository
         /// <summary>
@@ -79,6 +79,10 @@ namespace Tracy.WebFrameworks.Service
 
         #endregion
 
+        public void Test()
+        {
+            throw new NotImplementedException();
+        }
         
     }
 }
