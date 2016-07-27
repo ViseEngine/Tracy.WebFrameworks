@@ -47,36 +47,36 @@ namespace Tracy.WebFrameworks.Offline.Site.Filters
             //已登录,需要验证cookie
             FormsIdentity id = (FormsIdentity)httpContext.User.Identity;
             FormsAuthenticationTicket oldTicket = id.Ticket;
-            var empFromCookie = oldTicket.UserData.FromJson<User>();
+            var userFromCookie = oldTicket.UserData.FromJson<User>();
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
-                var result = client.CheckLogin(new CheckLoginRequest { loginName = empFromCookie.UserId, loginPwd = empFromCookie.UserPwd });
+                var result = client.CheckLogin(new CheckLoginRequest { loginName = userFromCookie.UserId, loginPwd = userFromCookie.UserPwd });
                 if (result.ReturnCode == ReturnCodeType.Success)
                 {
-                    var empFromDB = result.Content;
-                    if (empFromDB == null)
+                    var userFromDB = result.Content;
+                    if (userFromDB == null)
                     {
                         FormsAuthentication.SignOut();
                         return false;
                     }
-                    else if (empFromDB.Enabled.Value == false)
+                    else if (userFromDB.Enabled.Value == false)
                     {
                         FormsAuthentication.SignOut();
                         return false;
                     }
-                    else if (empFromCookie.IsChangePwd != empFromDB.IsChangePwd || empFromCookie.UserName != empFromDB.UserName)//校验是否修改了IfChangePwd字段或真实名
+                    else if (userFromCookie.IsChangePwd != userFromDB.IsChangePwd || userFromCookie.UserName != userFromDB.UserName)//校验是否修改了IfChangePwd字段或真实名
                     {
                         //更新cookie
                         FormsAuthentication.SignOut();
                         FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket
                         (
                             2,
-                            empFromDB.UserId,
+                            userFromDB.UserId,
                             DateTime.Now,
                             oldTicket.Expiration,
                             false,
-                            empFromDB.ToJson()
+                            userFromDB.ToJson()
                         );
                         HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(newTicket));
                         if (oldTicket.Expiration != new DateTime(9999, 12, 31))

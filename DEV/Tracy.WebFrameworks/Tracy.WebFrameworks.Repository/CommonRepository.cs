@@ -81,7 +81,7 @@ namespace Tracy.WebFrameworks.Repository
         {
             using (var db = new WebFrameworksDB())
             {
-                var user = db.User.FirstOrDefault(p => p.Id == request.UserId);
+                var user = db.User.FirstOrDefault(p => p.Id == request.Id);
                 if (user != null)
                 {
                     user.UserPwd = request.NewPwd.To32bitMD5();

@@ -77,8 +77,9 @@
                 dataType: "json",
                 success: function (result) {
                     if (result.success) {
+                        debugger;
                         var resultMsg = eval('(' + result.msg + ')');
-                        $("#div_welcome").html("当前登录用户：" + resultMsg.EmployeeName);
+                        $("#div_welcome").html("当前登录用户：" + resultMsg.UserName);
                         if (!resultMsg.IsChangePwd) {
                             $("<div/>").dialog({
                                 id: "ui_user_userfirstlogin_dialog",
@@ -123,7 +124,7 @@
                                 }],
                                 onLoad: function () {
                                     $("#NewPwd").focus();
-                                    $("#EmployeeId").val(resultMsg.EmployeeID);
+                                    $("#Id").val(resultMsg.Id);
                                 }
                             });
                         }
