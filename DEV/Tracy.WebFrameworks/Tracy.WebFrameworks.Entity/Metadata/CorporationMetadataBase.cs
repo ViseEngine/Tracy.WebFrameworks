@@ -34,7 +34,7 @@ public class CorporationMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object CorporationID { get; set; }
+    public object Id { get; set; }
 
 
 	/// <summary>
@@ -42,7 +42,7 @@ public class CorporationMetadataBase
 	/// </summary>
     [StringLength(30)]
     [DataMember]
-    public object CorporationCode { get; set; }
+    public object Code { get; set; }
 
 
 	/// <summary>
@@ -51,7 +51,7 @@ public class CorporationMetadataBase
     [Required]
     [StringLength(50)]
     [DataMember]
-    public object CorporationName { get; set; }
+    public object Name { get; set; }
 
 
 	/// <summary>
@@ -61,7 +61,7 @@ public class CorporationMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object ParentCorpID { get; set; }
+    public object ParentId { get; set; }
 
 
 	/// <summary>

@@ -31,7 +31,7 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Employee GetById(int id)
+        public User GetById(int id)
         {
             return repository.GetById(id);
         }
@@ -42,7 +42,7 @@ namespace Tracy.WebFrameworks.Service
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        public IEnumerable<Employee> GetByCondition(Expression<Func<Employee, bool>> filter = null, Func<IQueryable<Employee>, IOrderedQueryable<Employee>> orderby = null)
+        public IEnumerable<User> GetByCondition(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderby = null)
         {
             return repository.GetByCondition(filter: filter, orderby: orderby);
         }
@@ -52,7 +52,7 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public Employee Insert(Employee item)
+        public User Insert(User item)
         {
             return repository.Insert(item);
         }
@@ -62,7 +62,7 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Update(Employee item)
+        public bool Update(User item)
         {
             return repository.Update(item);
         }

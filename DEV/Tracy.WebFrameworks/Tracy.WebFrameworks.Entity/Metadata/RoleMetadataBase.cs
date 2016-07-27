@@ -34,7 +34,7 @@ public class RoleMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object RoleID { get; set; }
+    public object Id { get; set; }
 
 
 	/// <summary>
@@ -42,7 +42,7 @@ public class RoleMetadataBase
 	/// </summary>
     [StringLength(50)]
     [DataMember]
-    public object RoleName { get; set; }
+    public object Name { get; set; }
 
 
 	/// <summary>

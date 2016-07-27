@@ -46,7 +46,7 @@ public partial class Corporation
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int CorporationID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -54,7 +54,7 @@ public partial class Corporation
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string CorporationCode { get; set; }
+    public string Code { get; set; }
 
 
 	/// <summary>
@@ -62,7 +62,7 @@ public partial class Corporation
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string CorporationName { get; set; }
+    public string Name { get; set; }
 
 
 	/// <summary>
@@ -70,7 +70,7 @@ public partial class Corporation
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ParentCorpID { get; set; }
+    public int ParentId { get; set; }
 
 
 	/// <summary>

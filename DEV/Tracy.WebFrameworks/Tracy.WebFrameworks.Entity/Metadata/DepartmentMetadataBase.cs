@@ -34,7 +34,7 @@ public class DepartmentMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object DepartmentID { get; set; }
+    public object Id { get; set; }
 
 
 	/// <summary>
@@ -42,7 +42,7 @@ public class DepartmentMetadataBase
 	/// </summary>
     [StringLength(30)]
     [DataMember]
-    public object DepartmentCode { get; set; }
+    public object Code { get; set; }
 
 
 	/// <summary>
@@ -51,7 +51,7 @@ public class DepartmentMetadataBase
     [Required]
     [StringLength(100)]
     [DataMember]
-    public object DepartmentName { get; set; }
+    public object Name { get; set; }
 
 
 	/// <summary>
@@ -61,7 +61,7 @@ public class DepartmentMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object ParentDeptID { get; set; }
+    public object ParentId { get; set; }
 
 
 	/// <summary>
@@ -71,7 +71,7 @@ public class DepartmentMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object CorporationID { get; set; }
+    public object CorporationId { get; set; }
 
 
 	/// <summary>

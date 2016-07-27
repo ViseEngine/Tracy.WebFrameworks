@@ -23,7 +23,7 @@ namespace Tracy.WebFrameworks.IRepository
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Employee CheckLogin(CheckLoginRequest request);
+        User CheckLogin(CheckLoginRequest request);
 
         /// <summary>
         /// 首次登录初始化密码

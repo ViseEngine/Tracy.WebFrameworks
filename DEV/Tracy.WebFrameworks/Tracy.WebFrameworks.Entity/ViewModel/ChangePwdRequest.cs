@@ -8,7 +8,7 @@ namespace Tracy.WebFrameworks.Entity.ViewModel
     [Serializable]
     public class ChangePwdRequest
     {
-        public int EmployeeId { get; set; }
+        public int UserId { get; set; }
 
         public string OriginalPwd { get; set; }
 

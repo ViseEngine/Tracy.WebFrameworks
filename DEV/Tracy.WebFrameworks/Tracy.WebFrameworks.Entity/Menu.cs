@@ -48,7 +48,7 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int MenuID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -56,7 +56,7 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ParentMenuID { get; set; }
+    public int ParentId { get; set; }
 
 
 	/// <summary>
@@ -64,7 +64,7 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string MenuName { get; set; }
+    public string Name { get; set; }
 
 
 	/// <summary>
@@ -72,7 +72,7 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string MenuCode { get; set; }
+    public string Code { get; set; }
 
 
 	/// <summary>
@@ -80,7 +80,7 @@ public partial class Menu
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string MenuUrl { get; set; }
+    public string Url { get; set; }
 
 
 	/// <summary>

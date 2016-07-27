@@ -35,7 +35,7 @@ public partial class Department
     public Department()
     {
 
-        this.EmployeeDepartment = new HashSet<EmployeeDepartment>();
+        this.UserDepartment = new HashSet<UserDepartment>();
 
     }
 
@@ -46,7 +46,7 @@ public partial class Department
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int DepartmentID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -54,7 +54,7 @@ public partial class Department
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string DepartmentCode { get; set; }
+    public string Code { get; set; }
 
 
 	/// <summary>
@@ -62,7 +62,7 @@ public partial class Department
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string DepartmentName { get; set; }
+    public string Name { get; set; }
 
 
 	/// <summary>
@@ -70,7 +70,7 @@ public partial class Department
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ParentDeptID { get; set; }
+    public int ParentId { get; set; }
 
 
 	/// <summary>
@@ -78,7 +78,7 @@ public partial class Department
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int CorporationID { get; set; }
+    public int CorporationId { get; set; }
 
 
 	/// <summary>
@@ -142,7 +142,7 @@ public partial class Department
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<EmployeeDepartment> EmployeeDepartment { get; set; }
+    public virtual ICollection<UserDepartment> UserDepartment { get; set; }
 
 }
 

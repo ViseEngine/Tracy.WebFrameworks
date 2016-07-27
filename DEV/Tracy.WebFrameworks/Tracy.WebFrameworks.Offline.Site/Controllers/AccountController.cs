@@ -93,7 +93,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
 
             var id = (FormsIdentity)HttpContext.User.Identity;
             var ticket = id.Ticket;
-            var empFromCookie = ticket.UserData.FromJson<Employee>();
+            var empFromCookie = ticket.UserData.FromJson<User>();
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();

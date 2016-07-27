@@ -35,9 +35,9 @@ public partial class Role
     public Role()
     {
 
-        this.RoleMenuButton = new HashSet<RoleMenuButton>();
+        this.UserRole = new HashSet<UserRole>();
 
-        this.EmployeeRole = new HashSet<EmployeeRole>();
+        this.RoleMenuButton = new HashSet<RoleMenuButton>();
 
     }
 
@@ -48,7 +48,7 @@ public partial class Role
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int RoleID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -56,7 +56,7 @@ public partial class Role
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string RoleName { get; set; }
+    public string Name { get; set; }
 
 
 	/// <summary>
@@ -105,14 +105,14 @@ public partial class Role
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<RoleMenuButton> RoleMenuButton { get; set; }
+    public virtual ICollection<UserRole> UserRole { get; set; }
 
 
 	/// <summary>
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<EmployeeRole> EmployeeRole { get; set; }
+    public virtual ICollection<RoleMenuButton> RoleMenuButton { get; set; }
 
 }
 

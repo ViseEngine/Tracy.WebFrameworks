@@ -25,8 +25,8 @@ namespace Tracy.WebFrameworks.Entity
 /// </summary>
 [Serializable]
 [DataContract(IsReference = true)]
-[MetadataType(typeof(EmployeeRoleMetadata))]
-public partial class EmployeeRole
+[MetadataType(typeof(UserRoleMetadata))]
+public partial class UserRole
 {
 
 
@@ -35,7 +35,7 @@ public partial class EmployeeRole
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -43,7 +43,7 @@ public partial class EmployeeRole
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int EmployeeID { get; set; }
+    public int UserId { get; set; }
 
 
 	/// <summary>
@@ -51,16 +51,9 @@ public partial class EmployeeRole
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int RoleID { get; set; }
+    public int RoleId { get; set; }
 
 
-
-
-	/// <summary>
-    /// 獲取或設置(導航屬性)
-	/// </summary>
-    [DataMember]
-    public virtual Employee Employee { get; set; }
 
 
 	/// <summary>
@@ -68,6 +61,13 @@ public partial class EmployeeRole
 	/// </summary>
     [DataMember]
     public virtual Role Role { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置(導航屬性)
+	/// </summary>
+    [DataMember]
+    public virtual User User { get; set; }
 
 }
 

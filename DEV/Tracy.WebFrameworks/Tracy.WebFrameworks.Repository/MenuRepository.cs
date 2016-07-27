@@ -28,7 +28,7 @@ namespace Tracy.WebFrameworks.Repository
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    result = db.Menu.FirstOrDefault(p => p.MenuID == id);
+                    result = db.Menu.FirstOrDefault(p => p.Id == id);
                 }
             });
             return result;
@@ -95,13 +95,13 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var menu = db.Menu.FirstOrDefault(p => p.MenuID == item.MenuID);
+                var menu = db.Menu.FirstOrDefault(p => p.Id == item.Id);
                 if (menu != null)
                 {
-                    menu.ParentMenuID = item.ParentMenuID;
-                    menu.MenuName = item.MenuName;
-                    menu.MenuCode = item.MenuCode;
-                    menu.MenuUrl = item.MenuUrl;
+                    menu.ParentId = item.ParentId;
+                    menu.Name = item.Name;
+                    menu.Code = item.Code;
+                    menu.Url = item.Url;
                     menu.Icon = item.Icon;
                     menu.Sort = item.Sort;
                     menu.LastUpdatedBy = item.LastUpdatedBy;
@@ -125,7 +125,7 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var menu = db.Menu.FirstOrDefault(p => p.MenuID == id);
+                var menu = db.Menu.FirstOrDefault(p => p.Id == id);
                 if (menu != null)
                 {
                     db.Menu.Remove(menu);

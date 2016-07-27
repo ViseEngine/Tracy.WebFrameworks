@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/19/2016 17:57:15
+-- Date Created: 07/27/2016 15:43:30
 -- Generated from EDMX file: D:\sources.github\Tracy.WebFrameworks\DEV\Tracy.WebFrameworks\Tracy.WebFrameworks.Data\WebFrameworksDB.edmx
 -- --------------------------------------------------
 
@@ -89,10 +89,10 @@ GO
 
 -- Creating table 'Corporation'
 CREATE TABLE [dbo].[Corporation] (
-    [CorporationID] int IDENTITY(1,1) NOT NULL,
-    [CorporationCode] nvarchar(30)  NULL,
-    [CorporationName] nvarchar(50)  NOT NULL,
-    [ParentCorpID] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Code] nvarchar(30)  NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [ParentId] int  NOT NULL,
     [Sort] int  NULL,
     [Enabled] bit  NULL,
     [CreatedBy] nvarchar(30)  NULL,
@@ -104,11 +104,11 @@ GO
 
 -- Creating table 'Department'
 CREATE TABLE [dbo].[Department] (
-    [DepartmentID] int IDENTITY(1,1) NOT NULL,
-    [DepartmentCode] nvarchar(30)  NULL,
-    [DepartmentName] nvarchar(100)  NOT NULL,
-    [ParentDeptID] int  NOT NULL,
-    [CorporationID] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Code] nvarchar(30)  NULL,
+    [Name] nvarchar(100)  NOT NULL,
+    [ParentId] int  NOT NULL,
+    [CorporationId] int  NOT NULL,
     [Sort] int  NULL,
     [Enabled] bit  NULL,
     [CreatedBy] nvarchar(30)  NULL,
@@ -118,12 +118,12 @@ CREATE TABLE [dbo].[Department] (
 );
 GO
 
--- Creating table 'Employee'
-CREATE TABLE [dbo].[Employee] (
-    [EmployeeID] int IDENTITY(1,1) NOT NULL,
+-- Creating table 'User'
+CREATE TABLE [dbo].[User] (
+    [Id] int IDENTITY(1,1) NOT NULL,
     [UserId] nvarchar(30)  NOT NULL,
     [UserPwd] nvarchar(32)  NOT NULL,
-    [EmployeeName] nvarchar(30)  NOT NULL,
+    [UserName] nvarchar(30)  NOT NULL,
     [Enabled] bit  NULL,
     [IsChangePwd] bit  NOT NULL,
     [Description] nvarchar(200)  NULL,
@@ -136,8 +136,8 @@ GO
 
 -- Creating table 'Role'
 CREATE TABLE [dbo].[Role] (
-    [RoleID] int IDENTITY(1,1) NOT NULL,
-    [RoleName] nvarchar(50)  NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NULL,
     [Description] nvarchar(200)  NULL,
     [CreatedBy] nvarchar(30)  NULL,
     [CreatedTime] datetime  NULL,
@@ -148,11 +148,11 @@ GO
 
 -- Creating table 'Menu'
 CREATE TABLE [dbo].[Menu] (
-    [MenuID] int IDENTITY(1,1) NOT NULL,
-    [ParentMenuID] int  NOT NULL,
-    [MenuName] nvarchar(30)  NOT NULL,
-    [MenuCode] nvarchar(30)  NULL,
-    [MenuUrl] nvarchar(100)  NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ParentId] int  NOT NULL,
+    [Name] nvarchar(30)  NOT NULL,
+    [Code] nvarchar(30)  NULL,
+    [Url] nvarchar(100)  NULL,
     [Icon] nvarchar(50)  NULL,
     [Sort] int  NULL,
     [CreatedBy] nvarchar(30)  NULL,
@@ -162,27 +162,27 @@ CREATE TABLE [dbo].[Menu] (
 );
 GO
 
--- Creating table 'EmployeeDepartment'
-CREATE TABLE [dbo].[EmployeeDepartment] (
-    [ID] int IDENTITY(1,1) NOT NULL,
-    [EmployeeID] int  NOT NULL,
-    [DepartmentID] int  NOT NULL
+-- Creating table 'UserDepartment'
+CREATE TABLE [dbo].[UserDepartment] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [UserId] int  NOT NULL,
+    [DepartmentId] int  NOT NULL
 );
 GO
 
--- Creating table 'EmployeeRole'
-CREATE TABLE [dbo].[EmployeeRole] (
-    [ID] int IDENTITY(1,1) NOT NULL,
-    [EmployeeID] int  NOT NULL,
-    [RoleID] int  NOT NULL
+-- Creating table 'UserRole'
+CREATE TABLE [dbo].[UserRole] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [UserId] int  NOT NULL,
+    [RoleId] int  NOT NULL
 );
 GO
 
 -- Creating table 'Button'
 CREATE TABLE [dbo].[Button] (
-    [ButtonID] int IDENTITY(1,1) NOT NULL,
-    [ButtonName] nvarchar(50)  NULL,
-    [ButtonCode] nvarchar(50)  NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NULL,
+    [Code] nvarchar(50)  NULL,
     [Icon] nvarchar(50)  NULL,
     [Sort] int  NULL,
     [CreatedBy] nvarchar(50)  NULL,
@@ -194,18 +194,18 @@ GO
 
 -- Creating table 'MenuButton'
 CREATE TABLE [dbo].[MenuButton] (
-    [ID] int IDENTITY(1,1) NOT NULL,
-    [MenuID] int  NOT NULL,
-    [ButtonID] int  NOT NULL
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [MenuId] int  NOT NULL,
+    [ButtonId] int  NOT NULL
 );
 GO
 
 -- Creating table 'RoleMenuButton'
 CREATE TABLE [dbo].[RoleMenuButton] (
-    [ID] int IDENTITY(1,1) NOT NULL,
-    [RoleID] int  NOT NULL,
-    [MenuID] int  NOT NULL,
-    [ButtonID] int  NOT NULL
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RoleId] int  NOT NULL,
+    [MenuId] int  NOT NULL,
+    [ButtonId] int  NOT NULL
 );
 GO
 
@@ -213,64 +213,64 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [CorporationID] in table 'Corporation'
+-- Creating primary key on [Id] in table 'Corporation'
 ALTER TABLE [dbo].[Corporation]
 ADD CONSTRAINT [PK_Corporation]
-    PRIMARY KEY CLUSTERED ([CorporationID] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [DepartmentID] in table 'Department'
+-- Creating primary key on [Id] in table 'Department'
 ALTER TABLE [dbo].[Department]
 ADD CONSTRAINT [PK_Department]
-    PRIMARY KEY CLUSTERED ([DepartmentID] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [EmployeeID] in table 'Employee'
-ALTER TABLE [dbo].[Employee]
-ADD CONSTRAINT [PK_Employee]
-    PRIMARY KEY CLUSTERED ([EmployeeID] ASC);
+-- Creating primary key on [Id] in table 'User'
+ALTER TABLE [dbo].[User]
+ADD CONSTRAINT [PK_User]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [RoleID] in table 'Role'
+-- Creating primary key on [Id] in table 'Role'
 ALTER TABLE [dbo].[Role]
 ADD CONSTRAINT [PK_Role]
-    PRIMARY KEY CLUSTERED ([RoleID] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [MenuID] in table 'Menu'
+-- Creating primary key on [Id] in table 'Menu'
 ALTER TABLE [dbo].[Menu]
 ADD CONSTRAINT [PK_Menu]
-    PRIMARY KEY CLUSTERED ([MenuID] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [ID] in table 'EmployeeDepartment'
-ALTER TABLE [dbo].[EmployeeDepartment]
-ADD CONSTRAINT [PK_EmployeeDepartment]
-    PRIMARY KEY CLUSTERED ([ID] ASC);
+-- Creating primary key on [Id] in table 'UserDepartment'
+ALTER TABLE [dbo].[UserDepartment]
+ADD CONSTRAINT [PK_UserDepartment]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [ID] in table 'EmployeeRole'
-ALTER TABLE [dbo].[EmployeeRole]
-ADD CONSTRAINT [PK_EmployeeRole]
-    PRIMARY KEY CLUSTERED ([ID] ASC);
+-- Creating primary key on [Id] in table 'UserRole'
+ALTER TABLE [dbo].[UserRole]
+ADD CONSTRAINT [PK_UserRole]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [ButtonID] in table 'Button'
+-- Creating primary key on [Id] in table 'Button'
 ALTER TABLE [dbo].[Button]
 ADD CONSTRAINT [PK_Button]
-    PRIMARY KEY CLUSTERED ([ButtonID] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [ID] in table 'MenuButton'
+-- Creating primary key on [Id] in table 'MenuButton'
 ALTER TABLE [dbo].[MenuButton]
 ADD CONSTRAINT [PK_MenuButton]
-    PRIMARY KEY CLUSTERED ([ID] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [ID] in table 'RoleMenuButton'
+-- Creating primary key on [Id] in table 'RoleMenuButton'
 ALTER TABLE [dbo].[RoleMenuButton]
 ADD CONSTRAINT [PK_RoleMenuButton]
-    PRIMARY KEY CLUSTERED ([ID] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------

@@ -28,7 +28,7 @@ namespace Tracy.WebFrameworks.Repository
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    result = db.Department.FirstOrDefault(p => p.DepartmentID == id);
+                    result = db.Department.FirstOrDefault(p => p.Id == id);
                 }
             });
             return result;
@@ -95,13 +95,13 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var department = db.Department.FirstOrDefault(p => p.DepartmentID == item.DepartmentID);
+                var department = db.Department.FirstOrDefault(p => p.Id == item.Id);
                 if (department != null)
                 {
-                    department.DepartmentCode = item.DepartmentCode;
-                    department.DepartmentName = item.DepartmentName;
-                    department.ParentDeptID = item.ParentDeptID;
-                    department.CorporationID = item.CorporationID;
+                    department.Code = item.Code;
+                    department.Name = item.Name;
+                    department.ParentId = item.ParentId;
+                    department.CorporationId = item.CorporationId;
                     department.Sort = item.Sort;
                     department.Enabled = item.Enabled;
                     department.LastUpdatedBy = item.LastUpdatedBy;
@@ -125,7 +125,7 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var department = db.Department.FirstOrDefault(p => p.DepartmentID == id);
+                var department = db.Department.FirstOrDefault(p => p.Id == id);
                 if (department != null)
                 {
                     db.Department.Remove(department);

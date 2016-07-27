@@ -28,7 +28,7 @@ namespace Tracy.WebFrameworks.Repository
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    result = db.RoleMenuButton.FirstOrDefault(p => p.ID == id);
+                    result = db.RoleMenuButton.FirstOrDefault(p => p.Id == id);
                 }
             });
             return result;
@@ -95,12 +95,12 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var roleMenuButton = db.RoleMenuButton.FirstOrDefault(p => p.ID == item.ID);
+                var roleMenuButton = db.RoleMenuButton.FirstOrDefault(p => p.Id == item.Id);
                 if (roleMenuButton != null)
                 {
-                    roleMenuButton.RoleID = item.RoleID;
-                    roleMenuButton.MenuID = item.MenuID;
-                    roleMenuButton.ButtonID = item.ButtonID;
+                    roleMenuButton.RoleId = item.RoleId;
+                    roleMenuButton.MenuId = item.MenuId;
+                    roleMenuButton.ButtonId = item.ButtonId;
                 }
                 if (db.SaveChanges() > 0)
                 {
@@ -120,7 +120,7 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var roleMenuButton = db.RoleMenuButton.FirstOrDefault(p => p.ID == id);
+                var roleMenuButton = db.RoleMenuButton.FirstOrDefault(p => p.Id == id);
                 if (roleMenuButton != null)
                 {
                     db.RoleMenuButton.Remove(roleMenuButton);

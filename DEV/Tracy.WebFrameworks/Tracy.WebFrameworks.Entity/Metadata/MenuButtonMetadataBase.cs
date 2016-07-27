@@ -34,7 +34,7 @@ public class MenuButtonMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object ID { get; set; }
+    public object Id { get; set; }
 
 
 	/// <summary>
@@ -44,7 +44,7 @@ public class MenuButtonMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object MenuID { get; set; }
+    public object MenuId { get; set; }
 
 
 	/// <summary>
@@ -54,7 +54,7 @@ public class MenuButtonMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object ButtonID { get; set; }
+    public object ButtonId { get; set; }
 
 }
 

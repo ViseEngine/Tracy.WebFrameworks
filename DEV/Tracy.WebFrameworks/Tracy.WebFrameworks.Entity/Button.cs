@@ -48,7 +48,7 @@ public partial class Button
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ButtonID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -56,7 +56,7 @@ public partial class Button
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string ButtonName { get; set; }
+    public string Name { get; set; }
 
 
 	/// <summary>
@@ -64,7 +64,7 @@ public partial class Button
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string ButtonCode { get; set; }
+    public string Code { get; set; }
 
 
 	/// <summary>

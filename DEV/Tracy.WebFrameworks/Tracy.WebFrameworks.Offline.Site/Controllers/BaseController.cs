@@ -17,7 +17,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// <summary>
         /// 保存当前登录用户会话
         /// </summary>
-        public Employee CurrentUserInfo { get; set; }
+        public User CurrentUserInfo { get; set; }
 
         /// <summary>
         /// Action执行前调用
@@ -32,7 +32,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                 FormsIdentity id = (FormsIdentity)filterContext.HttpContext.User.Identity;
                 FormsAuthenticationTicket tickets = id.Ticket;
 
-                CurrentUserInfo = tickets.UserData.FromJson<Employee>();   
+                CurrentUserInfo = tickets.UserData.FromJson<User>();   
             }
         }
 

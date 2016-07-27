@@ -87,9 +87,9 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="rq"></param>
         /// <returns></returns>
-        public WebFxsResult<Employee> CheckLogin(CheckLoginRequest request)
+        public WebFxsResult<User> CheckLogin(CheckLoginRequest request)
         {
-            var result = new WebFxsResult<Employee>
+            var result = new WebFxsResult<User>
             {
                 ReturnCode = ReturnCodeType.Error
             };

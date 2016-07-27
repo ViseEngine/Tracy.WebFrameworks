@@ -47,7 +47,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Filters
             //已登录,需要验证cookie
             FormsIdentity id = (FormsIdentity)httpContext.User.Identity;
             FormsAuthenticationTicket oldTicket = id.Ticket;
-            var empFromCookie = oldTicket.UserData.FromJson<Employee>();
+            var empFromCookie = oldTicket.UserData.FromJson<User>();
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
@@ -65,7 +65,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Filters
                         FormsAuthentication.SignOut();
                         return false;
                     }
-                    else if (empFromCookie.IsChangePwd != empFromDB.IsChangePwd || empFromCookie.EmployeeName != empFromDB.EmployeeName)//校验是否修改了IfChangePwd字段或真实名
+                    else if (empFromCookie.IsChangePwd != empFromDB.IsChangePwd || empFromCookie.UserName != empFromDB.UserName)//校验是否修改了IfChangePwd字段或真实名
                     {
                         //更新cookie
                         FormsAuthentication.SignOut();

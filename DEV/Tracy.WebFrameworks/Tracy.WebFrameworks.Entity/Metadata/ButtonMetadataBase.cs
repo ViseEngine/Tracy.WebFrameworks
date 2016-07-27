@@ -34,7 +34,7 @@ public class ButtonMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object ButtonID { get; set; }
+    public object Id { get; set; }
 
 
 	/// <summary>
@@ -42,7 +42,7 @@ public class ButtonMetadataBase
 	/// </summary>
     [StringLength(50)]
     [DataMember]
-    public object ButtonName { get; set; }
+    public object Name { get; set; }
 
 
 	/// <summary>
@@ -50,7 +50,7 @@ public class ButtonMetadataBase
 	/// </summary>
     [StringLength(50)]
     [DataMember]
-    public object ButtonCode { get; set; }
+    public object Code { get; set; }
 
 
 	/// <summary>

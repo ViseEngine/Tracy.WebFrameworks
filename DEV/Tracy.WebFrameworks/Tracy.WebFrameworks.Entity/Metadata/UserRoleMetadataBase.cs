@@ -22,7 +22,7 @@ namespace Tracy.WebFrameworks.Entity.Metadata
 ///  CustomMetadata基類
 /// </summary>
 [DataContract]
-public class EmployeeRoleMetadataBase
+public class UserRoleMetadataBase
 {
 
 
@@ -34,7 +34,7 @@ public class EmployeeRoleMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object ID { get; set; }
+    public object Id { get; set; }
 
 
 	/// <summary>
@@ -44,7 +44,7 @@ public class EmployeeRoleMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object EmployeeID { get; set; }
+    public object UserId { get; set; }
 
 
 	/// <summary>
@@ -54,7 +54,7 @@ public class EmployeeRoleMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object RoleID { get; set; }
+    public object RoleId { get; set; }
 
 }
 

@@ -35,7 +35,7 @@ public partial class RoleMenuButton
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -43,7 +43,7 @@ public partial class RoleMenuButton
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int RoleID { get; set; }
+    public int RoleId { get; set; }
 
 
 	/// <summary>
@@ -51,7 +51,7 @@ public partial class RoleMenuButton
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int MenuID { get; set; }
+    public int MenuId { get; set; }
 
 
 	/// <summary>
@@ -59,16 +59,9 @@ public partial class RoleMenuButton
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ButtonID { get; set; }
+    public int ButtonId { get; set; }
 
 
-
-
-	/// <summary>
-    /// 獲取或設置(導航屬性)
-	/// </summary>
-    [DataMember]
-    public virtual Role Role { get; set; }
 
 
 	/// <summary>
@@ -76,6 +69,13 @@ public partial class RoleMenuButton
 	/// </summary>
     [DataMember]
     public virtual Menu Menu { get; set; }
+
+
+	/// <summary>
+    /// 獲取或設置(導航屬性)
+	/// </summary>
+    [DataMember]
+    public virtual Role Role { get; set; }
 
 
 	/// <summary>

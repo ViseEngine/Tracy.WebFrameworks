@@ -14,7 +14,7 @@ namespace Tracy.WebFrameworks.Repository
     /// <summary>
     /// 角色仓储接口实现
     /// </summary>
-    public class RoleRepository: IRoleRepository
+    public class RoleRepository : IRoleRepository
     {
         /// <summary>
         /// 依据id查询
@@ -28,7 +28,7 @@ namespace Tracy.WebFrameworks.Repository
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    result = db.Role.FirstOrDefault(p => p.RoleID== id);
+                    result = db.Role.FirstOrDefault(p => p.Id == id);
                 }
             });
             return result;
@@ -95,10 +95,10 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var role = db.Role.FirstOrDefault(p => p.RoleID == item.RoleID);
+                var role = db.Role.FirstOrDefault(p => p.Id == item.Id);
                 if (role != null)
                 {
-                    role.RoleName = item.RoleName;
+                    role.Name = item.Name;
                     role.Description = item.Description;
                     role.LastUpdatedBy = item.LastUpdatedBy;
                     role.LastUpdatedTime = item.LastUpdatedTime;
@@ -121,7 +121,7 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var role = db.Role.FirstOrDefault(p => p.RoleID == id);
+                var role = db.Role.FirstOrDefault(p => p.Id == id);
                 if (role != null)
                 {
                     db.Role.Remove(role);

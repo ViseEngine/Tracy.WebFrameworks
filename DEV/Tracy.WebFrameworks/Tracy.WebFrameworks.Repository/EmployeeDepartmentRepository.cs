@@ -18,14 +18,14 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public EmployeeDepartment GetById(int id)
+        public UserDepartment GetById(int id)
         {
-            EmployeeDepartment result = null;
+            UserDepartment result = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    result = db.EmployeeDepartment.FirstOrDefault(p => p.ID == id);
+                    result = db.UserDepartment.FirstOrDefault(p => p.Id == id);
                 }
             });
             return result;
@@ -37,14 +37,14 @@ namespace Tracy.WebFrameworks.Repository
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        public IEnumerable<EmployeeDepartment> GetByCondition(Expression<Func<EmployeeDepartment, bool>> filter = null, Func<IQueryable<EmployeeDepartment>, IOrderedQueryable<EmployeeDepartment>> orderby = null)
+        public IEnumerable<UserDepartment> GetByCondition(Expression<Func<UserDepartment, bool>> filter = null, Func<IQueryable<UserDepartment>, IOrderedQueryable<UserDepartment>> orderby = null)
         {
-            IEnumerable<EmployeeDepartment> result = null;
+            IEnumerable<UserDepartment> result = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    var query = db.EmployeeDepartment.AsQueryable();
+                    var query = db.UserDepartment.AsQueryable();
                     if (filter != null)
                     {
                         query = query.Where(filter);
@@ -68,12 +68,12 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public EmployeeDepartment Insert(EmployeeDepartment item)
+        public UserDepartment Insert(UserDepartment item)
         {
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var result = db.EmployeeDepartment.Add(item);
+                var result = db.UserDepartment.Add(item);
                 if (db.SaveChanges() > 0)
                 {
                     return result;
@@ -87,16 +87,16 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Update(EmployeeDepartment item)
+        public bool Update(UserDepartment item)
         {
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var employeeDepartment = db.EmployeeDepartment.FirstOrDefault(p => p.ID == item.ID);
+                var employeeDepartment = db.UserDepartment.FirstOrDefault(p => p.Id == item.Id);
                 if (employeeDepartment != null)
                 {
-                    employeeDepartment.EmployeeID = item.EmployeeID;
-                    employeeDepartment.DepartmentID = item.DepartmentID;
+                    employeeDepartment.UserId = item.UserId;
+                    employeeDepartment.DepartmentId = item.DepartmentId;
                 }
                 if (db.SaveChanges() > 0)
                 {
@@ -116,10 +116,10 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var employeeDepartment = db.EmployeeDepartment.FirstOrDefault(p => p.ID == id);
+                var employeeDepartment = db.UserDepartment.FirstOrDefault(p => p.Id == id);
                 if (employeeDepartment != null)
                 {
-                    db.EmployeeDepartment.Remove(employeeDepartment);
+                    db.UserDepartment.Remove(employeeDepartment);
                 }
 
                 if (db.SaveChanges() > 0)

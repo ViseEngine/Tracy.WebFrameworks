@@ -25,20 +25,20 @@ namespace Tracy.WebFrameworks.Entity.Metadata
     }
 
     /// <summary>
-    /// Employee
+    /// User
     /// </summary>
     [DataContract]
-    public class EmployeeMetadata : EmployeeMetadataBase
+    public class UserMetadata : UserMetadataBase
     {
 
     }
 
     
     /// <summary>
-    /// EmployeeDepartment
+    /// UserDepartment
     /// </summary>
     [DataContract]
-    public class EmployeeDepartmentMetadata : EmployeeDepartmentMetadataBase
+    public class UserDepartmentMetadata : UserDepartmentMetadataBase
     {
 
     }
@@ -56,7 +56,7 @@ namespace Tracy.WebFrameworks.Entity.Metadata
     /// EmployeeRole
     /// </summary>
     [DataContract]
-    public class EmployeeRoleMetadata : EmployeeRoleMetadataBase
+    public class UserRoleMetadata : UserRoleMetadataBase
     { 
         
     }

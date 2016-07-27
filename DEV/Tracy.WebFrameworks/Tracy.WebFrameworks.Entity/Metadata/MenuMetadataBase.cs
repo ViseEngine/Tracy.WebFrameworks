@@ -34,7 +34,7 @@ public class MenuMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object MenuID { get; set; }
+    public object Id { get; set; }
 
 
 	/// <summary>
@@ -44,7 +44,7 @@ public class MenuMetadataBase
     [Digits]
     [Max(int.MaxValue)]
     [DataMember]
-    public object ParentMenuID { get; set; }
+    public object ParentId { get; set; }
 
 
 	/// <summary>
@@ -53,7 +53,7 @@ public class MenuMetadataBase
     [Required]
     [StringLength(30)]
     [DataMember]
-    public object MenuName { get; set; }
+    public object Name { get; set; }
 
 
 	/// <summary>
@@ -61,7 +61,7 @@ public class MenuMetadataBase
 	/// </summary>
     [StringLength(30)]
     [DataMember]
-    public object MenuCode { get; set; }
+    public object Code { get; set; }
 
 
 	/// <summary>
@@ -69,7 +69,7 @@ public class MenuMetadataBase
 	/// </summary>
     [StringLength(100)]
     [DataMember]
-    public object MenuUrl { get; set; }
+    public object Url { get; set; }
 
 
 	/// <summary>

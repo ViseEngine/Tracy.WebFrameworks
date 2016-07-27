@@ -25,8 +25,8 @@ namespace Tracy.WebFrameworks.Entity
 /// </summary>
 [Serializable]
 [DataContract(IsReference = true)]
-[MetadataType(typeof(EmployeeDepartmentMetadata))]
-public partial class EmployeeDepartment
+[MetadataType(typeof(UserDepartmentMetadata))]
+public partial class UserDepartment
 {
 
 
@@ -35,7 +35,7 @@ public partial class EmployeeDepartment
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -43,7 +43,7 @@ public partial class EmployeeDepartment
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int EmployeeID { get; set; }
+    public int UserId { get; set; }
 
 
 	/// <summary>
@@ -51,7 +51,7 @@ public partial class EmployeeDepartment
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int DepartmentID { get; set; }
+    public int DepartmentId { get; set; }
 
 
 
@@ -60,7 +60,7 @@ public partial class EmployeeDepartment
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual Employee Employee { get; set; }
+    public virtual User User { get; set; }
 
 
 	/// <summary>

@@ -29,22 +29,22 @@ namespace Tracy.WebFrameworks.Repository
                 using (var db = new WebFrameworksDB())
                 {
                     //EF多表连接查询
-                    var query = from emp in db.Employee
-                                join empRole in db.EmployeeRole on emp.EmployeeID equals empRole.EmployeeID
-                                join roleMenuButton in db.RoleMenuButton on empRole.RoleID equals roleMenuButton.RoleID
-                                join menu in db.Menu on roleMenuButton.MenuID equals menu.MenuID
-                                where emp.EmployeeID == employeeId
-                                orderby menu.ParentMenuID, menu.Sort
+                    var query = from emp in db.User
+                                join empRole in db.UserRole on emp.Id equals empRole.UserId
+                                join roleMenuButton in db.RoleMenuButton on empRole.RoleId equals roleMenuButton.RoleId
+                                join menu in db.Menu on roleMenuButton.MenuId equals menu.Id
+                                where emp.Id == employeeId
+                                orderby menu.ParentId, menu.Sort
                                 select new UserMenuResponse
                                 {
-                                    MenuName = menu.MenuName,
-                                    MenuId = menu.MenuID,
+                                    MenuName = menu.Name,
+                                    MenuId = menu.Id,
                                     MenuIcon = menu.Icon,
-                                    UserId = emp.EmployeeID,
+                                    UserId = emp.Id,
                                     UserName = emp.UserId,
-                                    MenuParentId = menu.ParentMenuID,
+                                    MenuParentId = menu.ParentId,
                                     MenuSort = menu.Sort.HasValue ? menu.Sort.Value : 0,
-                                    LinkAddress = menu.MenuUrl
+                                    LinkAddress = menu.Url
                                 };
                     result = query.DistinctBy(p => new { p.MenuName }).ToList();
                 }
@@ -58,18 +58,18 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Employee CheckLogin(CheckLoginRequest request)
+        public User CheckLogin(CheckLoginRequest request)
         {
-            Employee employee = null;
+            User user = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    employee = db.Employee.FirstOrDefault(p => p.UserId.Equals(request.loginName) && p.UserPwd.Equals(request.loginPwd));
+                    user = db.User.FirstOrDefault(p => p.UserId.Equals(request.loginName) && p.UserPwd.Equals(request.loginPwd));
                 }
             });
 
-            return employee;
+            return user;
         }
 
         /// <summary>
@@ -81,11 +81,11 @@ namespace Tracy.WebFrameworks.Repository
         {
             using (var db = new WebFrameworksDB())
             {
-                var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == request.EmployeeId);
-                if (employee != null)
+                var user = db.User.FirstOrDefault(p => p.Id == request.UserId);
+                if (user != null)
                 {
-                    employee.UserPwd = request.NewPwd.To32bitMD5();
-                    employee.IsChangePwd = true;
+                    user.UserPwd = request.NewPwd.To32bitMD5();
+                    user.IsChangePwd = true;
                 }
                 if (db.SaveChanges() > 0)
                 {
@@ -107,10 +107,10 @@ namespace Tracy.WebFrameworks.Repository
         {
             using (var db = new WebFrameworksDB())
             {
-                var employee = db.Employee.FirstOrDefault(p => p.EmployeeID == request.EmployeeId);
-                if (employee != null)
+                var user = db.User.FirstOrDefault(p => p.Id == request.UserId);
+                if (user != null)
                 {
-                    employee.UserPwd = request.NewPwd;
+                    user.UserPwd = request.NewPwd;
                 }
                 if (db.SaveChanges() > 0)
                 {
@@ -137,23 +137,23 @@ namespace Tracy.WebFrameworks.Repository
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    var query = from emp in db.Employee
-                                join empRole in db.EmployeeRole on emp.EmployeeID equals empRole.EmployeeID into aa
+                    var query = from emp in db.User
+                                join empRole in db.UserRole on emp.Id equals empRole.UserId into aa
                                 from empRole in aa.DefaultIfEmpty()
-                                join role in db.Role on empRole.RoleID equals role.RoleID into bb
+                                join role in db.Role on empRole.RoleId equals role.Id into bb
                                 from role in bb.DefaultIfEmpty()
-                                join empDepartment in db.EmployeeDepartment on emp.EmployeeID equals empDepartment.EmployeeID into cc
+                                join empDepartment in db.UserDepartment on emp.Id equals empDepartment.UserId into cc
                                 from empDepartment in cc.DefaultIfEmpty()
-                                join depart in db.Department on empDepartment.DepartmentID equals depart.DepartmentID into dd
+                                join depart in db.Department on empDepartment.DepartmentId equals depart.Id into dd
                                 from depart in dd.DefaultIfEmpty()
-                                where emp.EmployeeID == id
+                                where emp.Id == id
                                 select new
                                 {
                                     UserId = emp.UserId,
-                                    UserName = emp.EmployeeName,
+                                    UserName = emp.UserName,
                                     CreatedTime = emp.CreatedTime,
-                                    RolesName = role.RoleName,
-                                    DepartmentsName = depart.DepartmentName
+                                    RolesName = role.Name,
+                                    DepartmentsName = depart.Name
                                 };
                     if (query != null && query.Count() > 0)
                     {

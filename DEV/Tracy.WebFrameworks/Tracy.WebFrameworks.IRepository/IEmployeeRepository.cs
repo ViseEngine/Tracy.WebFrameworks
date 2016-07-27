@@ -18,7 +18,7 @@ namespace Tracy.WebFrameworks.IRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Employee GetById(int id);
+        User GetById(int id);
 
         /// <summary>
         /// 依条件表达式查询
@@ -26,21 +26,21 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        IEnumerable<Employee> GetByCondition(Expression<Func<Employee, bool>> filter = null, Func<IQueryable<Employee>, IOrderedQueryable<Employee>> orderby = null);
+        IEnumerable<User> GetByCondition(Expression<Func<User, bool>> filter = null, Func<IQueryable<User>, IOrderedQueryable<User>> orderby = null);
 
         /// <summary>
         /// 插入
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        Employee Insert(Employee item);
+        User Insert(User item);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        bool Update(Employee item);
+        bool Update(User item);
 
         /// <summary>
         /// 删除

@@ -25,19 +25,19 @@ namespace Tracy.WebFrameworks.Entity
 /// </summary>
 [Serializable]
 [DataContract(IsReference = true)]
-[MetadataType(typeof(EmployeeMetadata))]
-public partial class Employee
+[MetadataType(typeof(UserMetadata))]
+public partial class User
 {
 
 	/// <summary>
 	/// 创建新实例
 	/// </summary>
-    public Employee()
+    public User()
     {
 
-        this.EmployeeDepartment = new HashSet<EmployeeDepartment>();
+        this.UserDepartment = new HashSet<UserDepartment>();
 
-        this.EmployeeRole = new HashSet<EmployeeRole>();
+        this.UserRole = new HashSet<UserRole>();
 
     }
 
@@ -48,7 +48,7 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int EmployeeID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -72,7 +72,7 @@ public partial class Employee
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public string EmployeeName { get; set; }
+    public string UserName { get; set; }
 
 
 	/// <summary>
@@ -137,14 +137,14 @@ public partial class Employee
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<EmployeeDepartment> EmployeeDepartment { get; set; }
+    public virtual ICollection<UserDepartment> UserDepartment { get; set; }
 
 
 	/// <summary>
     /// 獲取或設置(導航屬性)
 	/// </summary>
     [DataMember]
-    public virtual ICollection<EmployeeRole> EmployeeRole { get; set; }
+    public virtual ICollection<UserRole> UserRole { get; set; }
 
 }
 

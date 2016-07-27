@@ -48,7 +48,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             //只能修改当前登录用户的密码
             //新密码不能和原密码一样
             //修改成功需要重新生成cookie
-            if (CurrentUserInfo == null || CurrentUserInfo.EmployeeID != request.EmployeeId)
+            if (CurrentUserInfo == null || CurrentUserInfo.Id != request.UserId)
             {
                 msg = "未知错误,重置密码失败";
                 return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
@@ -135,7 +135,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
-                request.EmployeeId = CurrentUserInfo.EmployeeID;
+                request.UserId = CurrentUserInfo.Id;
                 request.NewPwd = newPwd;
                 var result = client.ChangePwd(request);
                 if (result.ReturnCode == ReturnCodeType.Success && result.Content == true)
@@ -164,7 +164,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
-                var result = client.GetUserMenu(CurrentUserInfo.EmployeeID);
+                var result = client.GetUserMenu(CurrentUserInfo.Id);
                 return Content(result.Content);
             }
         }
@@ -214,7 +214,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
-                var result = client.GetMyInfo(CurrentUserInfo.EmployeeID);
+                var result = client.GetMyInfo(CurrentUserInfo.Id);
                 if (result.ReturnCode == ReturnCodeType.Success)
                 {
                     flag = true;

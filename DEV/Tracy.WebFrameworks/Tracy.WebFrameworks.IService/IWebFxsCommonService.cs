@@ -28,7 +28,7 @@ namespace Tracy.WebFrameworks.IService
         /// <param name="rq"></param>
         /// <returns></returns>
         [OperationContract]
-        WebFxsResult<Employee> CheckLogin(CheckLoginRequest request);
+        WebFxsResult<User> CheckLogin(CheckLoginRequest request);
 
         /// <summary>
         /// 首次登录初始化密码

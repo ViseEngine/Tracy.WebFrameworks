@@ -18,14 +18,14 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public EmployeeRole GetById(int id)
+        public UserRole GetById(int id)
         {
-            EmployeeRole result = null;
+            UserRole result = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    result = db.EmployeeRole.FirstOrDefault(p => p.ID== id);
+                    result = db.UserRole.FirstOrDefault(p => p.Id == id);
                 }
             });
             return result;
@@ -37,14 +37,14 @@ namespace Tracy.WebFrameworks.Repository
         /// <param name="filter"></param>
         /// <param name="orderby"></param>
         /// <returns></returns>
-        public IEnumerable<EmployeeRole> GetByCondition(Expression<Func<EmployeeRole, bool>> filter = null, Func<IQueryable<EmployeeRole>, IOrderedQueryable<EmployeeRole>> orderby = null)
+        public IEnumerable<UserRole> GetByCondition(Expression<Func<UserRole, bool>> filter = null, Func<IQueryable<UserRole>, IOrderedQueryable<UserRole>> orderby = null)
         {
-            IEnumerable<EmployeeRole> result = null;
+            IEnumerable<UserRole> result = null;
             DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
                 {
-                    var query = db.EmployeeRole.AsQueryable();
+                    var query = db.UserRole.AsQueryable();
                     if (filter != null)
                     {
                         query = query.Where(filter);
@@ -68,12 +68,12 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public EmployeeRole Insert(EmployeeRole item)
+        public UserRole Insert(UserRole item)
         {
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var result = db.EmployeeRole.Add(item);
+                var result = db.UserRole.Add(item);
                 if (db.SaveChanges() > 0)
                 {
                     return result;
@@ -87,16 +87,16 @@ namespace Tracy.WebFrameworks.Repository
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Update(EmployeeRole item)
+        public bool Update(UserRole item)
         {
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var employeeRole = db.EmployeeRole.FirstOrDefault(p => p.ID == item.ID);
+                var employeeRole = db.UserRole.FirstOrDefault(p => p.Id == item.Id);
                 if (employeeRole != null)
                 {
-                    employeeRole.EmployeeID = item.EmployeeID;
-                    employeeRole.RoleID = item.RoleID;
+                    employeeRole.Id = item.Id;
+                    employeeRole.RoleId = item.RoleId;
                 }
                 if (db.SaveChanges() > 0)
                 {
@@ -116,10 +116,10 @@ namespace Tracy.WebFrameworks.Repository
             //CRUD Operation in Connected mode
             using (var db = new WebFrameworksDB())
             {
-                var employeeRole = db.EmployeeRole.FirstOrDefault(p => p.ID == id);
+                var employeeRole = db.UserRole.FirstOrDefault(p => p.Id == id);
                 if (employeeRole != null)
                 {
-                    db.EmployeeRole.Remove(employeeRole);
+                    db.UserRole.Remove(employeeRole);
                 }
 
                 if (db.SaveChanges() > 0)

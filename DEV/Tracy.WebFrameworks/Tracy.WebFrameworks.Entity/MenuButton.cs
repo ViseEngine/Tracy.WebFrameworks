@@ -35,7 +35,7 @@ public partial class MenuButton
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ID { get; set; }
+    public int Id { get; set; }
 
 
 	/// <summary>
@@ -43,7 +43,7 @@ public partial class MenuButton
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int MenuID { get; set; }
+    public int MenuId { get; set; }
 
 
 	/// <summary>
@@ -51,7 +51,7 @@ public partial class MenuButton
 	/// </summary>
     [DatabaseTableColumn]
     [DataMember]
-    public int ButtonID { get; set; }
+    public int ButtonId { get; set; }
 
 
 
