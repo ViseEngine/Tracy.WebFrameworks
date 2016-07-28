@@ -9,6 +9,7 @@ using Tracy.Frameworks.Common.Extends;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Offline.Site.Filters;
 using Tracy.WebFrameworks.Entity.BusinessBO;
+using System.Collections.Generic;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -167,6 +168,30 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                 var result = client.GetUserMenu(CurrentUserInfo.Id);
                 return Content(result.Content);
             }
+        }
+
+        /// <summary>
+        /// 左侧导航菜单
+        /// accordition+ tree
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GetLeftMenu(int id)
+        {
+            List<LeftNavMenu> data = new List<LeftNavMenu>();
+
+            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var result = client.GetLeftMenu(CurrentUserInfo.Id,id);
+                if (result.ReturnCode == ReturnCodeType.Success)
+                {
+                    data = result.Content;
+                }
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

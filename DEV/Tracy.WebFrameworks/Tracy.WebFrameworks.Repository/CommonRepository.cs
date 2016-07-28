@@ -170,5 +170,63 @@ namespace Tracy.WebFrameworks.Repository
             return result;
         }
 
+        /// <summary>
+        /// 当前登录用户可以访问的所有菜单
+        /// </summary>
+        public List<GetLeftMenuResponse> CurrentUserMenu { get; set; }
+
+        /// <summary>
+        /// 左侧导航菜单
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public List<GetLeftMenuResponse> GetLeftMenu(int userId, int menuParentId)
+        {
+            DBHelper.NoLockInvokeDB(() =>
+            {
+                using (var db = new WebFrameworksDB())
+                {
+                    CurrentUserMenu = (from user in db.User
+                                       join userRole in db.UserRole on user.Id equals userRole.UserId into aa
+                                       from userRole in aa.DefaultIfEmpty()
+                                       join roleMenuButton in db.RoleMenuButton on userRole.RoleId equals roleMenuButton.RoleId into bb
+                                       from roleMenuButton in bb.DefaultIfEmpty()
+                                       join menu in db.Menu on roleMenuButton.MenuId equals menu.Id into cc
+                                       from menu in cc.DefaultIfEmpty()
+                                       where user.Id == userId
+                                       orderby menu.ParentId, menu.Sort
+                                       select new GetLeftMenuResponse
+                                       {
+                                           MenuId = menu.Id,
+                                           MenuName = menu.Name,
+                                           MenuIcon = menu.Icon,
+                                           MenuParentId = menu.ParentId,
+                                           MenuSort = menu.Sort ?? 0,
+                                           MenuUrl = menu.Url,
+                                           UserId = user.Id,
+                                           LoginId = user.UserId
+                                       }).ToList();
+                }
+            });
+
+            return GetAllChildMenu(menuParentId).DistinctBy(p=> p.MenuName).ToList();
+        }
+
+        public IEnumerable<GetLeftMenuResponse> GetAllChildMenu(int menuParentId)
+        {
+            var query = from item in CurrentUserMenu
+                        where item.MenuParentId == menuParentId
+                        select item;
+            if (query != null && query.Count() > 0)
+            {
+                if (menuParentId == 0)
+                {
+                    return query;
+                }
+            }
+
+            return query.ToList().Concat(query.ToList().SelectMany(p => GetAllChildMenu(p.MenuId)));
+        }
+
     }
 }

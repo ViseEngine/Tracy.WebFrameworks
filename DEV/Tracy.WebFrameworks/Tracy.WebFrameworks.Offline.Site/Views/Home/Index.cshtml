@@ -36,9 +36,8 @@
                                                                                                                                     class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stop'" onclick="loginOut();">退出系统</a>
         </div>
     </div>
-    <div data-options="region:'west',split:true,title:'功能导航'" style="width: 180px; padding: 10px;">
-        <div>
-            <ul id="treeLeft"></ul>
+    <div data-options="region:'west',split:true,title:'功能导航'" style="width: 180px;">
+        <div id="leftAccordion" class="easyui-accordion">
         </div>
     </div>
     <div data-options="region:'center'">
@@ -56,21 +55,11 @@
     }
     <script type="text/javascript">
         $(function () {
-            initLogin();
+            initLeftMenu();
+            //getCurrentUser();
         });
 
-        function initLogin() {
-            $('#treeLeft').tree({
-                method: 'GET',
-                url: '@Url.Action("GetUserMenu", "Home")',//获取该用户所拥有的菜单权限
-                lines: true,
-                onClick: function (node) {
-                    if (node.attributes) {
-                        addTab(node.text, node.attributes.url, node.iconCls);
-                    }
-                }
-            });
-
+        function getCurrentUser() {
             $.ajax({
                 url: '@Url.Action("GetCurrentUser", "Home")',//获取该用户的信息并再次验证cookie
                 type: "post",
@@ -133,6 +122,42 @@
                         window.location.href = '@Url.Action("Login", "Account")';
                     }
                 }
+            });
+        }
+
+        function initLeftMenu() {
+            $("#leftAccordion").accordion({
+                fillSpace: true,
+                fit: true,
+                border: false,
+                animate: true
+            });
+
+            $.post('@Url.Action("GetLeftMenu", "Home")', { id: "0" }, function (data) {
+                $.each(data, function (i, item) {
+                    debugger;
+                    //创建accordion
+                    $('#leftAccordion').accordion('add', {
+                        title: item.text,
+                        content: "<ul id='tree" + item.id + "' ></ul>",
+                        selected: false,
+                        iconCls: item.iconCls
+                    });
+
+                    $.post('@Url.Action("GetLeftMenu", "Home")', { id: item.id }, function (data) {
+                        debugger;
+                        //创建tree
+                        $("#tree" + item.id).tree({
+                            data: data,
+                            lines: true,
+                            onClick: function (node) {
+                                if (node.attributes) {
+                                    addTab(node.text, node.attributes.url, node.iconCls);
+                                }
+                            }
+                        });
+                    });
+                });
             });
         }
 

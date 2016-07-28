@@ -46,5 +46,12 @@ namespace Tracy.WebFrameworks.IRepository
         /// <returns></returns>
         GetMyInfoResponse GetMyInfo(int id);
 
+        /// <summary>
+        /// 左侧导航菜单
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        List<GetLeftMenuResponse> GetLeftMenu(int userId, int menuParentId);
+
     }
 }

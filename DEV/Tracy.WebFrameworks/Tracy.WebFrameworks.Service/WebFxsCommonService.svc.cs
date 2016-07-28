@@ -169,5 +169,75 @@ namespace Tracy.WebFrameworks.Service
             return result;
         }
 
+        /// <summary>
+        /// 左侧导航菜单
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public WebFxsResult<List<LeftNavMenu>> GetLeftMenu(int userId, int menuParentId)
+        {
+            //menuParentId=0，创建accordion，否则创建tree
+            var result = new WebFxsResult<List<LeftNavMenu>>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = new List<LeftNavMenu>()
+            };
+
+            var leftMenus = repository.GetLeftMenu(userId, menuParentId);
+            if (leftMenus.HasValue())
+            {
+                if (menuParentId == 0)
+                {
+                    leftMenus.ForEach(item => 
+                    {
+                        result.Content.Add(new LeftNavMenu 
+                        {
+                            id= item.MenuId,
+                            text= item.MenuName,
+                            iconCls= item.MenuIcon
+                        });
+                    });
+                }
+                else
+                {
+                    var roots = leftMenus.Where(p => p.MenuParentId == menuParentId).ToList();
+                    if (roots.HasValue())
+                    {
+                        foreach (var item in roots)
+                        {
+                            var leftNavMenu = new LeftNavMenu 
+                            {
+                                id= item.MenuId,
+                                text= item.MenuName,
+                                iconCls= item.MenuIcon
+                            };
+                            if (IsHasChildNode(item.MenuId, leftMenus))
+                            {
+                                
+                            }
+
+                        }
+
+                    }
+
+
+                }
+                result.ReturnCode = ReturnCodeType.Success;
+            }            
+
+            return result;
+        }
+
+        /// <summary>
+        /// 判断该菜单是否含有子菜单
+        /// </summary>
+        /// <param name="menuId"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        private bool IsHasChildNode(int menuId, List<GetLeftMenuResponse> list)
+        {
+            return list.Where(p => p.MenuParentId == menuId).Count() > 0;
+        }
+
     }
 }
