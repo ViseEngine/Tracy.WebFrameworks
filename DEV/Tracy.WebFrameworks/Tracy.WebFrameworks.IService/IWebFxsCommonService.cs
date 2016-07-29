@@ -54,12 +54,20 @@ namespace Tracy.WebFrameworks.IService
         WebFxsResult<GetMyInfoResponse> GetMyInfo(int id);
 
         /// <summary>
-        /// 左侧导航菜单
+        /// 左侧导航菜单Accordion
         /// </summary>
         /// <param name="parentId"></param>
         /// <returns></returns>
         [OperationContract]
-        WebFxsResult<List<LeftNavMenu>> GetLeftMenu(int userId, int menuParentId);
+        WebFxsResult<string> GetLeftMenuAccordion(int userId, int menuParentId);
+
+        /// <summary>
+        /// 左侧导航菜单Tree
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<string> GetLeftMenuTree(int userId, int menuParentId);
 
     }
 }

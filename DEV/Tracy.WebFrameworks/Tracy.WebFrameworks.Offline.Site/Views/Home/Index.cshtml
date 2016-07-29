@@ -56,8 +56,47 @@
     <script type="text/javascript">
         $(function () {
             initLeftMenu();
-            //getCurrentUser();
+            getCurrentUser();
         });
+
+        function initLeftMenu() {
+            $("#leftAccordion").accordion({
+                fillSpace: true,
+                fit: true,
+                border: false,
+                animate: true
+            });
+
+            $.post('@Url.Action("GetLeftMenuAccordion", "Home")', { id: "0" }, function (data) {
+                data = JSON.parse(data);
+                //创建accordion
+                $.each(data, function (i, item) {
+                    var id = item.id;
+                    $('#leftAccordion').accordion('add', {
+                        title: item.text,
+                        content: "<ul id='tree" + id + "' style='margin:5px;' ></ul>",
+                        selected: true,
+                        iconCls: item.iconCls
+                    });
+                    $.parser.parse();//?再次加载easyui
+
+                    //创建tree
+                    $.post('@Url.Action("GetLeftMenuTree", "Home")', { id: id }, function (data) {
+                        data = JSON.parse(data);
+                        $("#tree" + id).tree({
+                            data: data,
+                            lines: true,
+                            onClick: function (node) {
+                                if (node.attributes) {
+                                    addTab(node.text, node.attributes.url, node.iconCls);
+                                }
+                            }
+                        });
+                    });
+
+                });
+            });
+        }
 
         function getCurrentUser() {
             $.ajax({
@@ -122,42 +161,6 @@
                         window.location.href = '@Url.Action("Login", "Account")';
                     }
                 }
-            });
-        }
-
-        function initLeftMenu() {
-            $("#leftAccordion").accordion({
-                fillSpace: true,
-                fit: true,
-                border: false,
-                animate: true
-            });
-
-            $.post('@Url.Action("GetLeftMenu", "Home")', { id: "0" }, function (data) {
-                $.each(data, function (i, item) {
-                    debugger;
-                    //创建accordion
-                    $('#leftAccordion').accordion('add', {
-                        title: item.text,
-                        content: "<ul id='tree" + item.id + "' ></ul>",
-                        selected: false,
-                        iconCls: item.iconCls
-                    });
-
-                    $.post('@Url.Action("GetLeftMenu", "Home")', { id: item.id }, function (data) {
-                        debugger;
-                        //创建tree
-                        $("#tree" + item.id).tree({
-                            data: data,
-                            lines: true,
-                            onClick: function (node) {
-                                if (node.attributes) {
-                                    addTab(node.text, node.attributes.url, node.iconCls);
-                                }
-                            }
-                        });
-                    });
-                });
             });
         }
 

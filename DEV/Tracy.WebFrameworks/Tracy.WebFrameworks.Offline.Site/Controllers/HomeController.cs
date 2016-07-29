@@ -177,21 +177,39 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult GetLeftMenu(int id)
+        public ContentResult GetLeftMenuAccordion(int id)
         {
-            List<LeftNavMenu> data = new List<LeftNavMenu>();
+            var outPut = string.Empty;
 
             using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
-                var result = client.GetLeftMenu(CurrentUserInfo.Id,id);
+                var result = client.GetLeftMenuAccordion(CurrentUserInfo.Id, id);
                 if (result.ReturnCode == ReturnCodeType.Success)
                 {
-                    data = result.Content;
+                    outPut = result.Content;
                 }
             }
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Content(outPut);
+        }
+
+        [HttpPost]
+        public ContentResult GetLeftMenuTree(int id)
+        {
+            var outPut = string.Empty;
+
+            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var result = client.GetLeftMenuTree(CurrentUserInfo.Id, id);
+                if (result.ReturnCode == ReturnCodeType.Success)
+                {
+                    outPut = result.Content;
+                }
+            }
+
+            return Content(outPut);
         }
 
         /// <summary>
