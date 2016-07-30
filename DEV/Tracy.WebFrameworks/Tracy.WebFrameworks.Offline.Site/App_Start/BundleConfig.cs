@@ -19,6 +19,10 @@ namespace Tracy.WebFrameworks.Offline.Site
                         "~/Scripts/easyui-1.3.2/jquery.easyui.min.js",
                         "~/Scripts/easyui-1.3.2/easyui-lang-zh_CN.js"));
 
+            //common
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
+                        "~/Scripts/common.js"));
+
             //css
             //easyui
             bundles.Add(new StyleBundle("~/Content/easyui/bootstrap").Include(
