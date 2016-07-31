@@ -10,7 +10,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
     /// <summary>
     /// 公司管理
     /// </summary>
-    public class CorporationController : Controller
+    public class CorporationController : BaseController
     {
         // GET: Corporation
         [LoginAuthorization]
