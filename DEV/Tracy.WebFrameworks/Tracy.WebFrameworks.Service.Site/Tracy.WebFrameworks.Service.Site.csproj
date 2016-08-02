@@ -74,6 +74,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
+    <Content Include="WebFxsButtonService.svc" />
     <Content Include="WebFxsCommonService.svc" />
     <Content Include="WebFxsCorporationService.svc" />
     <Content Include="WebFxsUserService.svc" />

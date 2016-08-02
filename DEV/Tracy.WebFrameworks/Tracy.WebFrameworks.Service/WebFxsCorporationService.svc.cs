@@ -10,6 +10,7 @@ using Tracy.WebFrameworks.IService;
 using Tracy.WebFrameworks.Common.Helper;
 using System.Linq.Expressions;
 using Tracy.Frameworks.Common.Extends;
+using Tracy.Frameworks.Common.Const;
 using Tracy.WebFrameworks.Data;
 using Tracy.WebFrameworks.IRepository;
 using Tracy.WebFrameworks.RepositoryFactory;
@@ -75,6 +76,66 @@ namespace Tracy.WebFrameworks.Service
             return repository.Delete(id);
         }
         
+        #endregion
+
+        /// <summary>
+        /// 查询所有公司，输出json字符串
+        /// </summary>
+        /// <returns></returns>
+        public WebFxsResult<string> GetAll()
+        {
+            var result = new WebFxsResult<string> 
+            {
+                ReturnCode= ReturnCodeType.Error,
+                Content= string.Empty
+            };
+            StringBuilder sb = new StringBuilder();
+            var allCorps = this.GetByCondition().ToList();
+            if (allCorps.HasValue())
+            {
+                sb.Append(Recursion(allCorps, 0));
+                sb = sb.Remove(sb.Length-2, 2);
+            }
+
+            result.Content = sb.ToString();
+            if (!result.Content.IsNullOrEmpty())
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+            }
+
+            return result;
+        }
+
+        #region Private method
+
+        private string Recursion(List<Corporation> list, int parentId)
+        {
+            StringBuilder sb = new StringBuilder();
+            var childCorps= list.Where(p => p.ParentId == parentId).ToList();
+            if (childCorps.HasValue())
+            {
+                sb.Append("[");
+                for (int i = 0; i < childCorps.Count; i++)
+                {
+                    var childStr = Recursion(list, childCorps[i].Id);
+                    if (!childStr.IsNullOrEmpty())
+                    {
+                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"Code\":\"" + childCorps[i].Code + "\",\"Sort\":\"" + childCorps[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childCorps[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childCorps[i].Name + "\",\"children\":");
+                        sb.Append(childStr);
+                    }
+                    else
+                    {
+                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"Code\":\"" + childCorps[i].Code + "\",\"Sort\":\"" + childCorps[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childCorps[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childCorps[i].Name + "\"},");
+                    }
+
+                }
+                sb.Remove(sb.Length - 1, 1);
+                sb.Append("]},");
+            }
+            return sb.ToString();
+        }
+
+
         #endregion
 
     }

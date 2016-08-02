@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\DatabaseTableColumnAttribute.cs" />
+    <Compile Include="BusinessBO\GetButtonByUAMResponse.cs" />
     <Compile Include="BusinessBO\GetLeftMenuResponse.cs" />
     <Compile Include="BusinessBO\GetMyInfoResponse.cs" />
     <Compile Include="BusinessBO\LeftNavMenu.cs" />

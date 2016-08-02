@@ -8,13 +8,16 @@ using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Common.Helper;
 using Tracy.WebFrameworks.Data;
 using System.Linq.Expressions;
+using Tracy.WebFrameworks.Entity.BusinessBO;
+using Tracy.WebFrameworks.Common.Helper;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.WebFrameworks.Repository
 {
     /// <summary>
     /// 按钮仓储接口实现
     /// </summary>
-    public class ButtonRepository: IButtonRepository
+    public class ButtonRepository : IButtonRepository
     {
         /// <summary>
         /// 依据id查询
@@ -135,6 +138,47 @@ namespace Tracy.WebFrameworks.Repository
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 获取当前用户当前页面可访问的按钮
+        /// </summary>
+        /// <param name="menuCode"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<GetButtonByUAMResponse> GetButtonByUserIdAndMenuCode(string menuCode, int userId)
+        {
+            List<GetButtonByUAMResponse> result = null;
+            DBHelper.NoLockInvokeDB(() =>
+            {
+                using (var db = new WebFrameworksDB())
+                {
+                    var query = from u in db.User
+                                join userRole in db.UserRole on u.Id equals userRole.UserId into aa
+                                from userRole in aa.DefaultIfEmpty()
+                                join roleMenuButton in db.RoleMenuButton on userRole.RoleId equals roleMenuButton.RoleId into bb
+                                from roleMenuButton in bb.DefaultIfEmpty()
+                                join menu in db.Menu on roleMenuButton.MenuId equals menu.Id into cc
+                                from menu in cc.DefaultIfEmpty()
+                                join button in db.Button on roleMenuButton.ButtonId equals button.Id into dd
+                                from button in dd.DefaultIfEmpty()
+                                where menu.Code.Equals(menuCode) && u.Id == userId
+                                select new GetButtonByUAMResponse
+                                {
+                                    ButtonId = button.Id,
+                                    Name = button.Name,
+                                    Code = button.Code,
+                                    Icon = button.Icon,
+                                    ButtonSort = button.Sort ?? 1
+                                };
+                    if (query!=null && query.Count()>0)
+                    {
+                        result= query.DistinctBy(p => p.ButtonId).OrderBy(p => p.ButtonSort).ToList();
+                    }
+                }
+            });
+
+            return result;
         }
     }
 }

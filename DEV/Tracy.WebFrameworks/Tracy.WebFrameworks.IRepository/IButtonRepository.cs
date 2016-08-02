@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tracy.WebFrameworks.Entity;
+using Tracy.WebFrameworks.Entity.BusinessBO;
 
 namespace Tracy.WebFrameworks.IRepository
 {
@@ -48,5 +49,16 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="id"></param>
         /// <returns></returns>
         bool Delete(int id);
+
+        /// <summary>
+        /// 获取当前用户当前页面可访问的按钮
+        /// </summary>
+        /// <param name="menuCode"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        List<GetButtonByUAMResponse> GetButtonByUserIdAndMenuCode(string menuCode, int userId);
+
+
+
     }
 }

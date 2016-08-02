@@ -51,6 +51,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Helper\DBHelper.cs" />
     <Compile Include="Helper\LogHelper.cs" />
+    <Compile Include="Helper\ToolbarHelper.cs" />
     <Compile Include="Helper\WebFxsConfigHelper.cs" />
     <Compile Include="Helper\WebFxsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WebFxsButtonService.svc.cs" />
     <Compile Include="WebFxsCommonService.svc.cs" />
     <Compile Include="WebFxsCorporationService.svc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
