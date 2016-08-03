@@ -19,5 +19,13 @@ namespace Tracy.WebFrameworks.IService
         [OperationContract]
         WebFxsResult<string> GetAll();
 
+        /// <summary>
+        /// 查询选中公司下的所有部门并分页显示
+        /// </summary>
+        /// <param name="corpIds"></param>
+        /// <returns></returns>
+        //[OperationContract]
+        //WebFxsResult<string> GetCorpDepartment(string corpIds);
+
     }
 }

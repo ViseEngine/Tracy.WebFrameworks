@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tracy.WebFrameworks.Offline.Site.Filters;
 using Tracy.WebFrameworks.IService;
+using Tracy.WebFrameworks.Offline.Site.Models;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -35,6 +36,23 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                 {
                     result = rs.Content;
                 }
+            }
+
+            return Content(result);
+        }
+
+        /// <summary>
+        /// 查询选中公司下的所有部门
+        /// </summary>
+        /// <param name="CorpIds">公司包括子公司id</param>
+        /// <returns></returns>
+        public ActionResult GetCorpDepartment(GetCorpDepartmentModel model)
+        {
+            var result = string.Empty;
+            using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
+            {
+                var client = factory.CreateChannel();
+                //var rs = client.GetCorpDepartment(corpIds);
             }
 
             return Content(result);
