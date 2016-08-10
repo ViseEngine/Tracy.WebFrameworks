@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tracy.WebFrameworks.Entity;
+using Tracy.WebFrameworks.Entity.ViewModel;
+using Tracy.Frameworks.Common.Result;
 
 namespace Tracy.WebFrameworks.IRepository
 {
@@ -48,5 +50,13 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="id"></param>
         /// <returns></returns>
         bool Delete(int id);
+
+        /// <summary>
+        /// 获取选中公司下所有部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        PagingResult<Department> GetCorpDepartmentByPaging(GetCorpDepartmentRQ request);
+
     }
 }

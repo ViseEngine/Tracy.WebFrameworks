@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.CommonBO;
+using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.IService
 {
@@ -24,8 +25,8 @@ namespace Tracy.WebFrameworks.IService
         /// </summary>
         /// <param name="corpIds"></param>
         /// <returns></returns>
-        //[OperationContract]
-        //WebFxsResult<string> GetCorpDepartment(string corpIds);
+        [OperationContract]
+        WebFxsResult<string> GetCorpDepartment(GetCorpDepartmentRQ request);
 
     }
 }

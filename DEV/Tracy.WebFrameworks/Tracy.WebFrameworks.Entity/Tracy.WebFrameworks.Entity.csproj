@@ -121,6 +121,7 @@
     <Compile Include="ViewModel\ChangePwdRequest.cs" />
     <Compile Include="ViewModel\CheckLoginRequest.cs" />
     <Compile Include="ViewModel\FirstLoginRequest.cs" />
+    <Compile Include="ViewModel\GetCorpDepartmentRQ.cs" />
     <Compile Include="WebFrameworks.Entity.Partial.cs" />
   </ItemGroup>
   <ItemGroup>

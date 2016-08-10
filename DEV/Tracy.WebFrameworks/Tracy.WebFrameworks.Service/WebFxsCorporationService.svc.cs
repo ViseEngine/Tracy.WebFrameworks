@@ -11,9 +11,11 @@ using Tracy.WebFrameworks.Common.Helper;
 using System.Linq.Expressions;
 using Tracy.Frameworks.Common.Extends;
 using Tracy.Frameworks.Common.Const;
+using Tracy.Frameworks.Common.Result;
 using Tracy.WebFrameworks.Data;
 using Tracy.WebFrameworks.IRepository;
 using Tracy.WebFrameworks.RepositoryFactory;
+using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.Service
 {
@@ -102,6 +104,25 @@ namespace Tracy.WebFrameworks.Service
             {
                 result.ReturnCode = ReturnCodeType.Success;
             }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 查询选中公司下的所有部门并分页显示
+        /// </summary>
+        /// <param name="corpIds"></param>
+        /// <returns></returns>
+        public WebFxsResult<string> GetCorpDepartment(GetCorpDepartmentRQ request)
+        {
+            var result = new WebFxsResult<string>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = string.Empty
+            };
+
+            var pagingResult = repository.GetCorpDepartmentByPaging(request);
+
 
             return result;
         }

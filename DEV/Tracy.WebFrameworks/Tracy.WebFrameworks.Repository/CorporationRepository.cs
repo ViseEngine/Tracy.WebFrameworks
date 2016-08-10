@@ -8,6 +8,8 @@ using Tracy.WebFrameworks.IRepository;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Data;
 using Tracy.WebFrameworks.Common.Helper;
+using Tracy.Frameworks.Common.Result;
+using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.Repository
 {
@@ -136,6 +138,29 @@ namespace Tracy.WebFrameworks.Repository
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 获取选中公司下所有部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public PagingResult<Department> GetCorpDepartmentByPaging(GetCorpDepartmentRQ request)
+        {
+            var result = new PagingResult<Department>();
+
+            //分页查询
+            DBHelper.NoLockInvokeDB(() => 
+            {
+                using (var db = new WebFrameworksDB())
+                { 
+                    
+
+                }
+
+            });
+
+            return result;
         }
     }
 }

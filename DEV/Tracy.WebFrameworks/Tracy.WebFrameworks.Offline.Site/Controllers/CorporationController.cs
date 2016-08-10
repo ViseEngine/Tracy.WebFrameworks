@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tracy.WebFrameworks.Offline.Site.Filters;
 using Tracy.WebFrameworks.IService;
-using Tracy.WebFrameworks.Offline.Site.Models;
+using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -32,7 +32,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             {
                 var client = factory.CreateChannel();
                 var rs = client.GetAll();
-                if (rs.ReturnCode== Entity.ReturnCodeType.Success)
+                if (rs.ReturnCode == Entity.ReturnCodeType.Success)
                 {
                     result = rs.Content;
                 }
@@ -46,13 +46,21 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// </summary>
         /// <param name="CorpIds">公司包括子公司id</param>
         /// <returns></returns>
-        public ActionResult GetCorpDepartment(GetCorpDepartmentModel model)
+        public ActionResult GetCorpDepartment(GetCorpDepartmentRQ request, string corpIds, int page, int rows)
         {
             var result = string.Empty;
+            if (request == null)
+            {
+                request = new GetCorpDepartmentRQ();
+            }
+            request.CorpIds = corpIds;
+            request.PageIndex = page;
+            request.PageSize = rows;
+
             using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
             {
                 var client = factory.CreateChannel();
-                //var rs = client.GetCorpDepartment(corpIds);
+                //var rs = client.GetCorpDepartment(request);
             }
 
             return Content(result);
