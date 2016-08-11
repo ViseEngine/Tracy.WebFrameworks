@@ -161,7 +161,7 @@ namespace Tracy.WebFrameworks.Repository
                                              .Where(p => corpIds.Contains(p.corp.Id))
                                              .Select(p => p.depart);
                     result = query.OrderBy(p=> p.CorporationId)
-                                  .ThenBy(p=> p.Sort)
+                                  .ThenBy(p=> p.Code)
                                   .Paging(request.PageIndex, request.PageSize);
                 }
             });
