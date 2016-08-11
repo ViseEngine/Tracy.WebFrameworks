@@ -122,7 +122,8 @@ namespace Tracy.WebFrameworks.Service
             };
 
             var pagingResult = repository.GetCorpDepartmentByPaging(request);
-
+            result.Content = "{\"total\": " + pagingResult.TotalCount + ",\"rows\":" + pagingResult.Entities.ToJson(dateTimeFormat:DateFormat.DATETIME) + "}";
+            result.ReturnCode = ReturnCodeType.Success;
 
             return result;
         }

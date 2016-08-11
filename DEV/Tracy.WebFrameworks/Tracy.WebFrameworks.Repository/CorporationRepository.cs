@@ -10,6 +10,7 @@ using Tracy.WebFrameworks.Data;
 using Tracy.WebFrameworks.Common.Helper;
 using Tracy.Frameworks.Common.Result;
 using Tracy.WebFrameworks.Entity.ViewModel;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.WebFrameworks.Repository
 {
@@ -150,14 +151,19 @@ namespace Tracy.WebFrameworks.Repository
             var result = new PagingResult<Department>();
 
             //分页查询
-            DBHelper.NoLockInvokeDB(() => 
+            //按公司id，sort排序
+            var corpIds = request.CorpIds.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.ToInt()).ToList();
+            DBHelper.NoLockInvokeDB(() =>
             {
                 using (var db = new WebFrameworksDB())
-                { 
-                    
-
+                {
+                    var query = db.Department.GroupJoin(db.Corporation, depart => depart.CorporationId, corp => corp.Id, (depart, corp) => new { depart, corp = corp.FirstOrDefault() })
+                                             .Where(p => corpIds.Contains(p.corp.Id))
+                                             .Select(p => p.depart);
+                    result = query.OrderBy(p=> p.CorporationId)
+                                  .ThenBy(p=> p.Sort)
+                                  .Paging(request.PageIndex, request.PageSize);
                 }
-
             });
 
             return result;

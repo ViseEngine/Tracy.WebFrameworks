@@ -46,21 +46,24 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         /// </summary>
         /// <param name="CorpIds">公司包括子公司id</param>
         /// <returns></returns>
-        public ActionResult GetCorpDepartment(GetCorpDepartmentRQ request, string corpIds, int page, int rows)
+        public ActionResult GetCorpDepartment(GetCorpDepartmentRQ request, int page, int rows)
         {
             var result = string.Empty;
             if (request == null)
             {
                 request = new GetCorpDepartmentRQ();
             }
-            request.CorpIds = corpIds;
             request.PageIndex = page;
             request.PageSize = rows;
 
             using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
             {
                 var client = factory.CreateChannel();
-                //var rs = client.GetCorpDepartment(request);
+                var rs = client.GetCorpDepartment(request);
+                if (rs.ReturnCode == Entity.ReturnCodeType.Success)
+                {
+                    result = rs.Content;
+                }
             }
 
             return Content(result);
