@@ -45,7 +45,7 @@ namespace Tracy.WebFrameworks.Service
         /// <returns></returns>
         public IEnumerable<Corporation> GetByCondition(Expression<Func<Corporation, bool>> filter = null, Func<IQueryable<Corporation>, IOrderedQueryable<Corporation>> orderby = null)
         {
-            return repository.GetByCondition(filter:filter, orderby: orderby);
+            return repository.GetByCondition(filter: filter, orderby: orderby);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Tracy.WebFrameworks.Service
         {
             return repository.Delete(id);
         }
-        
+
         #endregion
 
         /// <summary>
@@ -86,17 +86,17 @@ namespace Tracy.WebFrameworks.Service
         /// <returns></returns>
         public WebFxsResult<string> GetAll()
         {
-            var result = new WebFxsResult<string> 
+            var result = new WebFxsResult<string>
             {
-                ReturnCode= ReturnCodeType.Error,
-                Content= string.Empty
+                ReturnCode = ReturnCodeType.Error,
+                Content = string.Empty
             };
             StringBuilder sb = new StringBuilder();
             var allCorps = this.GetByCondition().ToList();
             if (allCorps.HasValue())
             {
                 sb.Append(Recursion(allCorps, 0));
-                sb = sb.Remove(sb.Length-2, 2);
+                sb = sb.Remove(sb.Length - 2, 2);
             }
 
             result.Content = sb.ToString();
@@ -122,8 +122,73 @@ namespace Tracy.WebFrameworks.Service
             };
 
             var pagingResult = repository.GetCorpDepartmentByPaging(request);
-            result.Content = "{\"total\": " + pagingResult.TotalCount + ",\"rows\":" + pagingResult.Entities.ToJson(dateTimeFormat:DateFormat.DATETIME) + "}";
+            result.Content = "{\"total\": " + pagingResult.TotalCount + ",\"rows\":" + pagingResult.Entities.ToJson(dateTimeFormat: DateFormat.DATETIME) + "}";
             result.ReturnCode = ReturnCodeType.Success;
+
+            return result;
+        }
+
+        /// <summary>
+        /// 添加公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>返回新添加的公司</returns>
+        public WebFxsResult<Corporation> AddCorporation(AddCorporationRQ request, User loginUser)
+        {
+            var result = new WebFxsResult<Corporation>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = new Corporation()
+            };
+
+            var item = new Corporation
+            {
+                Name = request.Name,
+                Code = request.Code,
+                ParentId = request.ParentId,
+                Sort = request.Sort,
+                Enabled = true,//默认启用
+                CreatedBy = loginUser.UserId,//当前登录人
+                CreatedTime = DateTime.Now
+            };
+            var rs = Insert(item);
+            if (rs != null)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = rs;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 修改公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="loginUser"></param>
+        /// <returns>true:修改成功，false：修改失败</returns>
+        public WebFxsResult<bool> EditCorporation(EditCorporationRQ request, User loginUser)
+        {
+            var result = new WebFxsResult<bool>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = false
+            };
+
+            var item = new Corporation
+            {
+                Id= request.Id,
+                Name = request.Name,
+                Sort = request.Sort,
+                LastUpdatedBy = loginUser.UserId,
+                LastUpdatedTime = DateTime.Now
+            };
+            var rs = Update(item);
+            if (rs == true)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = rs;
+            }
 
             return result;
         }
@@ -133,7 +198,7 @@ namespace Tracy.WebFrameworks.Service
         private string Recursion(List<Corporation> list, int parentId)
         {
             StringBuilder sb = new StringBuilder();
-            var childCorps= list.Where(p => p.ParentId == parentId).ToList();
+            var childCorps = list.Where(p => p.ParentId == parentId).ToList();
             if (childCorps.HasValue())
             {
                 sb.Append("[");
@@ -142,7 +207,7 @@ namespace Tracy.WebFrameworks.Service
                     var childStr = Recursion(list, childCorps[i].Id);
                     if (!childStr.IsNullOrEmpty())
                     {
-                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"Code\":\"" + childCorps[i].Code + "\",\"Enabled\":\""+childCorps[i].Enabled.Value+"\",\"Sort\":\"" + childCorps[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childCorps[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childCorps[i].Name + "\",\"children\":");
+                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"Code\":\"" + childCorps[i].Code + "\",\"Enabled\":\"" + childCorps[i].Enabled.Value + "\",\"Sort\":\"" + childCorps[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childCorps[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childCorps[i].Name + "\",\"children\":");
                         sb.Append(childStr);
                     }
                     else

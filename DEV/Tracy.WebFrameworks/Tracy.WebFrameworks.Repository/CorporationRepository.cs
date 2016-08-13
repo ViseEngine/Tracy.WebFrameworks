@@ -101,11 +101,8 @@ namespace Tracy.WebFrameworks.Repository
                 var corporation = db.Corporation.FirstOrDefault(p => p.Id == item.Id);
                 if (corporation != null)
                 {
-                    corporation.ParentId = item.ParentId;
-                    corporation.Code = item.Code;
                     corporation.Name = item.Name;
                     corporation.Sort = item.Sort;
-                    corporation.Enabled = item.Enabled;
                     corporation.LastUpdatedBy = item.LastUpdatedBy;
                     corporation.LastUpdatedTime = item.LastUpdatedTime;
                 }

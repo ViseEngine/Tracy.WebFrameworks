@@ -28,5 +28,22 @@ namespace Tracy.WebFrameworks.IService
         [OperationContract]
         WebFxsResult<string> GetCorpDepartment(GetCorpDepartmentRQ request);
 
+        /// <summary>
+        /// 添加公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>返回新添加的公司</returns>
+        [OperationContract]
+        WebFxsResult<Corporation> AddCorporation(AddCorporationRQ request, User loginUser);
+
+        /// <summary>
+        /// 修改公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="loginUser"></param>
+        /// <returns>true:修改成功，false：修改失败</returns>
+        [OperationContract]
+        WebFxsResult<bool> EditCorporation(EditCorporationRQ request, User loginUser);
+
     }
 }

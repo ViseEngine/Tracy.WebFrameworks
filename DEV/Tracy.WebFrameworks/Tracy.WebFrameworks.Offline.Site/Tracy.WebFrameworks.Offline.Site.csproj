@@ -1692,6 +1692,8 @@
     <Content Include="Views\Home\ChangePwd.cshtml" />
     <Content Include="Views\Home\GetMyInfo.cshtml" />
     <Content Include="Views\Corporation\Index.cshtml" />
+    <Content Include="Views\Corporation\Add.cshtml" />
+    <Content Include="Views\Corporation\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tracy.WebFrameworks.Offline.Site.Filters;
 using Tracy.WebFrameworks.IService;
+using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
@@ -19,6 +20,74 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <returns></returns>
+        [LoginAuthorization]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(AddCorporationRQ request)
+        {
+            var flag = false;
+            var msg = string.Empty;
+
+            using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var rs = client.AddCorporation(request, base.CurrentUserInfo);
+                if (rs.ReturnCode== ReturnCodeType.Success)
+                {
+                    flag = true;
+                    msg = "添加成功!";
+                }
+                else
+                {
+                    msg = "添加失败!";
+                }
+            }
+
+            return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <returns></returns>
+        [LoginAuthorization]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditCorporationRQ request)
+        {
+            var flag = false;
+            var msg = string.Empty;
+
+            using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var rs = client.EditCorporation(request, base.CurrentUserInfo);
+                if (rs.ReturnCode== ReturnCodeType.Success)
+                {
+                    flag = true;
+                    msg = "修改成功!";
+                }
+                else
+                {
+                    msg = "修改失败!";
+                }
+            }
+            
+            return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

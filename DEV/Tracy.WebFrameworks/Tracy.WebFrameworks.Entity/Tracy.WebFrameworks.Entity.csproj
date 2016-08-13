@@ -118,8 +118,10 @@
     <Compile Include="UserRole.cs">
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddCorporationRQ.cs" />
     <Compile Include="ViewModel\ChangePwdRequest.cs" />
     <Compile Include="ViewModel\CheckLoginRequest.cs" />
+    <Compile Include="ViewModel\EditCorporationRQ.cs" />
     <Compile Include="ViewModel\FirstLoginRequest.cs" />
     <Compile Include="ViewModel\GetCorpDepartmentRQ.cs" />
     <Compile Include="WebFrameworks.Entity.Partial.cs" />
