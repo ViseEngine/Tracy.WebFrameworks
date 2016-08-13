@@ -157,13 +157,60 @@ namespace Tracy.WebFrameworks.Repository
                     var query = db.Department.GroupJoin(db.Corporation, depart => depart.CorporationId, corp => corp.Id, (depart, corp) => new { depart, corp = corp.FirstOrDefault() })
                                              .Where(p => corpIds.Contains(p.corp.Id))
                                              .Select(p => p.depart);
-                    result = query.OrderBy(p=> p.CorporationId)
-                                  .ThenBy(p=> p.Code)
+                    result = query.OrderBy(p => p.CorporationId)
+                                  .ThenBy(p => p.Code)
                                   .Paging(request.PageIndex, request.PageSize);
                 }
             });
 
             return result;
         }
+
+        /// <summary>
+        /// 删除公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public bool DeleteCorporation(DeleteCorporationRQ request)
+        {
+            //删除所选公司包括子公司
+            //删除公司下的所有部门包括子部门
+            //解除部门与用户的关系
+            var deleteCorpIds = request.DeleteCorpIds.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(p => p.ToInt()).ToList();
+            using (var db = new WebFrameworksDB())
+            {
+                var deleteCorps = db.Corporation.Where(p => deleteCorpIds.Contains(p.Id)).ToList();
+                if (deleteCorpIds.HasValue())
+                {
+                    db.Corporation.RemoveRange(deleteCorps);
+                }
+
+                var deletedeptIds = new List<int>();
+                var deleteDepts = db.Department.Where(p => deleteCorpIds.Contains(p.CorporationId)).ToList();
+                if (deleteDepts.HasValue())
+                {
+                    deletedeptIds = deleteDepts.Select(p => p.Id).ToList();
+                    db.Department.RemoveRange(deleteDepts);
+                }
+
+                var deleteUserDepts = db.UserDepartment.Where(p => deletedeptIds.Contains(p.DepartmentId)).ToList();
+                if (deleteUserDepts.HasValue())
+                {
+                    db.UserDepartment.RemoveRange(deleteUserDepts);
+                }
+
+                //事务提交
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
     }
 }

@@ -94,7 +94,7 @@
                                     if (eastDepartmentUser.panel("options").collapsed) {
                                         $ui_department_layout.layout("expand", "east");
                                     }
-                                    eastDepartmentUser.panel("setTitle", row.text + "部门");
+                                    eastDepartmentUser.panel("setTitle", row.text + "的部门");
                                     if ($("#ui_corp_depart_dg").data("datagrid")) {
                                         $("#ui_corp_depart_dg").datagrid({
                                             url: '@Url.Action("GetCorpDepartment", "Corporation")' + "?corpIds=" + corpIds + row.id
@@ -257,7 +257,36 @@
 
         //删除公司
         function corporation_delete() {
-
+            var row = $("#ui_corp_tg").datagrid("getSelected");
+            if (!row) {
+                $.show_warning("提示", "请先勾选要删除的公司");
+                return;
+            }
+            $.messager.confirm('提示', '确定删除：' + row.text + '？如果有子公司也会同时删除！', function (r) {
+                if (r) {
+                    corpIds = "";
+                    recursionGetIds(row);
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Corporation")',
+                        data: { "deleteCorpIds": corpIds + row.id },
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.success) {
+                                $.show_warning("提示", data.msg);
+                                $("#ui_corp_tg").treegrid("reload");
+                                if ($('#tabs').tabs('exists', '部门管理')) {
+                                    $('#tabs').tabs('getTab', '部门管理').panel('refresh');
+                                }
+                                $("#ui_corp_layout").layout("collapse", "east");
+                                $("#ui_corp_depart_dg").datagrid('loadData', { total: 0, rows: [] });
+                            } else {
+                                $.show_warning("提示", data.msg);
+                            }
+                        }
+                    });
+                }
+            });
         }
 
     </script>

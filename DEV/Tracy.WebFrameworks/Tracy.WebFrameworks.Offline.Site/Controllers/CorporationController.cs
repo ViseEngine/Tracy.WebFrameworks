@@ -42,7 +42,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             {
                 var client = factory.CreateChannel();
                 var rs = client.AddCorporation(request, base.CurrentUserInfo);
-                if (rs.ReturnCode== ReturnCodeType.Success)
+                if (rs.ReturnCode == ReturnCodeType.Success)
                 {
                     flag = true;
                     msg = "添加成功!";
@@ -76,7 +76,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             {
                 var client = factory.CreateChannel();
                 var rs = client.EditCorporation(request, base.CurrentUserInfo);
-                if (rs.ReturnCode== ReturnCodeType.Success)
+                if (rs.ReturnCode == ReturnCodeType.Success)
                 {
                     flag = true;
                     msg = "修改成功!";
@@ -86,7 +86,36 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     msg = "修改失败!";
                 }
             }
-            
+
+            return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 删除公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Delete(DeleteCorporationRQ request)
+        {
+            var flag = false;
+            var msg = string.Empty;
+
+            using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var rs = client.DeleteCorporation(request);
+                if (rs.ReturnCode == ReturnCodeType.Success)
+                {
+                    flag = true;
+                    msg = "删除成功!";
+                }
+                else
+                {
+                    msg = "删除失败!";
+                }
+            }
+
             return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 

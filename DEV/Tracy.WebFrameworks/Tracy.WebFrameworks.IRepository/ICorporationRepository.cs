@@ -57,6 +57,13 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="request"></param>
         /// <returns></returns>
         PagingResult<Department> GetCorpDepartmentByPaging(GetCorpDepartmentRQ request);
+        
+        /// <summary>
+        /// 删除公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        bool DeleteCorporation(DeleteCorporationRQ request);
 
     }
 }

@@ -45,5 +45,13 @@ namespace Tracy.WebFrameworks.IService
         [OperationContract]
         WebFxsResult<bool> EditCorporation(EditCorporationRQ request, User loginUser);
 
+        /// <summary>
+        /// 删除公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<bool> DeleteCorporation(DeleteCorporationRQ request);
+
     }
 }

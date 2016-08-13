@@ -177,7 +177,7 @@ namespace Tracy.WebFrameworks.Service
 
             var item = new Corporation
             {
-                Id= request.Id,
+                Id = request.Id,
                 Name = request.Name,
                 Sort = request.Sort,
                 LastUpdatedBy = loginUser.UserId,
@@ -188,6 +188,32 @@ namespace Tracy.WebFrameworks.Service
             {
                 result.ReturnCode = ReturnCodeType.Success;
                 result.Content = rs;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 删除公司
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public WebFxsResult<bool> DeleteCorporation(DeleteCorporationRQ request)
+        {
+            //删除所选公司包括子公司
+            //删除公司下的所有部门包括子部门
+            //解除部门与用户的关系
+            var result = new WebFxsResult<bool>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = false
+            };
+
+            var rs = repository.DeleteCorporation(request);
+            if (rs == true)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = true;
             }
 
             return result;
