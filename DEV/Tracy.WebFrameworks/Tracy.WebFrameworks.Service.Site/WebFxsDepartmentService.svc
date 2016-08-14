@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Tracy.WebFrameworks.Service.WebFxsDepartmentService" CodeBehind="WebFxsDepartmentService.svc.cs" %>

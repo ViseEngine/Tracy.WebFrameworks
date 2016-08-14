@@ -41,11 +41,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tracy.Frameworks.Common">
+      <HintPath>..\..\..\DLL\Tracy.Frameworks.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IWebFxsButtonService.cs" />
     <Compile Include="IWebFxsCommonService.cs" />
     <Compile Include="IWebFxsCorporationService.cs" />
+    <Compile Include="IWebFxsDepartmentService.cs" />
     <Compile Include="IWebFxsUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Tracy.Frameworks.Common.Result;
 using Tracy.WebFrameworks.Entity;
+using Tracy.WebFrameworks.Entity.ViewModel;
 
 namespace Tracy.WebFrameworks.IRepository
 {
@@ -48,5 +50,12 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="id"></param>
         /// <returns></returns>
         bool Delete(int id);
+
+        /// <summary>
+        /// 获取指定部门下的所有用户(分页)
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        PagingResult<User> GetUserByDepartment(GetUserByDepartmentRQ request);
     }
 }

@@ -8,13 +8,16 @@ using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Common.Helper;
 using Tracy.WebFrameworks.Data;
 using System.Linq.Expressions;
+using Tracy.Frameworks.Common.Result;
+using Tracy.WebFrameworks.Entity.ViewModel;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.WebFrameworks.Repository
 {
     /// <summary>
     /// 部门仓储接口实现
     /// </summary>
-    public class DepartmentRepository: IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         /// <summary>
         /// 依据id查询
@@ -137,6 +140,32 @@ namespace Tracy.WebFrameworks.Repository
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 获取指定部门下的所有用户(分页)
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public PagingResult<User> GetUserByDepartment(GetUserByDepartmentRQ request)
+        {
+            var result = new PagingResult<User>();
+            var departmentIds = request.DeptIds.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.ToInt()).ToList();
+
+            DBHelper.NoLockInvokeDB(() =>
+            {
+                using (var db = new WebFrameworksDB())
+                {
+                    var query = db.User.GroupJoin(db.UserDepartment, user => user.Id, userDepart => userDepart.UserId, (user, userDepart) => new { user, userDepart = userDepart.FirstOrDefault() })
+                                .GroupJoin(db.Department, ud => ud.userDepart.DepartmentId, depart => depart.Id, (ud, depart) => new { ud, depart = depart.FirstOrDefault() })
+                                .Where(p => departmentIds.Contains(p.depart.Id))
+                                .Select(p => p.ud.user);
+                    result = query.OrderByDescending(p => p.CreatedTime)
+                        .Paging(request.PageIndex, request.PageSize);
+                }
+            });
+
+            return result;
         }
     }
 }

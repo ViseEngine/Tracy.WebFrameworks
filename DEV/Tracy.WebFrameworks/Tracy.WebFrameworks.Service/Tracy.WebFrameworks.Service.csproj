@@ -63,6 +63,7 @@
     <Compile Include="WebFxsCommonService.svc.cs" />
     <Compile Include="WebFxsCorporationService.svc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebFxsDepartmentService.svc.cs" />
     <Compile Include="WebFxsUserService.svc.cs" />
   </ItemGroup>
   <ItemGroup>
