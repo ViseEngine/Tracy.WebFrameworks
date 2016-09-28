@@ -17,7 +17,7 @@
 </head>
 <body>
     <div id="ui_dept_layout" class="easyui-layout" data-options="fit:true,border:false">
-        <div data-options="region:'north',split:true,border:true,collapsed:false" title="搜索条件" style="height:72px;">
+        @*<div data-options="region:'north',split:true,border:true,collapsed:false" title="搜索条件" style="height:72px;">
             <table id="ui_role_search" class="tableForm" style="height: 28px; background: #f5f5f5;">
                 <tr>
                     <th>
@@ -31,7 +31,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </div>*@
         <div data-options="region:'east',split:true,border:true,collapsed:true" title="部门用户"
              style="width: 550px;">
             <table id="ui_dept_user_dg" data-options="fit:true,border:false"></table>
@@ -46,10 +46,14 @@
     }
 
     <script type="text/javascript">
-        $('#Id').combotree({
-            onClick: function (node) {
-                loadDepartments(node.id);//选择公司加载相应的部门
-            }
+        //$('#Id').combotree({
+        //    onClick: function (node) {
+        //        loadDepartments(node.id);//选择公司加载相应的部门
+        //    }
+        //});
+
+        $(function () {
+            loadDepartments(5);
         });
 
         //加载指定公司下的所有部门

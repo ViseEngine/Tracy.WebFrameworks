@@ -42,10 +42,10 @@ WHERE user1.Id= 1
 AND menu.Code= 'corp';
 
 --手动赋权
-INSERT INTO dbo.RoleMenuButton
-        ( RoleId, MenuId, ButtonId )
-VALUES  ( 1,6,2),
-		( 1,6,3),
-		( 1,6,4);
+--INSERT INTO dbo.RoleMenuButton
+--        ( RoleId, MenuId, ButtonId )
+--VALUES  ( 1,6,2),
+--		( 1,6,3),
+--		( 1,6,4);
 
 
