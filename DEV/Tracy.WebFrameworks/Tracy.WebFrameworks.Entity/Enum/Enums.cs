@@ -27,4 +27,23 @@ namespace Tracy.WebFrameworks.Entity.Enum
         [EnumMember]
         Debug = 2
     }
+
+    [DataContract]
+    public enum OrgTreeType : byte
+    {
+        /// <summary>
+        /// 公司
+        /// </summary>
+        [Display(Name = "公司")]
+        [EnumMember]
+        Corporation = 1,
+
+        /// <summary>
+        /// 部门
+        /// </summary>
+        [Display(Name = "部门")]
+        [EnumMember]
+        Department = 2
+    }
+
 }

@@ -14,15 +14,17 @@ using Tracy.WebFrameworks.IService;
 using Tracy.WebFrameworks.RepositoryFactory;
 using Tracy.Frameworks.Common.Extends;
 using Tracy.Frameworks.Common.Result;
+using Tracy.WebFrameworks.Entity.Enum;
 
 namespace Tracy.WebFrameworks.Service
 {
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     //[WcfServiceCounter(SystemCode = "WebFrameworks", Source = "Offline.Service")]
-    public class WebFxsDepartmentService: IWebFxsDepartmentService
+    public class WebFxsDepartmentService : IWebFxsDepartmentService
     {
         private static readonly IDepartmentRepository repository = Factory.GetDepartmentRepository();
+        private static readonly ICorporationRepository corpRepository = Factory.GetCorporationRepository();
 
         #region IRepository
         /// <summary>
@@ -85,13 +87,13 @@ namespace Tracy.WebFrameworks.Service
         /// <returns></returns>
         public WebFxsResult<List<Department>> GetDepartmentByCorp(GetDepartmentByCorpRQ request)
         {
-            var result = new WebFxsResult<List<Department>> 
+            var result = new WebFxsResult<List<Department>>
             {
-                ReturnCode= ReturnCodeType.Error,
-                Content= new List<Department>()
+                ReturnCode = ReturnCodeType.Error,
+                Content = new List<Department>()
             };
 
-            var departments = this.GetByCondition(p => p.CorporationId == request.CorporationId).ToList();
+            var departments = repository.GetDepartmentByCorp(request);
             result.ReturnCode = ReturnCodeType.Success;
             result.Content = departments;
 
@@ -105,15 +107,50 @@ namespace Tracy.WebFrameworks.Service
         /// <returns></returns>
         public WebFxsResult<PagingResult<User>> GetUserByDepartment(GetUserByDepartmentRQ request)
         {
-            var result = new WebFxsResult<PagingResult<User>> 
+            var result = new WebFxsResult<PagingResult<User>>
             {
-                ReturnCode= ReturnCodeType.Error,
-                Content= new PagingResult<User>()
+                ReturnCode = ReturnCodeType.Error,
+                Content = new PagingResult<User>()
             };
 
             var pagingUsers = repository.GetUserByDepartment(request);
             result.ReturnCode = ReturnCodeType.Success;
             result.Content = pagingUsers;
+
+            return result;
+        }
+
+        /// <summary>
+        /// 获取组织机构树数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public WebFxsResult<List<Corporation>> GetOrgTreeData(GetOrgTreeDataRQ request)
+        {
+            var result = new WebFxsResult<List<Corporation>>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = new List<Corporation>()
+            };
+
+            var orgTreeType = request.OrgType.ToEnum<OrgTreeType>();
+            if (orgTreeType == OrgTreeType.Corporation)
+            {
+                result.Content = corpRepository.GetByCondition().ToList();
+            }
+            if (orgTreeType == OrgTreeType.Department)
+            {
+                var corps = corpRepository.GetByCondition().ToList();
+                if (corps.HasValue())
+                {
+                    foreach (var item in corps)
+                    {
+                        item.Department = repository.GetByCondition(p => p.CorporationId == item.Id).ToList();
+                    }
+                }
+                result.Content = corps;
+            }
+            result.ReturnCode = ReturnCodeType.Success;
 
             return result;
         }

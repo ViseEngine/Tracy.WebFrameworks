@@ -57,5 +57,12 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="request"></param>
         /// <returns></returns>
         PagingResult<User> GetUserByDepartment(GetUserByDepartmentRQ request);
+
+        /// <summary>
+        /// 获取指定公司下的所有部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        List<Department> GetDepartmentByCorp(GetDepartmentByCorpRQ request);
     }
 }

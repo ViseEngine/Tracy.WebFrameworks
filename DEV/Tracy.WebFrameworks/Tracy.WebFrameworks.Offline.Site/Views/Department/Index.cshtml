@@ -17,24 +17,10 @@
 </head>
 <body>
     <div id="ui_dept_layout" class="easyui-layout" data-options="fit:true,border:false">
-        @*<div data-options="region:'north',split:true,border:true,collapsed:false" title="搜索条件" style="height:72px;">
-            <table id="ui_role_search" class="tableForm" style="height: 28px; background: #f5f5f5;">
-                <tr>
-                    <th>
-                        选择公司:
-                    </th>
-                    <td>
-                        <input class="easyui-combotree" id="Id" name="Id"
-                               data-options="url: '@Url.Action("GetAll", "Corporation")',lines:true" />
-                        <img style="cursor: pointer; vertical-align: middle;" onclick="$('#Id').combotree('clear');"
-                             alt="清空" title="清空" src='@Url.Content("~/Content/easyui/icon/edit-clear.png")' />
-                    </td>
-                </tr>
-            </table>
-        </div>*@
-        <div data-options="region:'east',split:true,border:true,collapsed:true" title="部门用户"
-             style="width: 550px;">
-            <table id="ui_dept_user_dg" data-options="fit:true,border:false"></table>
+        <div data-options="region:'west',split:true,title:'组织机构'" style="width: 180px; padding: 10px;">
+            <div>
+                <ul id="treeOrg"></ul>
+            </div>
         </div>
         <div data-options="region:'center',border:false">
             <table id="ui_dept_tg" data-options="fit:true,border:false"></table>
@@ -46,14 +32,19 @@
     }
 
     <script type="text/javascript">
-        //$('#Id').combotree({
-        //    onClick: function (node) {
-        //        loadDepartments(node.id);//选择公司加载相应的部门
-        //    }
-        //});
-
         $(function () {
-            loadDepartments(5);
+            //默认加载组织机构和所有公司的部门列表
+            $('#treeOrg').tree({
+                method: 'GET',
+                url: '@Url.Action("GetOrgTreeData", "Department")' + "?orgType=1",
+                lines: true,
+                onClick: function (node) {
+                    loadDepartments(node.id);
+                }
+            });
+
+            //默认加载所有公司下的所有部门
+            loadDepartments(0);
         });
 
         //加载指定公司下的所有部门
@@ -70,13 +61,14 @@
                         var toolbar = getToolBar(data);
                         if (data.browser) {
                             $("#ui_dept_tg").treegrid({
-                                url: '@Url.Action("GetDepartmentByCorp", "Department")' + "?corporationId="+ corpId,
+                                url: '@Url.Action("GetDepartmentByCorp", "Department")' + "?corporationId=" + corpId,
                                 idField: 'id',
                                 treeField: 'text',
                                 rownumbers: true,
                                 columns: [[
                                             { field: 'text', title: '部门名称', width: 150 },
                                             { field: 'Code', title: '编码', width: 80 },
+                                            { field: 'CorpName', title: '所属公司', width: 150 },
                                             {
                                                 field: 'Enabled', title: '启用', sortable: true, width: 60, align: 'center',
                                                 formatter: function (value, row, index) {
@@ -86,58 +78,10 @@
                                             { field: 'Sort', title: '排序', width: 60 },
                                             { field: 'CreatedTime', title: '创建时间', width: 150 }
                                 ]],
-                                toolbar: toolbar.length == 0 ? null : toolbar,
-                                onClickRow: function (row) {
-                                    deptIds = "";
-                                    recursionGetIds(row);//递归获取所有子部门id
-                                    if (oldSelectDeptId == row.id) {
-                                        return;
-                                    }
-                                    oldSelectDeptId = row.id;
-
-                                    var $ui_department_layout = $("#ui_dept_layout");
-                                    var eastDepartmentUser = $ui_department_layout.layout("panel", "east");
-
-                                    if (eastDepartmentUser.panel("options").collapsed) {
-                                        $ui_department_layout.layout("expand", "east");
-                                    }
-                                    eastDepartmentUser.panel("setTitle", row.text + "的用户");
-                                    if ($("#ui_dept_user_dg").data("datagrid")) {
-                                        $("#ui_dept_user_dg").datagrid({
-                                            url: '@Url.Action("GetUserByDepartment", "Department")' + "?deptIds=" + deptIds + row.id
-                                        });
-                                    }
-                                    else {
-                                        $("#ui_dept_user_dg").datagrid({
-                                            url: "@Url.Action("GetUserByDepartment", "Department")" + "?deptIds=" + deptIds + row.id,
-                                            striped: true, rownumbers: true, pagination: true, pageSize: 20, singleSelect: true,
-                                            idField: 'Id',
-                                            sortName: 'CreatedTime',
-                                            sortOrder: 'asc',
-                                            pageList: [20, 40, 60, 80, 100],
-                                            columns: [[
-                                                  { field: 'UserId', title: '用户帐号', sortable: true, width: 150 },
-                                                  { field: 'UserName', title: '用户名称', sortable: true, width: 150 },
-                                                  {
-                                                      field: 'Enabled', title: '启用', sortable: true, width: 80, align: 'center',
-                                                      formatter: function (value, row, index) {
-                                                          return value ? '<img src="@Url.Content("~/Content/easyui/icon/chk_checked.gif")" alt="已启用" title="公司已启用" />' : '<img src="@Url.Content("~/Content/easyui/icon/chk_unchecked.gif")" alt="未启用" title="公司未启用" />';
-                                                      }
-                                                  },
-                                                  {
-                                                      field: 'IsChangePwd', title: '是否改密', sortable: true, width: 80, align: 'center',
-                                                      formatter: function (value, row, index) {
-                                                          return value ? '<img src="@Url.Content("~/Content/easyui/icon/chk_checked.gif")" alt="已改密" title="密码已修改" />' : '<img src="@Url.Content("~/Content/easyui/icon/chk_unchecked.gif")" alt="未改密" title="密码未修改" />';
-                                                      }
-                                                  },
-                                                  { field: 'CreatedTime', title: '创建时间', sortable: true, width: 150 }]]
-                                        });
-                                    }
-                                }
+                                toolbar: toolbar.length == 0 ? null : toolbar
                             });
                         }
                         else {
-                            $("#ui_dept_layout").layout("remove", "east");
                             $.show_warning("提示", "无权限，请联系管理员！");
                         }
                     } else {
@@ -153,7 +97,7 @@
                     }
                 }
             })
-        }
+        };
 
         var deptIds = "";
         function recursionGetIds(rows) {
@@ -168,35 +112,35 @@
         //添加部门
         function department_add() {
             $("<div/>").dialog({
-                id: "ui_corp_add_dialog",
-                href: '@Url.Action("Add", "Corporation")',
-                title: "添加公司",
+                id: "ui_department_add_dialog",
+                href: '@Url.Action("Add", "Department")',
+                title: "添加部门",
                 height: 350,
                 width: 460,
                 modal: true,
                 buttons: [{
-                    id: "ui_corp_add_btn",
+                    id: "ui_department_add_btn",
                     text: '添 加',
                     handler: function () {
                         $("#ui_corp_addform").form("submit", {
-                            url: '@Url.Action("Add", "Corporation")',
+                            url: '@Url.Action("Add", "Department")',
                             onSubmit: function (param) {
-                                $('#ui_corp_add_btn').linkbutton('disable');
+                                $('#ui_department_add_btn').linkbutton('disable');
                                 if ($(this).form('validate'))
                                     return true;
                                 else {
-                                    $('#ui_corp_add_btn').linkbutton('enable');
+                                    $('#ui_department_add_btn').linkbutton('enable');
                                     return false;
                                 }
                             },
                             success: function (data) {
                                 var dataJson = eval('(' + data + ')');
                                 if (dataJson.success) {
-                                    $("#ui_corp_add_dialog").dialog('destroy');
+                                    $("#ui_department_add_dialog").dialog('destroy');
                                     $.show_warning("提示", dataJson.msg);
                                     $("#ui_dept_tg").treegrid("reload");
                                 } else {
-                                    $('#ui_corp_add_btn').linkbutton('enable');
+                                    $('#ui_department_add_btn').linkbutton('enable');
                                     $.show_warning("提示", dataJson.msg);
                                 }
                             }
@@ -207,7 +151,7 @@
                     $("#Name").focus();
                 },
                 onClose: function () {
-                    $("#ui_corp_add_dialog").dialog('destroy');
+                    $("#ui_department_add_dialog").dialog('destroy');
                 }
             });
         }
@@ -222,7 +166,7 @@
             $("<div/>").dialog({
                 id: "ui_corp_edit_dialog",
                 href: '@Url.Action("Edit", "Corporation")',
-                title: "修改公司",
+                title: "修改部门",
                 height: 350,
                 width: 460,
                 modal: true,
@@ -270,10 +214,10 @@
         function department_delete() {
             var row = $("#ui_dept_tg").datagrid("getSelected");
             if (!row) {
-                $.show_warning("提示", "请先勾选要删除的公司");
+                $.show_warning("提示", "请先勾选要删除的部门");
                 return;
             }
-            $.messager.confirm('提示', '确定删除：' + row.text + '？如果有子公司也会同时删除！', function (r) {
+            $.messager.confirm('提示', '确定删除：' + row.text + '？如果有子部门也会同时删除！', function (r) {
                 if (r) {
                     deptIds = "";
                     recursionGetIds(row);
@@ -290,7 +234,6 @@
                                     $('#tabs').tabs('getTab', '部门管理').panel('refresh');
                                 }
                                 $("#ui_dept_layout").layout("collapse", "east");
-                                $("#ui_dept_user_dg").datagrid('loadData', { total: 0, rows: [] });
                             } else {
                                 $.show_warning("提示", data.msg);
                             }

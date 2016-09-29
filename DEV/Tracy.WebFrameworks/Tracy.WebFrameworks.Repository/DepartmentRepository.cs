@@ -167,5 +167,44 @@ namespace Tracy.WebFrameworks.Repository
 
             return result;
         }
+
+        /// <summary>
+        /// 获取指定公司下的所有部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public List<Department> GetDepartmentByCorp(GetDepartmentByCorpRQ request)
+        {
+            var result = new List<Department>();
+            DBHelper.NoLockInvokeDB(() =>
+            {
+                using (var db = new WebFrameworksDB())
+                {
+                    var query = db.Department.GroupJoin(db.Corporation, department => department.CorporationId, corp => corp.Id, (department, corp) => new { department, corp = corp.FirstOrDefault() });
+                    if (request.CorporationId > 0)
+                    {
+                        query = query.Where(p => p.department.CorporationId == request.CorporationId);
+                    }
+
+                    //排序
+                    query = query.OrderBy(p => p.department.CorporationId).ThenBy(p => p.department.Code);
+
+                    result = query.ToList().ConvertAll(p => new Department 
+                    {
+                        Id = p.department.Id,
+                        ParentId= p.department.ParentId,
+                        Name= p.department.Name,
+                        Code = p.department.Code,
+                        Enabled = p.department.Enabled,
+                        Sort = p.department.Sort,
+                        CreatedTime = p.department.CreatedTime,
+                        CorporationId = p.corp.Id,
+                        CorporationName = p.corp.Name
+                    });
+                }
+            });
+
+            return result;
+        }
     }
 }

@@ -30,5 +30,13 @@ namespace Tracy.WebFrameworks.IService
         [OperationContract]
         WebFxsResult<PagingResult<User>> GetUserByDepartment(GetUserByDepartmentRQ request);
 
+        /// <summary>
+        /// 获取组织机构树数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<List<Corporation>> GetOrgTreeData(GetOrgTreeDataRQ request);
+
     }
 }

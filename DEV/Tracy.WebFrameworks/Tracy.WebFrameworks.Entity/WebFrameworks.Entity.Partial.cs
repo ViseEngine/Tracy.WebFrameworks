@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Tracy.WebFrameworks.Entity
@@ -10,6 +11,16 @@ namespace Tracy.WebFrameworks.Entity
     /// </summary>
     public partial class Corporation
     {
+
+    }
+
+    public partial class Department
+    {
+        /// <summary>
+        /// 所有公司名称
+        /// </summary>
+        [DataMember]
+        public string CorporationName { get; set; }
 
     }
 }
