@@ -122,7 +122,7 @@
                     id: "ui_department_add_btn",
                     text: '添 加',
                     handler: function () {
-                        $("#ui_corp_addform").form("submit", {
+                        $("#ui_department_addform").form("submit", {
                             url: '@Url.Action("Add", "Department")',
                             onSubmit: function (param) {
                                 $('#ui_department_add_btn').linkbutton('disable');

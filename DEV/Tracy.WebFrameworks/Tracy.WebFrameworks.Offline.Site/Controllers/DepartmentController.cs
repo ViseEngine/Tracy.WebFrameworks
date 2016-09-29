@@ -24,6 +24,11 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             return View();
         }
 
+        public ActionResult Add()
+        {
+            return View();
+        }
+
         /// <summary>
         /// 获取指定公司下的部门
         /// 如果没有指定则获取所有公司下的所有部门
@@ -111,7 +116,9 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                         }
                         if (orgTreeType == OrgTreeType.Department)
                         {
-
+                            sb.Append(RecursionCorpDepartment(corps, 0));
+                            sb = sb.Remove(sb.Length - 2, 2);
+                            result = sb.ToString();
                         }
                     }
                     else
@@ -127,6 +134,41 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         }
 
         #region Private method
+
+        /// <summary>
+        /// 包含公司和部门
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        private string RecursionCorpDepartment(List<Corporation> list, int parentId)
+        {
+            StringBuilder sb = new StringBuilder();
+            var corps = list.Where(p => p.ParentId == parentId).ToList();
+            if (corps.HasValue())
+            {
+                sb.Append("[");
+                for (int i = 0; i < corps.Count; i++)
+                {
+                    var childStr = RecursionCorpDepartment(list, corps[i].Id);
+                    if (!childStr.IsNullOrEmpty())
+                    {
+                        sb.Append("{\"id\":\"" + corps[i].Id.ToString() + "\",\"ParentId\":\"" + corps[i].ParentId.ToString() + "\",\"text\":\"" + corps[i].Name + "\",\"children\":");
+                        sb.Append(childStr);
+                    }
+                    else
+                    {
+                        //sb.Append("{\"id\":\"" + corps[i].Id.ToString() + "\",\"ParentId\":\"" + corps[i].ParentId.ToString() + "\",\"text\":\"" + corps[i].Name + "\"},");
+                        sb.Append("{\"id\":\"" + corps[i].Id.ToString() + "\",\"ParentId\":\"" + corps[i].ParentId.ToString() + "\",\"text\":\"" + corps[i].Name + "\"},\"children\":");
+                        var departments = corps[i].Department.ToList();
+                        sb.Append(Recursion(departments, 0));
+                    }
+                }
+                sb.Remove(sb.Length - 1, 1);
+                sb.Append("]},");
+            }
+            return sb.ToString();
+        }
 
         private string RecursionCorp(List<Corporation> list, int parentId)
         {

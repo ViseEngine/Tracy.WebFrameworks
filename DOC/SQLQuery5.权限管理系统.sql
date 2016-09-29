@@ -3,11 +3,17 @@ GO
 
 
 --公司
-SELECT * FROM dbo.Corporation AS corp
+SELECT * FROM dbo.Corporation(NOLOCK) AS corp
 
 --部门
-SELECT * FROM dbo.Department AS department
-WHERE department.CorporationId= 5;
+SELECT * FROM dbo.Department(NOLOCK) AS department
+WHERE department.CorporationId= 7;
+
+--部门带出公司名称
+SELECT department.*, corp.Name FROM dbo.Department AS department
+LEFT JOIN dbo.Corporation AS corp ON department.CorporationId= corp.Id
+ORDER BY department.CorporationId, department.Code;
+
 
 --用户
 SELECT * FROM dbo.[User] AS user1;
@@ -39,13 +45,15 @@ LEFT JOIN dbo.RoleMenuButton AS roleMenuButton ON roleMenuButton.RoleId= userRol
 LEFT JOIN dbo.Menu AS menu ON menu.Id= roleMenuButton.MenuId
 LEFT JOIN dbo.Button AS button ON button.Id= roleMenuButton.ButtonId
 WHERE user1.Id= 1
-AND menu.Code= 'corp';
+AND menu.Code= 'depart';
 
 --手动赋权
 --INSERT INTO dbo.RoleMenuButton
 --        ( RoleId, MenuId, ButtonId )
---VALUES  ( 1,6,2),
---		( 1,6,3),
---		( 1,6,4);
+--VALUES  ( 1,7,2),
+--		( 1,7,3),
+--		( 1,7,4),
+--		( 1,7,11),
+--		( 1,7,12);
 
 

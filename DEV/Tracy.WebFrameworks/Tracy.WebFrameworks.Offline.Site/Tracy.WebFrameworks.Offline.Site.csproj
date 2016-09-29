@@ -1696,6 +1696,7 @@
     <Content Include="Views\Corporation\Add.cshtml" />
     <Content Include="Views\Corporation\Edit.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
