@@ -121,30 +121,40 @@ namespace Tracy.WebFrameworks.Service
         }
 
         /// <summary>
-        /// 获取组织机构树数据
+        /// 添加部门
         /// </summary>
         /// <param name="request"></param>
-        /// <returns></returns>
-        public WebFxsResult<List<Corporation>> GetOrgTreeData()
+        /// <param name="loginUser"></param>
+        /// <returns>true：成功,false:失败</returns>
+        public WebFxsResult<bool> AddDepartment(AddDepartmentRQ request, User loginUser)
         {
-            var result = new WebFxsResult<List<Corporation>>
+            var result = new WebFxsResult<bool>
             {
                 ReturnCode = ReturnCodeType.Error,
-                Content = new List<Corporation>()
+                Content = false
             };
 
-            var corps = corpRepository.GetByCondition(orderby: p => p.OrderBy(item => item.Code).ThenBy(item => item.Sort)).ToList();
-            if (corps.HasValue())
+            var department = new Department
             {
-                foreach (var item in corps)
-                {
-                    item.Department = repository.GetByCondition(p => p.CorporationId == item.Id, p => p.OrderBy(q => q.Code).ThenBy(q => q.Sort)).ToList();
-                }
+                Name = request.Name,
+                Code = request.Code,
+                ParentId = request.ParentId,
+                CorporationId = request.CorpId,
+                Sort = request.Sort,
+                Enabled = true,
+                CreatedBy = loginUser.UserId,
+                CreatedTime = DateTime.Now
+            };
+            var rs = this.Insert(department);
+            if (rs != null)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = true;
             }
-            result.Content = corps;
-            result.ReturnCode = ReturnCodeType.Success;
 
             return result;
         }
+
+
     }
 }

@@ -28,7 +28,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             var result = string.Empty;
             StringBuilder sb = new StringBuilder();
 
-            using (var factory = new ChannelFactory<IWebFxsDepartmentService>("*"))
+            using (var factory = new ChannelFactory<IWebFxsCommonService>("*"))
             {
                 var client = factory.CreateChannel();
                 var rs = client.GetOrgTreeData();
@@ -82,7 +82,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     var childStr = RecursionCorpDepartment(list, childCorps[i].Id);
                     if (!childStr.IsNullOrEmpty())
                     {
-                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"text\":\"" + childCorps[i].Name + "\",\"children\":");
+                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"text\":\"" + childCorps[i].Name +"\",\"attributes\":{\"url\":\"" + childCorps[i].Id + "\"}"+ "\",\"children\":");
                         sb.Append(childStr);
                     }
                     else

@@ -119,6 +119,7 @@
       <DependentUpon>WebFrameworksDB.Entity.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddCorporationRQ.cs" />
+    <Compile Include="ViewModel\AddDepartmentRQ.cs" />
     <Compile Include="ViewModel\ChangePwdRequest.cs" />
     <Compile Include="ViewModel\CheckLoginRequest.cs" />
     <Compile Include="ViewModel\DeleteCorporationRQ.cs" />

@@ -69,5 +69,13 @@ namespace Tracy.WebFrameworks.IService
         [OperationContract]
         WebFxsResult<string> GetLeftMenuTree(int userId, int menuParentId);
 
+        /// <summary>
+        /// 获取组织机构树数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<List<Corporation>> GetOrgTreeData();
+
     }
 }

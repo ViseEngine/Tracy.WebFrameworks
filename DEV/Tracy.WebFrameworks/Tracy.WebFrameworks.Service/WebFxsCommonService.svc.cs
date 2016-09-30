@@ -22,6 +22,8 @@ namespace Tracy.WebFrameworks.Service
     public class WebFxsCommonService : IWebFxsCommonService
     {
         private static readonly ICommonRepository repository = Factory.GetCommonRepository();
+        private static readonly ICorporationRepository corpRepository = Factory.GetCorporationRepository();
+        private static readonly IDepartmentRepository departmentRepository = Factory.GetDepartmentRepository();
 
         /// <summary>
         /// 获取该用户所拥有的菜单
@@ -220,6 +222,33 @@ namespace Tracy.WebFrameworks.Service
             var outPut = GetLeftMenuTreeString(data, menuParentId);
             result.ReturnCode = ReturnCodeType.Success;
             result.Content = outPut;
+
+            return result;
+        }
+
+        /// <summary>
+        /// 获取组织机构树数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public WebFxsResult<List<Corporation>> GetOrgTreeData()
+        {
+            var result = new WebFxsResult<List<Corporation>>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = new List<Corporation>()
+            };
+
+            var corps = corpRepository.GetByCondition(orderby: p => p.OrderBy(item => item.Code).ThenBy(item => item.Sort)).ToList();
+            if (corps.HasValue())
+            {
+                foreach (var item in corps)
+                {
+                    item.Department = departmentRepository.GetByCondition(p => p.CorporationId == item.Id, p => p.OrderBy(q => q.Code).ThenBy(q => q.Sort)).ToList();
+                }
+            }
+            result.Content = corps;
+            result.ReturnCode = ReturnCodeType.Success;
 
             return result;
         }

@@ -17,7 +17,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
     /// <summary>
     /// 部门管理
     /// </summary>
-    public class DepartmentController : Controller
+    public class DepartmentController : BaseController
     {
         public ActionResult Index()
         {
@@ -27,6 +27,35 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         public ActionResult Add()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 添加部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Add(AddDepartmentRQ request)
+        {
+            var flag = false;
+            var msg = string.Empty;
+
+            using (var factory = new ChannelFactory<IWebFxsDepartmentService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var rs = client.AddDepartment(request, base.CurrentUserInfo);
+                if (rs.ReturnCode == ReturnCodeType.Success && rs.Content == true)
+                {
+                    flag = true;
+                    msg = "添加成功!";
+                }
+                else
+                {
+                    msg = "添加失败!";
+                }
+            }
+
+            return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -106,6 +135,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     }
                     else
                     {
+                        //sb.Append("{\"id\":\"" + childDepts[i].Id.ToString() + "\",\"ParentId\":\"" + childDepts[i].ParentId.ToString() + "\",\"Code\":\"" + childDepts[i].Code + "\",\"CorpName\":\"" + childDepts[i].CorporationName + "\",\"Enabled\":\"" + childDepts[i].Enabled.Value + "\",\"Sort\":\"" + childDepts[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childDepts[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"attributes\":{\"ParentId\":\"" + childDepts[i].ParentId.ToString() + "\"}\",\"text\":\"" + childDepts[i].Name + "\"},");
                         sb.Append("{\"id\":\"" + childDepts[i].Id.ToString() + "\",\"ParentId\":\"" + childDepts[i].ParentId.ToString() + "\",\"Code\":\"" + childDepts[i].Code + "\",\"CorpName\":\"" + childDepts[i].CorporationName + "\",\"Enabled\":\"" + childDepts[i].Enabled.Value + "\",\"Sort\":\"" + childDepts[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childDepts[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childDepts[i].Name + "\"},");
                     }
 

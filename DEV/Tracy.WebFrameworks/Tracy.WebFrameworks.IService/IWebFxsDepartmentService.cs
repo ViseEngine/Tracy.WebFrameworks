@@ -31,12 +31,13 @@ namespace Tracy.WebFrameworks.IService
         WebFxsResult<PagingResult<User>> GetUserByDepartment(GetUserByDepartmentRQ request);
 
         /// <summary>
-        /// 获取组织机构树数据
+        /// 添加部门
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="loginUser"></param>
         /// <returns></returns>
         [OperationContract]
-        WebFxsResult<List<Corporation>> GetOrgTreeData();
+        WebFxsResult<bool> AddDepartment(AddDepartmentRQ request, User loginUser);
 
     }
 }

@@ -22,9 +22,10 @@
                 <ul id="treeOrg"></ul>
             </div>
         </div>
-        <div data-options="region:'center',border:false">
+        <div data-options="region:'center',border:false, title:'部门列表'">
             <table id="ui_dept_tg" data-options="fit:true,border:false"></table>
         </div>
+        <input type="hidden" id="hidCorpId" value="0" />
     </div>
     @if (false)
     {
@@ -39,6 +40,10 @@
                 url: '@Url.Action("GetOrgTreeData", "Common")' + "?orgType=1",
                 lines: true,
                 onClick: function (node) {
+                    var centerPanel = $("#ui_dept_layout").layout("panel", "center");
+                    centerPanel.panel("setTitle", "部门列表 - " + node.text);
+                    $("#hidCorpId").val(node.id);
+
                     loadDepartments(node.id);
                 }
             });
@@ -110,7 +115,14 @@
         }
 
         //添加部门
+        //必须先选择左边的公司然后才可以添加
         function department_add() {
+            var nodeCorp = $('#treeOrg').tree('getSelected');
+            if (!nodeCorp) {
+                $.show_warning("提示", "请先选择左边的公司然后再添加!");
+                return false;
+            }
+
             $("<div/>").dialog({
                 id: "ui_department_add_dialog",
                 href: '@Url.Action("Add", "Department")',
@@ -126,8 +138,13 @@
                             url: '@Url.Action("Add", "Department")',
                             onSubmit: function (param) {
                                 $('#ui_department_add_btn').linkbutton('disable');
-                                if ($(this).form('validate'))
+                                if ($(this).form('validate')) {
+                                    var t = $("#comboParent").combotree('tree');
+                                    var node = t.tree('getSelected');
+                                    param.CorpId = $("#hidCorpId").val();
+                                    param.ParentId = node.id;
                                     return true;
+                                }
                                 else {
                                     $('#ui_department_add_btn').linkbutton('enable');
                                     return false;
@@ -149,12 +166,18 @@
                 }],
                 onLoad: function () {
                     $("#Name").focus();
+
+                    var hidCorpId = $("#hidCorpId").val();
+                    $("#comboParent").combotree({
+                        url: '@Url.Action("GetDepartmentByCorp", "Department")' + "?corporationId=" + hidCorpId,
+                        lines: true
+                    });
                 },
                 onClose: function () {
                     $("#ui_department_add_dialog").dialog('destroy');
                 }
             });
-        }
+        };
 
         //修改部门
         function department_edit() {
@@ -241,7 +264,17 @@
                     });
                 }
             });
-        }
+        };
+
+        //全部展开
+        function department_expandall() {
+            $("#ui_dept_tg").treegrid("expandAll");
+        };
+
+        //全部折叠
+        function department_collapseall() {
+            $("#ui_dept_tg").treegrid("collapseAll");
+        };
 
     </script>
 
