@@ -81,29 +81,19 @@ namespace Tracy.WebFrameworks.Service
         #endregion
 
         /// <summary>
-        /// 查询所有公司，输出json字符串
+        /// 获取所有公司
         /// </summary>
         /// <returns></returns>
-        public WebFxsResult<string> GetAll()
+        public WebFxsResult<List<Corporation>> GetAllCorps()
         {
-            var result = new WebFxsResult<string>
+            var result = new WebFxsResult<List<Corporation>> 
             {
                 ReturnCode = ReturnCodeType.Error,
-                Content = string.Empty
+                Content= new List<Corporation>()
             };
-            StringBuilder sb = new StringBuilder();
-            var allCorps = this.GetByCondition().ToList();
-            if (allCorps.HasValue())
-            {
-                sb.Append(Recursion(allCorps, 0));
-                sb = sb.Remove(sb.Length - 2, 2);
-            }
 
-            result.Content = sb.ToString();
-            if (!result.Content.IsNullOrEmpty())
-            {
-                result.ReturnCode = ReturnCodeType.Success;
-            }
+            result.Content = this.GetByCondition(orderby: p => p.OrderBy(item => item.Code).ThenBy(item => item.Sort)).ToList();
+            result.ReturnCode = ReturnCodeType.Success;
 
             return result;
         }

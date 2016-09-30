@@ -14,11 +14,11 @@ namespace Tracy.WebFrameworks.IService
     public interface IWebFxsCorporationService
     {
         /// <summary>
-        /// 查询所有公司，输出json字符串
+        /// 获取所有公司
         /// </summary>
         /// <returns></returns>
         [OperationContract]
-        WebFxsResult<string> GetAll();
+        WebFxsResult<List<Corporation>> GetAllCorps();
 
         /// <summary>
         /// 查询选中公司下的所有部门并分页显示

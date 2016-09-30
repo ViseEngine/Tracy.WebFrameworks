@@ -36,7 +36,7 @@
             //默认加载组织机构和所有公司的部门列表
             $('#treeOrg').tree({
                 method: 'GET',
-                url: '@Url.Action("GetOrgTreeData", "Department")' + "?orgType=1",
+                url: '@Url.Action("GetOrgTreeData", "Common")' + "?orgType=1",
                 lines: true,
                 onClick: function (node) {
                     loadDepartments(node.id);

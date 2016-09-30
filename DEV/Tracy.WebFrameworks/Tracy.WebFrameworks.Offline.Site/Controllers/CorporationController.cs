@@ -8,6 +8,9 @@ using Tracy.WebFrameworks.Offline.Site.Filters;
 using Tracy.WebFrameworks.IService;
 using Tracy.WebFrameworks.Entity;
 using Tracy.WebFrameworks.Entity.ViewModel;
+using System.Text;
+using Tracy.Frameworks.Common.Extends;
+using Tracy.Frameworks.Common.Const;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -120,19 +123,30 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         }
 
         /// <summary>
-        /// 查询所有公司
+        /// 查询所有公司,并且以树形展示
         /// </summary>
         /// <returns></returns>
         public ActionResult GetAll()
         {
             var result = string.Empty;
+            StringBuilder sb = new StringBuilder();
             using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
             {
                 var client = factory.CreateChannel();
-                var rs = client.GetAll();
+                var rs = client.GetAllCorps();
                 if (rs.ReturnCode == Entity.ReturnCodeType.Success)
                 {
-                    result = rs.Content;
+                    var corps = rs.Content;
+                    if (corps.HasValue())
+                    {
+                        sb.Append(RecursionCorp(corps, 0));
+                        sb = sb.Remove(sb.Length - 2, 2);
+                        result = sb.ToString();
+                    }
+                    else
+                    {
+                        result = "[]";
+                    }
                 }
             }
 
@@ -140,31 +154,36 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
         }
 
         /// <summary>
-        /// 查询选中公司下的所有部门
+        /// 递归所有公司
         /// </summary>
-        /// <param name="CorpIds">公司包括子公司id</param>
+        /// <param name="list"></param>
+        /// <param name="parentId"></param>
         /// <returns></returns>
-        public ActionResult GetCorpDepartment(GetCorpDepartmentRQ request, int page, int rows)
+        private string RecursionCorp(List<Corporation> list, int parentId)
         {
-            var result = string.Empty;
-            if (request == null)
+            StringBuilder sb = new StringBuilder();
+            var childCorps = list.Where(p => p.ParentId == parentId).ToList();
+            if (childCorps.HasValue())
             {
-                request = new GetCorpDepartmentRQ();
-            }
-            request.PageIndex = page;
-            request.PageSize = rows;
-
-            using (var factory = new ChannelFactory<IWebFxsCorporationService>("*"))
-            {
-                var client = factory.CreateChannel();
-                var rs = client.GetCorpDepartment(request);
-                if (rs.ReturnCode == Entity.ReturnCodeType.Success)
+                sb.Append("[");
+                for (int i = 0; i < childCorps.Count; i++)
                 {
-                    result = rs.Content;
-                }
-            }
+                    var childCorpStr = RecursionCorp(list, childCorps[i].Id);
+                    if (!childCorpStr.IsNullOrEmpty())
+                    {
+                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"Code\":\"" + childCorps[i].Code + "\",\"Enabled\":\"" + childCorps[i].Enabled.Value + "\",\"Sort\":\"" + childCorps[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childCorps[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childCorps[i].Name + "\",\"children\":");
+                        sb.Append(childCorpStr);
+                    }
+                    else
+                    {
+                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"Code\":\"" + childCorps[i].Code + "\",\"Enabled\":\"" + childCorps[i].Enabled.Value + "\",\"Sort\":\"" + childCorps[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childCorps[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childCorps[i].Name + "\"},");
+                    }
 
-            return Content(result);
+                }
+                sb.Remove(sb.Length - 1, 1);
+                sb.Append("]},");
+            }
+            return sb.ToString();
         }
 
     }

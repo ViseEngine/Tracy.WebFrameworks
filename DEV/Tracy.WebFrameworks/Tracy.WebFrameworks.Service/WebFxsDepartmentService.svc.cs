@@ -125,7 +125,7 @@ namespace Tracy.WebFrameworks.Service
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public WebFxsResult<List<Corporation>> GetOrgTreeData(GetOrgTreeDataRQ request)
+        public WebFxsResult<List<Corporation>> GetOrgTreeData()
         {
             var result = new WebFxsResult<List<Corporation>>
             {
@@ -133,23 +133,15 @@ namespace Tracy.WebFrameworks.Service
                 Content = new List<Corporation>()
             };
 
-            var orgTreeType = request.OrgType.ToEnum<OrgTreeType>();
-            if (orgTreeType == OrgTreeType.Corporation)
+            var corps = corpRepository.GetByCondition(orderby: p => p.OrderBy(item => item.Code).ThenBy(item => item.Sort)).ToList();
+            if (corps.HasValue())
             {
-                result.Content = corpRepository.GetByCondition().ToList();
-            }
-            if (orgTreeType == OrgTreeType.Department)
-            {
-                var corps = corpRepository.GetByCondition().ToList();
-                if (corps.HasValue())
+                foreach (var item in corps)
                 {
-                    foreach (var item in corps)
-                    {
-                        item.Department = repository.GetByCondition(p => p.CorporationId == item.Id).ToList();
-                    }
+                    item.Department = repository.GetByCondition(p => p.CorporationId == item.Id, p => p.OrderBy(q => q.Code).ThenBy(q => q.Sort)).ToList();
                 }
-                result.Content = corps;
             }
+            result.Content = corps;
             result.ReturnCode = ReturnCodeType.Success;
 
             return result;

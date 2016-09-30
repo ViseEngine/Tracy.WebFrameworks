@@ -47,7 +47,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                     var depts = rs.Content;
                     if (depts.HasValue())
                     {
-                        sb.Append(Recursion(depts, 0));
+                        sb.Append(RecursionDepartment(depts, 0));
                         sb = sb.Remove(sb.Length - 2, 2);
                         result = sb.ToString();
                     }
@@ -88,116 +88,8 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             return Content(result);
         }
 
-        /// <summary>
-        /// 获取组织机构树数据
-        /// </summary>
-        /// <param name="orgType">组织类型,是公司级还是部门级</param>
-        /// <returns></returns>
-        public ActionResult GetOrgTreeData(GetOrgTreeDataRQ request)
-        {
-            var result = string.Empty;
-            StringBuilder sb = new StringBuilder();
-
-            using (var factory = new ChannelFactory<IWebFxsDepartmentService>("*"))
-            {
-                var client = factory.CreateChannel();
-                var rs = client.GetOrgTreeData(request);
-                if (rs.ReturnCode == ReturnCodeType.Success)
-                {
-                    var corps = rs.Content;
-                    if (corps.HasValue())
-                    {
-                        var orgTreeType = request.OrgType.ToEnum<OrgTreeType>();
-                        if (orgTreeType == OrgTreeType.Corporation)
-                        {
-                            sb.Append(RecursionCorp(corps, 0));
-                            sb = sb.Remove(sb.Length - 2, 2);
-                            result = sb.ToString();
-                        }
-                        if (orgTreeType == OrgTreeType.Department)
-                        {
-                            sb.Append(RecursionCorpDepartment(corps, 0));
-                            sb = sb.Remove(sb.Length - 2, 2);
-                            result = sb.ToString();
-                        }
-                    }
-                    else
-                    {
-                        result = "[]";
-                    }
-
-                }
-
-            }
-
-            return Content(result);
-        }
-
         #region Private method
-
-        /// <summary>
-        /// 包含公司和部门
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="parentId"></param>
-        /// <returns></returns>
-        private string RecursionCorpDepartment(List<Corporation> list, int parentId)
-        {
-            StringBuilder sb = new StringBuilder();
-            var corps = list.Where(p => p.ParentId == parentId).ToList();
-            if (corps.HasValue())
-            {
-                sb.Append("[");
-                for (int i = 0; i < corps.Count; i++)
-                {
-                    var childStr = RecursionCorpDepartment(list, corps[i].Id);
-                    if (!childStr.IsNullOrEmpty())
-                    {
-                        sb.Append("{\"id\":\"" + corps[i].Id.ToString() + "\",\"ParentId\":\"" + corps[i].ParentId.ToString() + "\",\"text\":\"" + corps[i].Name + "\",\"children\":");
-                        sb.Append(childStr);
-                    }
-                    else
-                    {
-                        //sb.Append("{\"id\":\"" + corps[i].Id.ToString() + "\",\"ParentId\":\"" + corps[i].ParentId.ToString() + "\",\"text\":\"" + corps[i].Name + "\"},");
-                        sb.Append("{\"id\":\"" + corps[i].Id.ToString() + "\",\"ParentId\":\"" + corps[i].ParentId.ToString() + "\",\"text\":\"" + corps[i].Name + "\"},\"children\":");
-                        var departments = corps[i].Department.ToList();
-                        sb.Append(Recursion(departments, 0));
-                    }
-                }
-                sb.Remove(sb.Length - 1, 1);
-                sb.Append("]},");
-            }
-            return sb.ToString();
-        }
-
-        private string RecursionCorp(List<Corporation> list, int parentId)
-        {
-            StringBuilder sb = new StringBuilder();
-            var childCorps = list.Where(p => p.ParentId == parentId).ToList();
-            if (childCorps.HasValue())
-            {
-                sb.Append("[");
-                for (int i = 0; i < childCorps.Count; i++)
-                {
-                    var childStr = RecursionCorp(list, childCorps[i].Id);
-                    if (!childStr.IsNullOrEmpty())
-                    {
-                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"text\":\"" + childCorps[i].Name + "\",\"children\":");
-                        sb.Append(childStr);
-                    }
-                    else
-                    {
-                        sb.Append("{\"id\":\"" + childCorps[i].Id.ToString() + "\",\"ParentId\":\"" + childCorps[i].ParentId.ToString() + "\",\"text\":\"" + childCorps[i].Name + "\"},");
-                    }
-
-                }
-                sb.Remove(sb.Length - 1, 1);
-                sb.Append("]},");
-            }
-            return sb.ToString();
-        }
-
-        private string Recursion(List<Department> list, int parentId)
+        private string RecursionDepartment(List<Department> list, int parentId)
         {
             StringBuilder sb = new StringBuilder();
             var childDepts = list.Where(p => p.ParentId == parentId).ToList();
@@ -206,7 +98,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
                 sb.Append("[");
                 for (int i = 0; i < childDepts.Count; i++)
                 {
-                    var childStr = Recursion(list, childDepts[i].Id);
+                    var childStr = RecursionDepartment(list, childDepts[i].Id);
                     if (!childStr.IsNullOrEmpty())
                     {
                         sb.Append("{\"id\":\"" + childDepts[i].Id.ToString() + "\",\"ParentId\":\"" + childDepts[i].ParentId.ToString() + "\",\"Code\":\"" + childDepts[i].Code + "\",\"CorpName\":\"" + childDepts[i].CorporationName + "\",\"Enabled\":\"" + childDepts[i].Enabled.Value + "\",\"Sort\":\"" + childDepts[i].Sort.Value.ToString() + "\",\"CreatedTime\":\"" + childDepts[i].CreatedTime.Value.ToString(DateFormat.DATETIME) + "\",\"text\":\"" + childDepts[i].Name + "\",\"children\":");

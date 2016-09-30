@@ -36,7 +36,7 @@ namespace Tracy.WebFrameworks.IService
         /// <param name="request"></param>
         /// <returns></returns>
         [OperationContract]
-        WebFxsResult<List<Corporation>> GetOrgTreeData(GetOrgTreeDataRQ request);
+        WebFxsResult<List<Corporation>> GetOrgTreeData();
 
     }
 }

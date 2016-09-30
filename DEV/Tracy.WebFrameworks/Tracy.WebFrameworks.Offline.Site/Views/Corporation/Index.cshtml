@@ -30,7 +30,7 @@
 
     <script type="text/javascript">
         $(function () {
-            //请求当前用户可以操作的按钮
+            //加载所有公司数据
             $.ajax({
                 url: '@Url.Action("GetButtonByUserIdAndMenuCode", "Button")',
                 type: "POST",
@@ -63,7 +63,6 @@
                             });
                         }
                         else {
-                            $("#ui_corp_layout").layout("remove", "east");
                             $.show_warning("提示", "无权限，请联系管理员！");
                         }
                     } else {
@@ -89,7 +88,7 @@
                     recursionGetIds(row);
                 });
             }
-        }
+        };
 
         //添加公司
         function corporation_add() {
