@@ -4,14 +4,15 @@ GO
 
 --公司
 SELECT * FROM dbo.Corporation(NOLOCK) AS corp
+ORDER BY corp.Code, corp.Sort;
 
 --部门
 SELECT * FROM dbo.Department(NOLOCK) AS department
-WHERE department.CorporationId= 7;
+WHERE department.CorporationId= 5;
 
 --部门带出公司名称
-SELECT department.*, corp.Name FROM dbo.Department AS department
-LEFT JOIN dbo.Corporation AS corp ON department.CorporationId= corp.Id
+SELECT department.*, corp.Name FROM dbo.Department(NOLOCK) AS department
+LEFT JOIN dbo.Corporation(NOLOCK) AS corp ON department.CorporationId= corp.Id
 ORDER BY department.CorporationId, department.Code;
 
 
