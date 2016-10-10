@@ -20,6 +20,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
     /// </summary>
     public class DepartmentController : BaseController
     {
+        [LoginAuthorization]
         public ActionResult Index()
         {
             return View();
