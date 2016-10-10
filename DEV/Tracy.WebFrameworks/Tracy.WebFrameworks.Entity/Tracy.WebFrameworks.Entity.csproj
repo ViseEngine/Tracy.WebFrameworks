@@ -123,7 +123,9 @@
     <Compile Include="ViewModel\ChangePwdRequest.cs" />
     <Compile Include="ViewModel\CheckLoginRequest.cs" />
     <Compile Include="ViewModel\DeleteCorporationRQ.cs" />
+    <Compile Include="ViewModel\DeleteDepartmentRQ.cs" />
     <Compile Include="ViewModel\EditCorporationRQ.cs" />
+    <Compile Include="ViewModel\EditDepartmentRQ.cs" />
     <Compile Include="ViewModel\FirstLoginRequest.cs" />
     <Compile Include="ViewModel\GetCorpDepartmentRQ.cs" />
     <Compile Include="ViewModel\GetDepartmentByCorpRQ.cs" />

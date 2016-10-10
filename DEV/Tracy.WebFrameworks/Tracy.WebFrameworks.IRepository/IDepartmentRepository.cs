@@ -64,5 +64,13 @@ namespace Tracy.WebFrameworks.IRepository
         /// <param name="request"></param>
         /// <returns></returns>
         List<Department> GetDepartmentByCorp(GetDepartmentByCorpRQ request);
+
+        /// <summary>
+        /// 删除部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        bool DeleteDepartment(DeleteDepartmentRQ request);
+
     }
 }

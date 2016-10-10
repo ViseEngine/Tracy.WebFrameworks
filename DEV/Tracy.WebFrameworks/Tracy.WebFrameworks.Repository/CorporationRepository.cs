@@ -181,20 +181,20 @@ namespace Tracy.WebFrameworks.Repository
             using (var db = new WebFrameworksDB())
             {
                 var deleteCorps = db.Corporation.Where(p => deleteCorpIds.Contains(p.Id)).ToList();
-                if (deleteCorpIds.HasValue())
+                if (deleteCorps.HasValue())
                 {
                     db.Corporation.RemoveRange(deleteCorps);
                 }
 
-                var deletedeptIds = new List<int>();
+                var deleteDeptIds = new List<int>();
                 var deleteDepts = db.Department.Where(p => deleteCorpIds.Contains(p.CorporationId)).ToList();
                 if (deleteDepts.HasValue())
                 {
-                    deletedeptIds = deleteDepts.Select(p => p.Id).ToList();
+                    deleteDeptIds = deleteDepts.Select(p => p.Id).ToList();
                     db.Department.RemoveRange(deleteDepts);
                 }
 
-                var deleteUserDepts = db.UserDepartment.Where(p => deletedeptIds.Contains(p.DepartmentId)).ToList();
+                var deleteUserDepts = db.UserDepartment.Where(p => deleteDeptIds.Contains(p.DepartmentId)).ToList();
                 if (deleteUserDepts.HasValue())
                 {
                     db.UserDepartment.RemoveRange(deleteUserDepts);

@@ -155,6 +155,62 @@ namespace Tracy.WebFrameworks.Service
             return result;
         }
 
+        /// <summary>
+        /// 修改部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="loginUser"></param>
+        /// <returns></returns>
+        public WebFxsResult<bool> EditDepartment(EditDepartmentRQ request, User loginUser)
+        {
+            var result = new WebFxsResult<bool>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = false
+            };
+
+            var department = new Department
+            {
+                Id = request.Id,
+                Name = request.Name,
+                Sort = request.Sort,
+                LastUpdatedBy = loginUser.UserId,
+                LastUpdatedTime = DateTime.Now
+            };
+
+            var rs = this.Update(department);
+            if (rs == true)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 删除部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public WebFxsResult<bool> DeleteDepartment(DeleteDepartmentRQ request)
+        {
+            var result = new WebFxsResult<bool>
+            {
+                ReturnCode = ReturnCodeType.Error,
+                Content = false
+            };
+
+            var rs = repository.DeleteDepartment(request);
+            if (rs == true)
+            {
+                result.ReturnCode = ReturnCodeType.Success;
+                result.Content = true;
+            }
+
+            return result;
+        }
+
 
     }
 }

@@ -39,5 +39,22 @@ namespace Tracy.WebFrameworks.IService
         [OperationContract]
         WebFxsResult<bool> AddDepartment(AddDepartmentRQ request, User loginUser);
 
+        /// <summary>
+        /// 修改部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="loginUser"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<bool> EditDepartment(EditDepartmentRQ request, User loginUser);
+
+        /// <summary>
+        /// 删除部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WebFxsResult<bool> DeleteDepartment(DeleteDepartmentRQ request);
+
     }
 }

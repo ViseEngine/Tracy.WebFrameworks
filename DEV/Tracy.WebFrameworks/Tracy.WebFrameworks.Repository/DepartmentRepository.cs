@@ -101,12 +101,8 @@ namespace Tracy.WebFrameworks.Repository
                 var department = db.Department.FirstOrDefault(p => p.Id == item.Id);
                 if (department != null)
                 {
-                    department.Code = item.Code;
                     department.Name = item.Name;
-                    department.ParentId = item.ParentId;
-                    department.CorporationId = item.CorporationId;
                     department.Sort = item.Sort;
-                    department.Enabled = item.Enabled;
                     department.LastUpdatedBy = item.LastUpdatedBy;
                     department.LastUpdatedTime = item.LastUpdatedTime;
                 }
@@ -206,5 +202,45 @@ namespace Tracy.WebFrameworks.Repository
 
             return result;
         }
+
+        /// <summary>
+        /// 删除部门
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public bool DeleteDepartment(DeleteDepartmentRQ request)
+        { 
+            //删除部门包括子部门
+            //解除部门与用户的关系
+            var deleteDeptIds = request.DeleteDeptIds.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(p => p.ToInt()).ToList();
+            using (var db = new WebFrameworksDB())
+            {
+                var deleteDepts = db.Department.Where(p => deleteDeptIds.Contains(p.Id)).ToList();
+                if (deleteDepts.HasValue())
+                {
+                    db.Department.RemoveRange(deleteDepts);
+                }
+
+                var deleteUserDepts = db.UserDepartment.Where(p => deleteDeptIds.Contains(p.DepartmentId)).ToList();
+                if (deleteUserDepts.HasValue())
+                {
+                    db.UserDepartment.RemoveRange(deleteUserDepts);
+                }
+
+                //事务提交
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+
+        }
+
     }
 }

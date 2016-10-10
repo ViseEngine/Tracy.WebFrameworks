@@ -11,6 +11,7 @@ using Tracy.Frameworks.Common.Extends;
 using System.Text;
 using Tracy.Frameworks.Common.Const;
 using Tracy.WebFrameworks.Entity.Enum;
+using Tracy.WebFrameworks.Offline.Site.Filters;
 
 namespace Tracy.WebFrameworks.Offline.Site.Controllers
 {
@@ -24,6 +25,7 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
             return View();
         }
 
+        [LoginAuthorization]
         public ActionResult Add()
         {
             return View();
@@ -57,6 +59,62 @@ namespace Tracy.WebFrameworks.Offline.Site.Controllers
 
             return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
         }
+
+        [LoginAuthorization]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditDepartmentRQ request)
+        {
+            var flag = false;
+            var msg = string.Empty;
+
+            using (var factory = new ChannelFactory<IWebFxsDepartmentService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var rs = client.EditDepartment(request, base.CurrentUserInfo);
+                if (rs.ReturnCode == ReturnCodeType.Success && rs.Content == true)
+                {
+                    flag = true;
+                    msg = "修改成功!";
+                }
+                else
+                {
+                    msg = "修改失败!";
+                }
+            }
+
+            return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(DeleteDepartmentRQ request)
+        {
+            var flag = false;
+            var msg = string.Empty;
+
+            using (var factory = new ChannelFactory<IWebFxsDepartmentService>("*"))
+            {
+                var client = factory.CreateChannel();
+                var rs = client.DeleteDepartment(request);
+                if (rs.ReturnCode == ReturnCodeType.Success && rs.Content == true)
+                {
+                    flag = true;
+                    msg = "删除成功!";
+                }
+                else
+                {
+                    msg = "删除失败!";
+                }
+            }
+
+            return Json(new { success = flag, msg = msg }, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         /// <summary>
         /// 获取指定公司下的部门

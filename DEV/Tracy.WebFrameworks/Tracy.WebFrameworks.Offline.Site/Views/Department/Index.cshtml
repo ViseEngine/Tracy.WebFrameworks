@@ -183,39 +183,39 @@
         function department_edit() {
             var row = $("#ui_dept_tg").treegrid("getSelected");
             if (!row) {
-                $.show_warning("提示", "请先选择要修改的公司");
+                $.show_warning("提示", "请先选择要修改的部门");
                 return;
             }
             $("<div/>").dialog({
-                id: "ui_corp_edit_dialog",
-                href: '@Url.Action("Edit", "Corporation")',
+                id: "ui_dept_edit_dialog",
+                href: '@Url.Action("Edit", "Department")',
                 title: "修改部门",
                 height: 350,
                 width: 460,
                 modal: true,
                 buttons: [{
-                    id: "ui_corp_edit_btn",
+                    id: "ui_dept_edit_btn",
                     text: '修 改',
                     handler: function () {
-                        $("#ui_corp_editform").form("submit", {
-                            url: '@Url.Action("Edit", "Corporation")',
+                        $("#ui_dept_editform").form("submit", {
+                            url: '@Url.Action("Edit", "Department")',
                             onSubmit: function (param) {
-                                $('#ui_corp_edit_btn').linkbutton('disable');
+                                $('#ui_dept_edit_btn').linkbutton('disable');
                                 if ($(this).form('validate'))
                                     return true;
                                 else {
-                                    $('#ui_corp_edit_btn').linkbutton('enable');
+                                    $('#ui_dept_edit_btn').linkbutton('enable');
                                     return false;
                                 }
                             },
                             success: function (data) {
                                 var dataJson = eval('(' + data + ')');
                                 if (dataJson.success) {
-                                    $("#ui_corp_edit_dialog").dialog('destroy');
+                                    $("#ui_dept_edit_dialog").dialog('destroy');
                                     $.show_warning("提示", dataJson.msg);
                                     $("#ui_dept_tg").treegrid("reload");
                                 } else {
-                                    $('#ui_corp_edit_btn').linkbutton('enable');
+                                    $('#ui_dept_edit_btn').linkbutton('enable');
                                     $.show_warning("提示", dataJson.msg);
                                 }
                             }
@@ -228,7 +228,7 @@
                     $('#Sort').numberspinner('setValue', row.Sort);
                 },
                 onClose: function () {
-                    $("#ui_corp_edit_dialog").dialog('destroy');
+                    $("#ui_dept_edit_dialog").dialog('destroy');
                 }
             });
         }
@@ -245,7 +245,7 @@
                     deptIds = "";
                     recursionGetIds(row);
                     $.ajax({
-                        url: '@Url.Action("Delete", "Corporation")',
+                        url: '@Url.Action("Delete", "Department")',
                         data: { "deleteDeptIds": deptIds + row.id },
                         type: "POST",
                         dataType: "JSON",
@@ -256,7 +256,7 @@
                                 if ($('#tabs').tabs('exists', '部门管理')) {
                                     $('#tabs').tabs('getTab', '部门管理').panel('refresh');
                                 }
-                                $("#ui_dept_layout").layout("collapse", "east");
+                                //$("#ui_dept_layout").layout("collapse", "east");
                             } else {
                                 $.show_warning("提示", data.msg);
                             }
