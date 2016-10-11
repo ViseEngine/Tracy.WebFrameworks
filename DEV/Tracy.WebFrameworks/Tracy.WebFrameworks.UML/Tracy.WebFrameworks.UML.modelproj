@@ -28,6 +28,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Validate Include="Rights权限管理系统架构图.layerdiagram">
+      <SubType>Content</SubType>
+    </Validate>
+    <Validate Include="Rights权限管理系统架构图.layerdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Rights权限管理系统架构图.layerdiagram</DependentUpon>
+    </Validate>
+    <Validate Include="Rights权限管理系统架构图.layerdiagram.suppressions">
+      <SubType>Content</SubType>
+      <DependentUpon>Rights权限管理系统架构图.layerdiagram</DependentUpon>
+    </Validate>
     <Validate Include="Tracy.WebFrameworks架构图.layerdiagram">
       <SubType>Content</SubType>
     </Validate>
